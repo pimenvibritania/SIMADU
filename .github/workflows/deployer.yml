@@ -1,0 +1,43 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    name: Deploy to staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git fetch --prune --unshallow
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@2.10.0
+      - name: Composer install
+        run: composer install
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        if: github.ref == 'refs/heads/development' && job.status == 'success'
+        run: |
+          git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
+          git push heroku HEAD:master -f
+      - name: Installing pakckages
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku run -a $HEROKU_APP_NAME composer install
+          heroku run -a $HEROKU_APP_NAME php artisan cache:clear
+      - name: Migrating and Seeding database
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku run -a $HEROKU_APP_NAME php artisan migrate
+          heroku run -a $HEROKU_APP_NAME php artisan db:seed
