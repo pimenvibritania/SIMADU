@@ -1,0 +1,47 @@
+models:
+  Models\Biodata:
+    is_active: boolean
+    user_id: id foreign
+    no_induk: string
+    nama: string
+    kelamin: string
+    agama: string
+    is_nikah: boolean
+    tempat_lahir: string
+    tanggal_lahir: date
+    tinggi_badan: string
+    jenis_vipa_1: string
+    no_paspor: string
+    jenis_paspor: string
+    keluar_paspor: string
+    berlaku_paspor_from: date
+    berlaku_paspor_to: date
+    tiba_mesir: date
+    tanggal_lapor: date
+    izin_tinggal: date
+    pendidikan_akhir: string nullable
+    pekerjaan_indo: string nullable
+    tujuan_mesir: string
+    nama_pasangan: string nullable
+    nama_ayah: string
+    nama_ibu: string
+    alamat_ayah: string
+    alamat_ibu: string
+    pekerjaan_ayah: string
+    pekerjaan_ibu: string
+    no_ayah: string
+    no_ibu: string
+    catatan: text nullable
+    alamat_mesir: text
+    kota_mesir: string
+    provinsi_mesir: string
+    no_mesir: string
+    alamat_indo: text
+    kecamatan_indo: string
+    desa_indo: string
+    kota_indo: string
+    provinsi_indo: string
+    pos_indo: string
+    no_indo: string
+
+seeders: Biodata
