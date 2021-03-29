@@ -49,7 +49,7 @@
             outline: none !important;
         }
         .btn-fill-header-2-2 {
-            background-color: #27C499;
+            background-color: #10b8e5;
             border-radius: 12px;
             color: #ffffff;
             font-weight: 600;
@@ -84,7 +84,7 @@
             font-size: 0.875rem;
             line-height: 1.25rem;
             font-weight: 600;
-            color: #27C499;
+            color: #10b8e5;
         }
         .left-column-header-2-2{
             margin-bottom: 0.75rem;
@@ -120,7 +120,7 @@
             font-size: 1rem;
             line-height: 1.5rem;
             border-radius: 0.75rem;
-            background-color: #27C499;
+            background-color: #10b8e5;
             margin-bottom: 1rem;
             margin-right: 0;
         }
@@ -143,11 +143,11 @@
             margin-bottom: 1rem;
         }
         .btn-outline-header-2-2:hover{
-            border: 1px solid #27C499;
-            color: #27C499;
+            border: 1px solid #10b8e5;
+            color: #10b8e5;
         }
         .btn-outline-header-2-2:hover div path{
-            fill: #27C499;
+            fill: #10b8e5;
         }
         @media (min-width: 576px) {
             .modal-header-2-2 .modal-dialog {
@@ -240,9 +240,9 @@
         }
     </style>
     <div class="header-2-2" style="font-family: 'Poppins', sans-serif;">
+
         <nav class="navbar navbar-expand-lg navbar-light">
             <a href="#">
-                <img style="margin-right:0.75rem" src="http://api.elements.buildwithangga.com/storage/files/2/assets/Header/Header2/Header-2-5.png" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#targetModal-header-2-2">
                 <span class="navbar-toggler-icon"></span>
@@ -360,7 +360,7 @@
             margin-bottom: 1.25rem;
             color: #FFFFFF;
             border-radius: 9999px;
-            background-color: #27C499;
+            background-color: #10b8e5;
         }
         .text-caption-content-3-2{
             font-size: 1rem;
@@ -375,14 +375,14 @@
             line-height: 1.5rem;
             color: #FFFFFF;
             padding: 1rem 2.5rem 1rem 2.5rem;
-            background-color: #27C499;
+            background-color: #10b8e5;
             transition: 0.3s;
             letter-spacing: 0.025em;
             border-radius: 0.75rem;
         }
         .btn-content-3-2:hover{
             color: #FFFFFF;
-            background-color: #45DBB2;
+            background-color: #10b8e5;
             transition: 0.3s;
         }
         @media (min-width: 576px) {
@@ -586,7 +586,6 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="">
                         <div class="list-space-footer-2-2">
-                            <img src="http://api.elements.buildwithangga.com/storage/files/2/assets/Header/Header2/Header-2-5.png" alt="">
                         </div>
                         <nav style="list-style-type:none;">
                             <li class="list-space-footer-2-2">

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Biodata extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
     /**
@@ -19,6 +20,9 @@ class Biodata extends Model
         'user_id',
         'img_profile',
         'img_ktp',
+        'img_akte',
+        'img_paspor',
+        'img_ijazah',
         'no_induk',
         'nama',
         'kelamin',
@@ -83,5 +87,13 @@ class Biodata extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function riwayatPendidikan(){
+        return $this->hasMany(RiwayatPendidikan::class);
+    }
+
+    public function pendidikanMesir(){
+        return $this->hasMany(PendidikanMesir::class);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biodata;
+use App\Models\PendidikanMesir;
+use App\Models\RiwayatPendidikan;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -84,20 +86,39 @@ class BiodataController extends Controller
             'provinsi_indo'=> 'required',
             'pos_indo'=> 'required',
             'no_indo'=> 'required',
-            'file_img_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'file_img_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_img_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_img_akte' => 'required|mimetypes:application/pdf|max:10000',
+            'file_img_paspor' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $ktpname = auth()->user()->email . '_' . time() . '.' .
             $request->file_img_ktp->extension();
+
+        $profilename = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_profile->extension();
+
+        $aktename = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_akte->extension();
+
+        $pasporname = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_paspor->extension();
+
         $request['is_active'] = true;
         $request['no_induk'] = 'nomor';
         $request['img_ktp'] =  $ktpname;
+        $request['img_profile'] = $profilename;
+        $request['img_akte'] = $aktename;
+        $request['img_paspor'] = $pasporname;
 
         $request->file_img_ktp->move(public_path('uploads/ktp'), $ktpname);
+        $request->file_img_profile->move(public_path('uploads/profile'), $profilename);
+        $request->file_img_akte->move(public_path('uploads/akte'), $aktename);
+        $request->file_img_paspor->move(public_path('uploads/paspor'), $pasporname);
 
         $bio = Biodata::create($request->all());
 
-        return $bio;
+        return redirect(backpack_user()->hasRole('mahasiswa') ? 'pendidikan' : 'dashboard');
 
 
     }
@@ -149,5 +170,57 @@ class BiodataController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pendidikan(Request $request){
+
+        $bio = Biodata::find(backpack_user()->biodata)->first();
+        $request->validate([
+            'file_img_ijazah' => 'mimetypes:application/pdf|max:10000'
+        ]);
+
+        if ($request->file_img_ijazah != null){
+            $ijazahname = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_ijazah->extension();
+
+            $request['img_ijazah'] = $ijazahname;
+            $request->file_img_ijazah->move(public_path('uploads/ijazah'), $ijazahname);
+
+            $bio->update([
+                'img_ijazah' => $request['img_ijazah']
+            ]);
+        }
+
+        PendidikanMesir::create([
+            'biodata_id' => $bio->id,
+            'pm_jenjang' => $request->pm_jenjang,
+            'pm_instansi' => $request->pm_instansi,
+            'pm_tempat' => $request->pm_tempat,
+            'pm_masuk' => $request->pm_masuk,
+            'pm_keluar' => $request->pm_keluar
+        ]);
+
+        RiwayatPendidikan::create([
+            'biodata_id' => $bio->id,
+            'rp_jenjang' => $request->rp_jenjang,
+            'rp_instansi' => $request->rp_instansi,
+            'rp_tempat' => $request->rp_tempat,
+            'rp_masuk' => $request->rp_masuk,
+            'rp_keluar' => $request->rp_keluar
+        ]);
+
+
+        return redirect('pendidikan')
+            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
+            ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio->id )->get());
+    }
+
+    public function pendidikanIndex (){
+
+        $bio = Biodata::find(backpack_user()->biodata)->first();
+
+        return view('pages.pendidikan')
+            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
+            ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio->id )->get());
     }
 }

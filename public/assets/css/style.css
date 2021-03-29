@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
 .gr-1 {
     background: linear-gradient(170deg, #01e4f8 0%, #1d3ede 100%);
 }
@@ -16,12 +17,12 @@
     height: 100vh !important;
 }
 .align-middle {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    /*position: relative;*/
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
 }
 .column {
-    margin-top: 3rem;
+    /*margin-top: 3rem;*/
     padding-left: 3rem;
 }
 .column:hover {
@@ -97,7 +98,7 @@
     height: 100%;
     overflow: hidden;
 }
-.card i {
+.card i.ex-card {
     position: relative;
     right: -50%;
     top: 60%;
@@ -272,7 +273,7 @@
     color: #0fc0ef;
     font-family: 'Raleway';
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 800;
 }
 img{
     vertical-align: middle;
@@ -917,4 +918,13 @@ img{
     background: #FFF;
     border-color: #DDD;
     border-top: 1px solid #FFF;
+}
+
+.link-dashboard{
+    float: right;
+    text-decoration: none;
+}
+
+.link-dashboard:hover{
+    color: #046681;
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\IzinTinggalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +24,18 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::resource('biodata', \App\Http\Controllers\BiodataController::class)
+Route::resource('biodata', BiodataController::class)
     ->except('index');
+
+Route::group([
+    'middleware' => ['web', 'role:user|mahasiswa']
+], function (){
+
+    Route::get('pendidikan', [BiodataController::class, 'pendidikanIndex']);
+
+    Route::post('pendidikan/create', [BiodataController::class, 'pendidikan'])->name('pendidikan.create');
+
+});
 
 Route::group([
     'namespace' => 'App\Http\Controllers'
@@ -54,15 +66,23 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'role:user'],
+    'middleware' => ['web', 'role:user|mahasiwa|tki'],
     'namespace' => 'App\Http\Controllers'
 ], function (){
 
     Route::get('/dashboard', function (){
         return view('pages.dashboard');
     })->name('dashboard');
+
+    Route::group([
+        'prefix' => 'surat'
+    ], function (){
+
+        Route::resource('izin-tinggal', 'IzinTinggalController');
+    });
 });
 
+//admin route
 Route::group(
     [
         'prefix' => config('backpack.base.route_prefix', 'admin'),

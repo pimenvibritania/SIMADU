@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Surat\IzinTinggal;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -48,5 +50,9 @@ class User extends Authenticatable
 
     public function biodata(){
         return $this->hasOne(Biodata::class);
+    }
+
+    public function izinTinggal(){
+        return $this->hasMany(IzinTinggal::class);
     }
 }

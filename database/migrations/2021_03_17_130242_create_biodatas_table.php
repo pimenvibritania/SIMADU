@@ -21,6 +21,9 @@ class CreateBiodatasTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('img_profile')->nullable();
             $table->string('img_ktp');
+            $table->string('img_akte');
+            $table->string('img_paspor');
+            $table->string('img_ijazah')->nullable();
             $table->string('no_induk');
             $table->string('nama');
             $table->string('kelamin');

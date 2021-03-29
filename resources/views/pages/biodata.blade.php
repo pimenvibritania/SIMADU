@@ -8,6 +8,7 @@
             @endphp
         </div>
     @endif
+
 <div class="register">
     <div class="row">
         <div class="col-md-3 register-left">
@@ -21,22 +22,34 @@
                     <h3 class="register-heading">Silahkan lengkapi data diri</h3>
                     <form class="row register-form" method="POST" action="{{route('biodata.store')}}" enctype="multipart/form-data">
                         @csrf
+
+{{--                        LEFT SIDE--}}
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 @if ($errors->has('nama'))
                                     <span class="text-danger">{{ $errors->first('nama') }}</span>
                                 @endif
-                                <input type="text" class="form-control" placeholder="Nama lengkap" name="nama" />
+                                <input type="text" class="form-control" placeholder="Nama lengkap" name="nama"
+                                       value="{{old('nama')}}"/>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('kelamin'))
                                     <span class="text-danger">{{ $errors->first('kelamin') }}</span>
                                 @endif
                                 <select class="form-control" name="kelamin">
-                                    <option class="hidden"  selected disabled> -- Jenis kelamin -- </option>
-                                    <option value="laki">Laki - laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                    <option value="other">Other</option>
+                                    <option class="hidden"  selected disabled> -- Pilih Jenis kelamin -- </option>
+                                    <option value="laki"
+                                        @if(old('kelamin') == "laki") selected="selected" @endif>
+                                        Laki - laki
+                                    </option>
+                                    <option value="perempuan"
+                                        @if(old('kelamin') == "perempuan") selected="selected" @endif>
+                                        Perempuan
+                                    </option>
+                                    <option value="other"
+                                        @if(old('kelamin') == "other") selected="selected" @endif>
+                                        Other
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
@@ -44,10 +57,19 @@
                                     <span class="text-danger">{{ $errors->first('agama') }}</span>
                                 @endif
                                 <select class="form-control" name="agama">
-                                    <option class="hidden"  selected disabled> -- Agama -- </option>
-                                    <option value="islam">Islam</option>
-                                    <option value="kristen">Kristen</option>
-                                    <option value="budha">Budha</option>
+                                    <option class="hidden"  selected disabled> -- Pilih Agama -- </option>
+                                    <option value="islam"
+                                            @if(old('agama') == "islam") selected="selected" @endif>
+                                            Islam
+                                    </option>
+                                    <option value="kristen"
+                                            @if(old('agama') == "kristen") selected="selected" @endif>
+                                            Kristen
+                                    </option>
+                                    <option value="budha"
+                                            @if(old('agama') == "budha") selected="selected" @endif>
+                                            Budha
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
@@ -55,11 +77,23 @@
                                     <span class="text-danger">{{ $errors->first('pernikahan') }}</span>
                                 @endif
                                 <select class="form-control" name="pernikahan">
-                                    <option class="hidden"  selected disabled> -- Status pernikahan -- </option>
-                                    <option value="lajang">Lajang</option>
-                                    <option value="menikah">Menikah</option>
-                                    <option value="duda">Duda</option>
-                                    <option value="janda">Janda</option>
+                                    <option class="hidden"  selected disabled> -- Pilih Status pernikahan -- </option>
+                                    <option value="lajang"
+                                            @if(old('pernikahan') == "lajang") selected="selected" @endif>
+                                        Lajang
+                                    </option>
+                                    <option value="menikah"
+                                            @if(old('pernikahan') == "menikah") selected="selected" @endif>
+                                            Menikah
+                                    </option>
+                                    <option value="duda"
+                                            @if(old('pernikahan') == "duda") selected="selected" @endif>
+                                            Duda
+                                    </option>
+                                    <option value="janda"
+                                            @if(old('pernikahan') == "janda") selected="selected" @endif>
+                                            Janda
+                                    </option>
 
                                 </select>
                             </div>
@@ -67,63 +101,94 @@
                                 @if ($errors->has('tempat_lahir'))
                                     <span class="text-danger">{{ $errors->first('tempat_lahir') }}</span>
                                 @endif
-                                <input type="text" class="form-control" placeholder="Tempat lahir" name="tempat_lahir" />
+                                <input type="text" class="form-control" placeholder="Tempat lahir"
+                                       value="{{old('tempat_lahir')}}" name="tempat_lahir" />
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('tanggal_lahir'))
                                     <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
                                 @endif
-                                <input type="date" class="date form-control" placeholder="Tanggal lahir" name="tanggal_lahir">
+                                <input type="date" class="date form-control" placeholder="Tanggal lahir"
+                                       value="{{old('tanggal_lahir')}}" name="tanggal_lahir">
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('tinggi_badan'))
                                     <span class="text-danger">{{ $errors->first('tinggi_badan') }}</span>
                                 @endif
-                                <input type="number" min="0" class="form-control" placeholder="Tinggi badan" name="tinggi_badan" />
+                                <input type="number" min="0" class="form-control" placeholder="Tinggi badan"
+                                       value="{{old('tinggi_badan')}}" name="tinggi_badan" />
                             </div>
+
+{{--                            JENIS VIPA--}}
                             <div class="form-group mb-2">
                                 @if ($errors->has('jenis_vipa_1'))
                                     <span class="text-danger">{{ $errors->first('jenis_vipa_1') }}</span>
                                 @endif
                                 <select class="form-control mb-2" name="jenis_vipa_1">
                                     <option class="hidden" selected disabled> -- Jenis VIPA 1 -- </option>
-                                    <option value="satu">Satu</option>
-                                    <option value="dua">Dua</option>
-                                    <option value="tiga">Tiga</option>
+                                    <option value="satu"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                            Satu
+                                    </option>
+                                    <option value="dua"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                            Dua
+                                    </option>
+                                    <option value="tiga"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                            Tiga
+                                    </option>
                                 </select>
                             </div>
+
                             <div class="form-group mb-2">
                                 @if ($errors->has('no_paspor'))
                                     <span class="text-danger">{{ $errors->first('no_paspor') }}</span>
                                 @endif
-                                <input type="text" class="form-control" placeholder="No Paspor" name="no_paspor">
+                                <input type="text" class="form-control" placeholder="No Paspor"
+                                       value="{{old('tinggi_badan')}}" name="no_paspor">
                             </div>
+
+{{--                            JENIS PASPOR--}}
                             <div class="form-group mb-2">
                                 @if ($errors->has('jenis_paspor'))
                                     <span class="text-danger">{{ $errors->first('jenis_paspor') }}</span>
                                 @endif
                                 <select class="form-control mb-2" name="jenis_paspor">
                                     <option class="hidden"  selected disabled> -- Jenis Paspor -- </option>
-                                    <option value="satu">Satu</option>
-                                    <option value="dua">Dua</option>
-                                    <option value="tiga">Tiga</option>
+                                    <option value="satu"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                        Satu
+                                    </option>
+                                    <option value="dua"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                        Dua
+                                    </option>
+                                    <option value="tiga"
+                                            @if(old('kelamin') == "laki") selected="selected" @endif>
+                                        Tiga
+                                    </option>
                                 </select>
                             </div>
+
                             <div class="form-group mb-2">
                                 @if ($errors->has('keluar_paspor'))
                                     <span class="text-danger">{{ $errors->first('keluar_paspor') }}</span>
                                 @endif
-                                <input type="date" class="date form-control" placeholder="Tanggal keluar Paspor" name="keluar_paspor">
+                                <input type="date" class="date form-control" placeholder="Tanggal keluar Paspor"
+                                       value="{{old('keluar_paspor')}}" name="keluar_paspor">
                             </div>
 
-                            <div class="row">
-                                <label class="mb-2" style="text-align: center">Berlaku Paspor</label>
+                            <div class="row text-center">
+                                <label class="mb-2 mt-2">Berlaku Paspor</label>
                                 <div class="col-md-6">
                                     <div class="form-group mb-2">
                                         @if ($errors->has('berlaku_paspor_from'))
                                             <span class="text-danger">{{ $errors->first('berlaku_paspor_from') }}</span>
                                         @endif
-                                        <input type="date" class="date form-control" placeholder="Dari" name="berlaku_paspor_from">
+                                        <label class="mb-2" style="text-align: center">From</label>
+                                        <input type="date" class="date form-control" placeholder="Dari"
+                                               value="{{old('berlaku_paspor_from')}}" name="berlaku_paspor_from">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -131,7 +196,9 @@
                                         @if ($errors->has('berlaku_paspor_to'))
                                             <span class="text-danger">{{ $errors->first('berlaku_paspor_to') }}</span>
                                         @endif
-                                        <input type="date" class="date form-control" placeholder="Sampai" name="berlaku_paspor_to">
+                                        <label class="mb-2" style="text-align: center">To</label>
+                                        <input type="date" class="date form-control" placeholder="Sampai"
+                                               value="{{old('berlaku_paspor_to')}}" name="berlaku_paspor_to">
                                     </div>
                                 </div>
                             </div>
@@ -140,44 +207,66 @@
                                 @if ($errors->has('tiba_mesir'))
                                     <span class="text-danger">{{ $errors->first('tiba_mesir') }}</span>
                                 @endif
-                                <input type="date" class="date form-control" placeholder="Tiba di Mesir" name="tiba_mesir">
+                                <input type="date" class="date form-control" placeholder="Tiba di Mesir"
+                                       value="{{old('tiba_mesir')}}" name="tiba_mesir">
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('tanggal_lapor'))
                                     <span class="text-danger">{{ $errors->first('tanggal_lapor') }}</span>
                                 @endif
-                                <input type="date" class="date form-control" placeholder="Tanggal lapor" name="tanggal_lapor">
+                                <input type="date" class="date form-control" placeholder="Tanggal lapor"
+                                       value="{{old('tanggal_lapor')}}" name="tanggal_lapor">
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('izin_tinggal'))
                                     <span class="text-danger">{{ $errors->first('izin_tinggal') }}</span>
                                 @endif
-                                <input type="date" class="date form-control" placeholder="Izin tinggal" name="izin_tinggal">
+                                <input type="date" class="date form-control" placeholder="Izin tinggal"
+                                       value="{{old('izin_tinggal')}}" name="izin_tinggal">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control" placeholder="Pendidikan Terakhir" name="pendidikan_akhir">
+                                <input type="text" class="form-control" placeholder="Pendidikan Terakhir"
+                                       value="{{old('pendidikan_akhir')}}" name="pendidikan_akhir">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control" placeholder="Pekerjaan di Indonesia" name="pekerjaan_indo">
+                                <input type="text" class="form-control" placeholder="Pekerjaan di Indonesia"
+                                       value="{{old('pekerjaan_indo')}}" name="pekerjaan_indo">
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('tujuan_mesir'))
                                     <span class="text-danger">{{ $errors->first('tujuan_mesir') }}</span>
                                 @endif
-                                <input type="text" class="form-control" placeholder="Tujuan di Mesir" name="tujuan_mesir">
+                                <input type="text" class="form-control" placeholder="Tujuan di Mesir"
+                                       value="{{old('tujuan_mesir')}}" name="tujuan_mesir">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control" placeholder="Nama pasangan" name="nama_pasangan">
+                                <input type="text" class="form-control" placeholder="Nama pasangan"
+                                       value="{{old('nama_pasangan')}}" name="nama_pasangan">
                             </div>
 
                             <div class="form-group mb-2">
-                                <textarea class="form-control" placeholder="Catatan" name="catatan" rows="2"></textarea>
+                                <textarea class="form-control" placeholder="Catatan" name="catatan"
+                                      value="{{old('catatan')}}"rows="4"></textarea>
                             </div>
                             <div class="form-group mb-2 text-center">
-                                <label for="img_profile" class="mb-2" >Foto Profil</label>
-                                <input type="file" class="form-control"  name="img_profile" />
+                                <label for="file_img_profile" class="mb-2" >Foto Profil</label>
+                                @if ($errors->has('file_img_profile'))
+                                    <br>
+                                    <span class="text-danger">{{ $errors->first('file_img_profile') }}</span>
+                                @endif
+                                <input type="file" class="form-control"  name="file_img_profile" />
+                            </div>
+                            <div class="form-group mb-2 text-center">
+                                <label for="file_img_akte" class="mb-2 mt-2" >Akta Lahir (PDF)</label>
+                                @if ($errors->has('file_img_akte'))
+                                    <br>
+                                    <span class="text-danger">{{ $errors->first('file_img_akte') }}</span>
+                                @endif
+                                <input type="file" class="form-control"  name="file_img_akte" />
                             </div>
                         </div>
+
+{{--                        RIGHT SIDE--}}
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 @if ($errors->has('nama_ayah'))
@@ -195,13 +284,13 @@
                                 @if ($errors->has('alamat_ayah'))
                                     <span class="text-danger">{{ $errors->first('alamat_ayah') }}</span>
                                 @endif
-                                <textarea class="form-control" placeholder="Alamat Ayah" name="alamat_ayah" rows="2"></textarea>
+                                <textarea class="form-control" placeholder="Alamat Ayah" name="alamat_ayah" rows="3"></textarea>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('alamat_ibu'))
                                     <span class="text-danger">{{ $errors->first('alamat_ibu') }}</span>
                                 @endif
-                                <textarea class="form-control" placeholder="Alamat Ibu" name="alamat_ibu" rows="2"></textarea>
+                                <textarea class="form-control" placeholder="Alamat Ibu" name="alamat_ibu" rows="3"></textarea>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('pekerjaan_ayah'))
@@ -231,7 +320,7 @@
                                 @if ($errors->has('alamat_mesir'))
                                     <span class="text-danger">{{ $errors->first('alamat_mesir') }}</span>
                                 @endif
-                                <textarea class="form-control" placeholder="Alamat di Mesir" name="alamat_mesir" rows="2"></textarea>
+                                <textarea class="form-control" placeholder="Alamat di Mesir" name="alamat_mesir" rows="3"></textarea>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('provinsi_mesir'))
@@ -255,7 +344,7 @@
                                 @if ($errors->has('alamat_indo'))
                                     <span class="text-danger">{{ $errors->first('alamat_indo') }}</span>
                                 @endif
-                                <textarea class="form-control" placeholder="Alamat di Indonesia" name="alamat_indo" rows="2"></textarea>
+                                <textarea class="form-control" placeholder="Alamat di Indonesia" name="alamat_indo" rows="3"></textarea>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('provinsi_indo'))
@@ -321,10 +410,18 @@
                                 @endif
                                 <input type="file" class="form-control"  name="file_img_ktp" />
                             </div>
+                            <div class="form-group mb-2 text-center">
+                                <label for="file_img_paspor" class="mb-2 mt-2" >Foto Paspor</label>
+                                @if ($errors->has('file_img_paspor'))
+                                    <br>
+                                    <span class="text-danger">{{ $errors->first('file_img_paspor') }}</span>
+                                @endif
+                                <input type="file" class="form-control"  name="file_img_paspor" />
+                            </div>
                         </div>
                         <div class="col-md">
 
-                            <button type="submit" style="width: 100%; " class="btn mybtn">Submit</button>
+                            <button type="submit" style="width: 100%; " class="mt-3 btn mybtn">Submit</button>
 
                         </div>
 

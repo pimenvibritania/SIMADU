@@ -26,7 +26,7 @@ class UserCrudController extends CrudController
         $this->crud->addColumns([
             [
                 'name'  => 'name',
-                'label' => 'nnnn',
+                'label' => 'name',
                 'type'  => 'text',
             ],
             [
@@ -165,6 +165,13 @@ class UserCrudController extends CrudController
                 'name'  => 'password_confirmation',
                 'label' => trans('backpack::permissionmanager.password_confirmation'),
                 'type'  => 'password',
+            ],
+            [
+                'name'  => 'status',
+                'label' => 'Status',
+                'type'  => 'select2_from_array',
+                'options'     => ['mahasiswa' => 'Mahasiswa', 'tki' => 'TKI'],
+                'allows_null' => false,
             ],
             [
                 // two interconnected entities
