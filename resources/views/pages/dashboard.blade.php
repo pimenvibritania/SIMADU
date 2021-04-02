@@ -1,6 +1,9 @@
 @extends('layouts.default')
 @section('content')
     <div class="container">
+        @if(!empty($successMsg))
+            <div class="alert alert-success"> {{ $successMsg }}</div>
+        @endif
     {{--Dashboard--}}
         <div class="card mb-5">
             <div class="card-header">

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Surat\IzinTinggal;
+use App\Models\IzinTinggal;
+use App\Helpers\Helper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -30,18 +31,47 @@ class IzinTinggalController extends Controller
      */
     public function create()
     {
-        return \view('pages.surat.izin_tinggal.create');
+        $user = backpack_user()->biodata;
+        $no_surat = Helper::generateId(new IzinTinggal(), 'no_surat', 'K/IT', 4);
+        return \view('pages.surat.izin_tinggal.create', [
+            'user' => $user,
+            'no_surat'   => $no_surat
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return Application|\Illuminate\Http\RedirectResponse|Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'tanda_tangan' => 'required'
+        ]);
+
+        $no_permohonan = Helper::generateId(new IzinTinggal(),
+            'no_permohonan',
+            strtoupper(substr($request->nama, 0, 1)) . '/' . backpack_user()->id ,
+            3);
+
+        IzinTinggal::create([
+            'user_id' => backpack_user()->id,
+            'no_permohonan' => $no_permohonan,
+            'no_surat' => $request->no_surat,
+            'tujuan' => $request->tujuan,
+            'jml_surat'    => $request->jml_surat,
+            'keperluan' => $request->keperluan,
+            'tanda_tangan' => $request->tanda_tangan,
+            'status' => 'new'
+        ]);
+
+        return \view('pages.dashboard')
+        ->with('successMsg','Izin tinggal berhasil di ajukan');
     }
 
     /**

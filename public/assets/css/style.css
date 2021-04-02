@@ -209,6 +209,14 @@
     background-color: #02bde9;
     border-color: #04bde8;
 }
+.isDisabled {
+    color: currentColor;
+    background-color: #5a5e5f;
+    border-color: #5a5e5f;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
 
 
 .whistle{
@@ -928,3 +936,5 @@ img{
 .link-dashboard:hover{
     color: #046681;
 }
+
+

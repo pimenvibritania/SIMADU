@@ -9,7 +9,7 @@
         </div>
     @endif
 
-<div class="register">
+<div class="register mb-5">
     <div class="row">
         <div class="col-md-3 register-left">
             <img src="{{URL::asset('images/biodata.png')}}" alt=""/>
@@ -19,7 +19,7 @@
         <div class="col-md-9 register-right">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Silahkan lengkapi data diri</h3>
+                    <h3 class="register-heading">Silahkan lengkapi data pendidikan</h3>
                     <form class="row register-form" method="POST" action="{{route('pendidikan.create')}}" enctype="multipart/form-data">
                         @csrf
 
@@ -102,11 +102,27 @@
                                        value="{{old('pm_keluar')}}"/>
                             </div>
                         </div>
+
+                        <div class="text-center mt-3">
+                            <div class="col-md-12">
+                                <label for="file_img_ijazah" class="mb-2" >Ijazah</label>
+                                @if ($errors->has('file_img_ijazah'))
+                                    <br>
+                                    <span class="text-danger">{{ $errors->first('file_img_ijazah') }}</span>
+                                @endif
+                                <input type="file" class="form-control"  name="file_img_ijazah" />
+                            </div>
+                        </div>
+
                         <div class="col-md">
-
                             <button type="submit" style="width: 100%; " class="mt-3 btn btn-primary">Tambah</button>
-                            <a href="{{url('dashboard')}}" style="width: 100%; " class="mt-3 btn mybtn">Lewati</a>
-
+                            <a href="{{url('dashboard')}}" style="width: 100%; " class="mt-3 btn
+                                    @if($pendidikanMesir->isEmpty() && $riwayatPendidikan->isEmpty())
+                                        isDisabled
+                                    @else
+                                        mybtn
+                                    @endif
+                                ">Lewati</a>
                         </div>
 
                     </form>
@@ -124,7 +140,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if($pendidikanMesir ?? '' != null)
+                            @if($pendidikanMesir ?? '')
                                 @foreach($pendidikanMesir ?? '' as $pm)
                                     <tr>
                                         <td>{{$pm->pm_jenjang}}</td>
@@ -149,7 +165,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if($riwayatPendidikan ?? '' != null)
+                            @if($riwayatPendidikan ?? '')
                                 @foreach($riwayatPendidikan ?? '' as $rp)
                                     <tr>
                                         <td>{{$rp->rp_jenjang}}</td>

@@ -191,24 +191,27 @@ class BiodataController extends Controller
             ]);
         }
 
-        PendidikanMesir::create([
-            'biodata_id' => $bio->id,
-            'pm_jenjang' => $request->pm_jenjang,
-            'pm_instansi' => $request->pm_instansi,
-            'pm_tempat' => $request->pm_tempat,
-            'pm_masuk' => $request->pm_masuk,
-            'pm_keluar' => $request->pm_keluar
-        ]);
+        if ($request->pm_jenjang != null){
+            PendidikanMesir::create([
+                'biodata_id' => $bio->id,
+                'pm_jenjang' => $request->pm_jenjang,
+                'pm_instansi' => $request->pm_instansi,
+                'pm_tempat' => $request->pm_tempat,
+                'pm_masuk' => $request->pm_masuk,
+                'pm_keluar' => $request->pm_keluar
+            ]);
+        }
 
-        RiwayatPendidikan::create([
-            'biodata_id' => $bio->id,
-            'rp_jenjang' => $request->rp_jenjang,
-            'rp_instansi' => $request->rp_instansi,
-            'rp_tempat' => $request->rp_tempat,
-            'rp_masuk' => $request->rp_masuk,
-            'rp_keluar' => $request->rp_keluar
-        ]);
-
+        if ($request->rp_jenjang != null){
+            RiwayatPendidikan::create([
+                'biodata_id' => $bio->id,
+                'rp_jenjang' => $request->rp_jenjang,
+                'rp_instansi' => $request->rp_instansi,
+                'rp_tempat' => $request->rp_tempat,
+                'rp_masuk' => $request->rp_masuk,
+                'rp_keluar' => $request->rp_keluar
+            ]);
+        }
 
         return redirect('pendidikan')
             ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
