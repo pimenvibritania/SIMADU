@@ -116,7 +116,7 @@ class BiodataController extends Controller
         $request->file_img_akte->move(public_path('uploads/akte'), $aktename);
         $request->file_img_paspor->move(public_path('uploads/paspor'), $pasporname);
 
-        $bio = Biodata::create($request->all());
+        Biodata::create($request->all());
 
         return redirect(backpack_user()->hasRole('mahasiswa') ? 'pendidikan' : 'dashboard');
 

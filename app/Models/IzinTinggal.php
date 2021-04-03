@@ -26,4 +26,8 @@ class IzinTinggal extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function tandaTangan(){
+        return $this->belongsTo(TandaTangan::class);
+    }
 }

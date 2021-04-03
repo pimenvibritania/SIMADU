@@ -11,12 +11,16 @@
         "php": "^7.3|^8.0",
         "backpack/crud": "4.1.*",
         "backpack/permissionmanager": "^6.0",
+        "barryvdh/laravel-dompdf": "^0.9.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "phpoffice/phpword": "^0.18.1",
+        "printnode/printnode-php": "^2.0@RC",
+        "rawilk/laravel-printing": "^1.3",
+        "smalot/cups-ipp": "^0.5.0",
         "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {

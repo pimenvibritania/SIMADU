@@ -24,9 +24,11 @@ class CreateIzinTinggalsTable extends Migration
             $table->string('no_surat');
             $table->string('tujuan');
             $table->string('keperluan');
-            $table->string('tanda_tangan');
+            $table->foreignId('tanda_tangan_id')->nullable()
+                ->constrained('tanda_tangans');
             $table->string('status');
             $table->integer('jml_surat');
+            $table->date('tgl_ambil')->nullable();
             $table->timestamps();
 
         });

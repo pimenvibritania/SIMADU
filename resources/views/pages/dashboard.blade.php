@@ -1,9 +1,14 @@
 @extends('layouts.default')
 @section('content')
     <div class="container">
-        @if(!empty($successMsg))
-            <div class="alert alert-success"> {{ $successMsg }}</div>
+
+        @if(session()->has('successMsg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session()->get('successMsg') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
+
     {{--Dashboard--}}
         <div class="card mb-5">
             <div class="card-header">

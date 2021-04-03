@@ -7,6 +7,9 @@ use App\Models\IzinTinggal;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\Writer\PDF;
+use Prologue\Alerts\Facades\Alert;
+use Rawilk\Printing\Facades\Printing;
 
 /**
  * Class IzinTinggalCrudController
@@ -51,7 +54,6 @@ class IzinTinggalCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-
         $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
@@ -59,17 +61,41 @@ class IzinTinggalCrudController extends CrudController
 
         $this->crud->addButtonFromView('line', 'approve', 'approve', 'end');
 
-
+        $this->crud->addFilter([
+            'name'  => 'status',
+            'type'  => 'dropdown',
+            'label' => 'Status'
+        ], [
+            'new' => 'New',
+            'approved' => 'Approved',
+            'declined' => 'Declined',
+        ], function($value) { // if the filter is active
+             $this->crud->addClause('where', 'status', $value);
+        });
 //        $this->crud->addClause('where', 'status', '=', 'new');
 
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('izintinggal/' . $entry->id . '/show');
+                    return backpack_url('izin-tinggal/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
         );
+
+        CRUD::column('user')->type('relationship')
+            ->label('name');
+
+        CRUD::column('created_at')
+            ->type('date')
+            ->label('diajukan');
+
+        CRUD::column('tgl_ambil')
+            ->type('date')
+            ->label('diambil');
+
+        CRUD::column('jml_surat')
+            ->label('jumlah');
 
         CRUD::column('status')->wrapper(
             [
@@ -127,16 +153,22 @@ class IzinTinggalCrudController extends CrudController
     }
 
     public function print($id){
-
         $izin = IzinTinggal::find($id);
 
         $template = new TemplateProcessor('word-template/konsuler-1.docx');
         $template->setValues([
             'no_surat' => $izin->no_surat,
-            'nama' => $izin->user->biodata->nama
+            'nama' => $izin->user->name,
+            'nama_arab' => $izin->user->biodata->nama,
+            'pekerjaan' => $izin->user->biodata->pekerjaan_indo,
+            'alamat_mesir' => $izin->user->biodata->alamat_mesir,
+            'tgl_verif' => now()->isoFormat('dddd, D MMMM Y'),
+            'ttd_nama' => $izin->tandaTangan->nama,
+            'ttd_jabatan' => $izin->tandaTangan->jabatan,
+
         ]);
 
-        $filename = $izin->user->biodata->nama;
+        $filename = 'izin-tinggal_' . $izin->user->name;
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
@@ -148,10 +180,13 @@ class IzinTinggalCrudController extends CrudController
     }
 
     public function approve($id){
+
         IzinTinggal::find($id)->update([
+            'tanda_tangan_id' => request('tanda_tangan_id'),
+            'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'approved'
         ]);
-
+        Alert::success('Surat izin telah di setujui')->flash();
         return redirect('admin/izin-tinggal');
     }
 

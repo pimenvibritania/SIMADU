@@ -29,7 +29,7 @@
                                 @if ($errors->has('nama'))
                                     <span class="text-danger">{{ $errors->first('nama') }}</span>
                                 @endif
-                                <input type="text" class="form-control" placeholder="Nama lengkap" name="nama"
+                                <input type="text" class="form-control" placeholder="Nama dengan bahasa Arab" name="nama"
                                        value="{{old('nama')}}"/>
                             </div>
                             <div class="form-group mb-2">

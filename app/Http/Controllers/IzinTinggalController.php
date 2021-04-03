@@ -47,16 +47,19 @@ class IzinTinggalController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'tujuan' => 'required',
             'jml_surat'    => 'required',
             'keperluan' => 'required',
-            'tanda_tangan' => 'required'
+            'no_surat' => 'unique:izin_tinggals'
         ]);
+
+        $name = backpack_user()->name;
 
         $no_permohonan = Helper::generateId(new IzinTinggal(),
             'no_permohonan',
-            strtoupper(substr($request->nama, 0, 1)) . '/' . backpack_user()->id ,
+            strtoupper(substr($name, 0, 1)) . '/' . backpack_user()->id ,
             3);
 
         IzinTinggal::create([
@@ -66,11 +69,10 @@ class IzinTinggalController extends Controller
             'tujuan' => $request->tujuan,
             'jml_surat'    => $request->jml_surat,
             'keperluan' => $request->keperluan,
-            'tanda_tangan' => $request->tanda_tangan,
             'status' => 'new'
         ]);
 
-        return \view('pages.dashboard')
+        return \redirect('dashboard')
         ->with('successMsg','Izin tinggal berhasil di ajukan');
     }
 

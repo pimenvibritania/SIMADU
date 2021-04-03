@@ -84,21 +84,12 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group mb-2">
                                         @if ($errors->has('keperluan'))
                                             <span class="text-danger">{{ $errors->first('keperluan') }}</span>
                                         @endif
                                         <textarea class="form-control" placeholder="Keperluan" name="keperluan"></textarea>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-2">
-                                        @if ($errors->has('tanda_tangan'))
-                                            <span class="text-danger">{{ $errors->first('tanda_tangan') }}</span>
-                                        @endif
-                                        <input type="text" min="1" class="form-control" placeholder="Tanda tangan" name="tanda_tangan" />
                                     </div>
 
                                 </div>
