@@ -51,7 +51,7 @@
                                @if(!$ttd->isEmpty())
                                     @foreach($ttd as $tanda)
                                         <option value="{{$tanda->id}}" >
-                                            {{$tanda->nama}}
+                                            {{$tanda->nama . ' - ' . $tanda->jabatan}}
                                         </option>
                                     @endforeach
                                 @else

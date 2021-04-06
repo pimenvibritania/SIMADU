@@ -41,7 +41,7 @@ class Biodata extends Model
         'tanggal_lapor',
         'izin_tinggal',
         'pendidikan_akhir',
-        'pekerjaan_indo',
+        'pekerjaan',
         'tujuan_mesir',
         'nama_pasangan',
         'nama_ayah',

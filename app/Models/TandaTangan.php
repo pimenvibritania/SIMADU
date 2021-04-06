@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class TandaTangan extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    protected $guarded = 'id';
+    protected $fillable = [
+        'nama',
+        'jabatan'
+    ];
 
 }

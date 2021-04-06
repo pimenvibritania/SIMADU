@@ -2,28 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\IzinTinggalRequest;
-use App\Models\IzinTinggal;
+use App\Http\Requests\PengampunanRequest;
+use App\Models\Pengampunan;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\Writer\PDF;
 use Prologue\Alerts\Facades\Alert;
-use Rawilk\Printing\Facades\Printing;
 
 /**
- * Class IzinTinggalCrudController
+ * Class PengampunanCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class IzinTinggalCrudController extends CrudController
+class PengampunanCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
         store as traitStore;
     }
@@ -41,9 +37,9 @@ class IzinTinggalCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\IzinTinggal::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/izin-tinggal');
-        CRUD::setEntityNameStrings('izin-tinggal', 'izin_tinggals');
+        CRUD::setModel(\App\Models\Pengampunan::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/pengampunan');
+        CRUD::setEntityNameStrings('pengampunan', 'pengampunans');
     }
 
     /**
@@ -70,14 +66,13 @@ class IzinTinggalCrudController extends CrudController
             'approved' => 'Approved',
             'declined' => 'Declined',
         ], function($value) { // if the filter is active
-             $this->crud->addClause('where', 'status', $value);
+            $this->crud->addClause('where', 'status', $value);
         });
-//        $this->crud->addClause('where', 'status', '=', 'new');
 
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('izin-tinggal/' . $entry->id . '/show');
+                    return backpack_url('pengampunan/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -130,7 +125,7 @@ class IzinTinggalCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(IzinTinggalRequest::class);
+        CRUD::setValidation(PengampunanRequest::class);
 
         CRUD::setFromDb(); // fields
 
@@ -153,14 +148,14 @@ class IzinTinggalCrudController extends CrudController
     }
 
     public function print($id){
-        $izin = IzinTinggal::find($id);
+        $izin = Pengampunan::find($id);
 
-        $template = new TemplateProcessor('word-template/K-izin-tinggal.docx');
+        $template = new TemplateProcessor('word-template/K-pengampunan.docx');
         $template->setValues([
             'no_surat' => $izin->no_surat,
-            'nama' => $izin->user->name,
             'nama_arab' => $izin->user->biodata->nama,
             'no_paspor' => $izin->user->biodata->no_paspor,
+            'pekerjaan' => $izin->user->biodata->pekerjaan,
             'tgl_lahir' => $izin->user->biodata->tanggal_lahir->format('d/M/Y'),
             'tgl_verif' => now()->isoFormat('dddd, D MMMM Y'),
             'ttd_nama' => $izin->tandaTangan->nama,
@@ -168,7 +163,7 @@ class IzinTinggalCrudController extends CrudController
 
         ]);
 
-        $filename = 'izin-tinggal_' . $izin->user->name;
+        $filename = 'pengampunan_' . $izin->user->name;
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
@@ -181,17 +176,18 @@ class IzinTinggalCrudController extends CrudController
 
     public function approve($id){
 
-        IzinTinggal::find($id)->update([
+        Pengampunan::find($id)->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'approved'
         ]);
+
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/izin-tinggal');
+        return redirect('admin/pengampunan');
     }
 
     public function decline($id){
-        IzinTinggal::find($id)->update([
+        Pengampunan::find($id)->update([
             'status' => 'declined'
         ]);
     }

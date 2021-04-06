@@ -229,16 +229,17 @@
                                        value="{{old('pendidikan_akhir')}}" name="pendidikan_akhir">
                             </div>
                             <div class="form-group mb-2">
-                                <input type="text" class="form-control" placeholder="Pekerjaan di Indonesia"
-                                       value="{{old('pekerjaan_indo')}}" name="pekerjaan_indo">
-                            </div>
-                            <div class="form-group mb-2">
                                 @if ($errors->has('tujuan_mesir'))
                                     <span class="text-danger">{{ $errors->first('tujuan_mesir') }}</span>
                                 @endif
                                 <input type="text" class="form-control" placeholder="Tujuan di Mesir"
                                        value="{{old('tujuan_mesir')}}" name="tujuan_mesir">
                             </div>
+                            <div class="form-group mb-2">
+                                <input type="text" class="form-control" placeholder="Pekerjaan"
+                                       value="{{old('pekerjaan')}}" name="pekerjaan">
+                            </div>
+
                             <div class="form-group mb-2">
                                 <input type="text" class="form-control" placeholder="Nama pasangan"
                                        value="{{old('nama_pasangan')}}" name="nama_pasangan">

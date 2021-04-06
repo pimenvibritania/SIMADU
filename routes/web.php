@@ -48,10 +48,10 @@ Route::group([
     });
 
 
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('backpack.auth.password.email');
+//    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
+//    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+//    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
+//    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('backpack.auth.password.email');
 
     Route::get('logout', 'LoginController@logout')->name('backpack.auth.logout');
     Route::post('logout', 'LoginController@logout');
@@ -78,7 +78,12 @@ Route::group([
         'prefix' => 'surat'
     ], function (){
 
+        Route::get('dashboard', function (){
+           return view('pages.surat.dahboard');
+        })->name('surat.dashboard');
+
         Route::resource('izin-tinggal', 'IzinTinggalController');
+        Route::resource('pengampunan', 'PengampunanController');
     });
 });
 

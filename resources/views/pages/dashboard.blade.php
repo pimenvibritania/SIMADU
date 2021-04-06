@@ -36,7 +36,7 @@
                     Surat - Menyurat
                 </div>
                <div class="col-md-6">
-                  <a href="#" class="link-dashboard">
+                  <a href="{{route('surat.dashboard')}}" class="link-dashboard">
                       <i class="fa fa-hand-o-right"></i>
                       Lainnya ...
                   </a>
@@ -45,8 +45,8 @@
            <div class="card-body">
                <div class="row">
                    <div class="col-md-6 col-lg-4 column">
-                       <a href="{{url('/surat/izin-tinggal/create')}}" style="text-decoration: none">
-                           <div class="card gr-2">
+                       <a href="{{route('izin-tinggal.create')}}" style="text-decoration: none">
+                           <div class="card gr-1">
                                <div class="txt">
                                    <h1>PENGAJUAN </br>
                                        IZIN TINGGAL</h1>
@@ -62,18 +62,18 @@
                        </a>
                    </div>
                    <div class="col-md-6 col-lg-4 column">
-                       <a href="#" style="text-decoration: none">
+                       <a href="{{route('pengampunan.create')}}" style="text-decoration: none">
                            <div class="card gr-1">
                                <div class="txt">
                                    <h1>PENGAJUAN </br>
-                                       PERPINDAHAN</h1>
+                                       PENGAMPUNAN</h1>
                                    <p>
                                        Digunakan untuk melakukan lapor diri jika
                                        Anda pindah antar Negara di luar negeri
                                    </p>
                                </div>
                                <div class="ico-card">
-                                   <i class="ex-card fa fa-walking"></i>
+                                   <i class="ex-card fa fa-hammer"></i>
                                </div>
                            </div>
                        </a>
@@ -99,75 +99,6 @@
            </div>
        </div>
 
-        {{--        Another--}}
-        <div class="card">
-            <div class="row card-header">
-                <div class="col-md-6">
-                    Lapor
-                </div>
-                <div class="col-md-6">
-                    <a href="#" class="link-dashboard">
-                        <i class="fa fa-hand-o-right"></i>
-                        Lainnya ...
-                    </a>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 column">
-                        <a href="{{url('/surat/izin-tinggal/create')}}" style="text-decoration: none">
-                            <div class="card gr-2">
-                                <div class="txt">
-                                    <h1>PENGAJUAN </br>
-                                        IZIN TINGGAL</h1>
-                                    <p>
-                                        Digunakan untuk melakukan lapor diri jika Anda
-                                        pulang dan menetap kembali di Indonesia
-                                    </p>
-                                </div>
-                                <div class="ico-card">
-                                    <i class="fa fa-home ex-card"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4 column">
-                        <a href="#" style="text-decoration: none">
-                            <div class="card gr-1">
-                                <div class="txt">
-                                    <h1>PENGAJUAN </br>
-                                        PERPINDAHAN</h1>
-                                    <p>
-                                        Digunakan untuk melakukan lapor diri jika
-                                        Anda pindah antar Negara di luar negeri
-                                    </p>
-                                </div>
-                                <div class="ico-card">
-                                    <i class="ex-card fa fa-walking"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4 column">
-                        <a href="#" style="text-decoration: none">
-                            <div class="card gr-3">
-                                <div class="txt">
-                                    <h1>PENGAJUAN </br>KELUARGA</h1>
-                                    <p>
-                                        Digunakan untuk melakukan lapor diri anngota
-                                        Keluarga yang berada di luar negeri
-                                    </p>
-                                </div>
-                                <div class="ico-card">
-                                    <i class="fa fa-group ex-card"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

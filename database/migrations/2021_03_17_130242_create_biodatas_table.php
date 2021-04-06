@@ -42,7 +42,7 @@ class CreateBiodatasTable extends Migration
             $table->date('tanggal_lapor');
             $table->date('izin_tinggal');
             $table->string('pendidikan_akhir')->nullable();
-            $table->string('pekerjaan_indo')->nullable();
+            $table->string('pekerjaan')->nullable();
             $table->string('tujuan_mesir');
             $table->string('nama_pasangan')->nullable();
             $table->string('nama_ayah');
