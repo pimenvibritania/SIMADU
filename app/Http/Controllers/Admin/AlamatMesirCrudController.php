@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\PengampunanRequest;
-use App\Models\Pengampunan;
+use App\Http\Requests\AlamatMesirRequest;
+use App\Models\AlamatMesir;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
 /**
- * Class PengampunanCrudController
+ * Class AlamatMesirCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class PengampunanCrudController extends CrudController
+class AlamatMesirCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -38,9 +38,9 @@ class PengampunanCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Pengampunan::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/pengampunan');
-        CRUD::setEntityNameStrings('pengampunan', 'pengampunans');
+        CRUD::setModel(\App\Models\AlamatMesir::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/alamat-mesir');
+        CRUD::setEntityNameStrings('alamat-mesir', 'alamat_mesirs');
     }
 
     /**
@@ -51,6 +51,8 @@ class PengampunanCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
+
         $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
@@ -73,7 +75,7 @@ class PengampunanCrudController extends CrudController
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('pengampunan/' . $entry->id . '/show');
+                    return backpack_url('alamat-mesir/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -110,12 +112,6 @@ class PengampunanCrudController extends CrudController
                 'style' => 'width: 100px'
             ]
         );
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -126,9 +122,9 @@ class PengampunanCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(PengampunanRequest::class);
+        CRUD::setValidation(AlamatMesirRequest::class);
 
-        CRUD::setFromDb(); // fields
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -149,23 +145,23 @@ class PengampunanCrudController extends CrudController
     }
 
     public function print($id){
-        $izin = Pengampunan::find($id);
+        $izin = AlamatMesir::find($id);
 
-        $template = new TemplateProcessor('word-template/K-pengampunan.docx');
+        $template = new TemplateProcessor('word-template/K-alamat-mesir.docx');
         $template->setValues([
             'no_surat' => $izin->no_surat,
+            'nama'  => $izin->user->name,
             'nama_arab' => $izin->user->biodata->nama,
             'no_paspor' => $izin->user->biodata->no_paspor,
             'pekerjaan' => $izin->user->biodata->pekerjaan,
             'alamat_mesir' => $izin->user->biodata->alamat_mesir,
-            'tgl_lahir' => $izin->user->biodata->tanggal_lahir->format('d/M/Y'),
             'tgl_verif' => now()->isoFormat('dddd, D MMMM Y'),
             'ttd_nama' => $izin->tandaTangan->nama,
             'ttd_jabatan' => $izin->tandaTangan->jabatan,
 
         ]);
 
-        $filename = 'pengampunan_' . $izin->user->name;
+        $filename = 'alamat-mesir_' . $izin->user->name;
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
@@ -178,18 +174,18 @@ class PengampunanCrudController extends CrudController
 
     public function approve($id){
 
-        Pengampunan::find($id)->update([
+        AlamatMesir::find($id)->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'approved'
         ]);
 
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/pengampunan');
+        return redirect('admin/alamat-mesir');
     }
 
     public function decline($id){
-        Pengampunan::find($id)->update([
+        AlamatMesir::find($id)->update([
             'status' => 'declined'
         ]);
     }

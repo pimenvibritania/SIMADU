@@ -84,6 +84,9 @@ Route::group([
 
         Route::resource('izin-tinggal', 'IzinTinggalController');
         Route::resource('pengampunan', 'PengampunanController');
+        Route::resource('alamat-mesir', 'AlamatMesirController');
+        Route::resource('masuk-mesir', 'MasukMesirController');
+
     });
 });
 

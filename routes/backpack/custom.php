@@ -5,8 +5,11 @@
 // --------------------------
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
+use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
+use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
+use App\Http\Controllers\MasukMesirController;
 
 Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
@@ -28,6 +31,18 @@ Route::group([
     Route::post('pengampunan/{id}/decline', [PengampunanCrudController::class, 'decline']);
     Route::get('pengampunan/{id}/print', [PengampunanCrudController::class, 'print']);
 
+    Route::crud('alamat-mesir', 'AlamatMesirCrudController');
+    Route::post('alamat-mesir/{id}/approve', [AlamatMesirCrudController::class, 'approve']);
+    Route::post('alamat-mesir/{id}/decline', [AlamatMesirCrudController::class, 'decline']);
+    Route::get('alamat-mesir/{id}/print', [AlamatMesirCrudController::class, 'print']);
+
+    Route::crud('masuk-mesir', 'MasukMesirCrudController');
+    Route::post('masuk-mesir/{id}/approve', [MasukMesirCrudController::class, 'approve']);
+    Route::post('masuk-mesir/{id}/decline', [MasukMesirCrudController::class, 'decline']);
+    Route::get('masuk-mesir/{id}/print', [MasukMesirCrudController::class, 'print']);
+
     Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
     Route::crud('tandatangan', 'TandaTanganCrudController');
+    Route::crud('alamatmesir', 'AlamatMesirCrudController');
+    Route::crud('izintinggal', 'IzinTinggalCrudController');
 }); // this should be the absolute last line of this file

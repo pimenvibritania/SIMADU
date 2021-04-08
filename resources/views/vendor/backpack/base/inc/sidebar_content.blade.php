@@ -17,6 +17,8 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izin-tinggal') }}'><i class='nav-icon la la-home'></i> Izin Tinggal</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pengampunan') }}'><i class='nav-icon la la-hammer'></i> Pengampunan</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamat-mesir') }}'><i class='nav-icon la la-flag-o'></i> Ket. Alamat Mesir</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masuk-mesir') }}'><i class='nav-icon la la-institution'></i> Izin Masuk Mesir</a></li>
     </ul>
 </li>
 
@@ -34,3 +36,9 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pendidikanmesir') }}'><i class='nav-icon la la-question'></i> PendidikanMesirs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('riwayatpendidikan') }}'><i class='nav-icon la la-question'></i> RiwayatPendidikans</a></li>
 
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('biodata') }}'><i class='nav-icon la la-question'></i> Biodatas</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pengampunan') }}'><i class='nav-icon la la-question'></i> Pengampunans</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-question'></i> TandaTangans</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamatmesir') }}'><i class='nav-icon la la-question'></i> AlamatMesirs</a></li>
