@@ -190,6 +190,7 @@ class MasukMesirCrudController extends CrudController
 
     public function approve($id){
 
+
         MasukMesir::find($id)->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),

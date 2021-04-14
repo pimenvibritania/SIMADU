@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use HttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,7 @@ class Handler extends ExceptionHandler
                 }
             }
         }
+
 
         // this will still show the error if there is any in your code.
         return parent::render($request, $exception);

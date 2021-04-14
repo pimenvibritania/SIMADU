@@ -1,4 +1,7 @@
 @extends('layouts.default')
+
+<script src="http://api.iksgroup.co.id/apijs/lokasiapi.js"></script>
+
 @section('biodata')
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -351,46 +354,40 @@
                                 @if ($errors->has('provinsi_indo'))
                                     <span class="text-danger">{{ $errors->first('provinsi_indo') }}</span>
                                 @endif
-                                <select class="form-control" name="provinsi_indo">
+                                <select id="prov_indo" class="form-control" name="provinsi_indo">
                                     <option class="hidden"  selected disabled> -- Provinsi di Indonesia -- </option>
-                                    <option value="laki">Laki - laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                    <option value="other">Other</option>
+
                                 </select>
                             </div>
                             <div class="form-group mb-2">
                                 @if ($errors->has('kota_indo'))
                                     <span class="text-danger">{{ $errors->first('kota_indo') }}</span>
                                 @endif
-                                <select class="form-control" name="kota_indo">
+                                <select class="form-control" id="kota_indo" name="kota_indo" disabled>
                                     <option class="hidden"  selected disabled> -- Kota / Kabupaten di Indonesia -- </option>
-                                    <option value="laki">Laki - laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                    <option value="other">Other</option>
+
                                 </select>
                             </div>
+
                             <div class="form-group mb-2">
                                 @if ($errors->has('kecamatan_indo'))
                                     <span class="text-danger">{{ $errors->first('kecamatan_indo') }}</span>
                                 @endif
-                                <select class="form-control" name="kecamatan_indo">
+                                <select class="form-control" id="kec_indo" name="kecamatan_indo" disabled>
                                     <option class="hidden"  selected disabled> -- Kecamatan di Indonesia -- </option>
-                                    <option value="laki">Laki - laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                    <option value="other">Other</option>
+
                                 </select>
                             </div>
+
                             <div class="form-group mb-2">
                                 @if ($errors->has('desa_indo'))
                                     <span class="text-danger">{{ $errors->first('desa_indo') }}</span>
                                 @endif
-                                <select class="form-control" name="desa_indo">
+                                <select id="desa_indo" class="form-control" name="desa_indo" disabled>
                                     <option class="hidden"  selected disabled> -- Desa di Indonesia -- </option>
-                                    <option value="laki">Laki - laki</option>
-                                    <option value="perempuan">Perempuan</option>
-                                    <option value="other">Other</option>
                                 </select>
                             </div>
+
                             <div class="form-group mb-2">
                                 @if ($errors->has('pos_indo'))
                                     <span class="text-danger">{{ $errors->first('pos_indo') }}</span>
@@ -439,6 +436,102 @@
 <script type="text/javascript">
     $('.date').datepicker({
         format: 'yyyy-mm-dd'
+    });
+</script>
+<script >
+    $(document).ready(function() {
+        $.ajax({
+            url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+               let res = response.provinsi;
+               console.log(res);
+               let provinsi = res.map(function (data) {
+                    return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                })
+
+                $('#prov_indo').append(provinsi)
+
+            }
+        })
+
+        $('#prov_indo').on('change', function () {
+            let prov_id = $(this).children("option:selected").attr('id');
+            $('#kota_indo').prop('disabled', false);
+            console.log(prov_id)
+
+            $.ajax({
+                url: `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${prov_id}`,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    let res = response.kota_kabupaten;
+                    // console.log(res);
+                    let kota = res.map(function (data) {
+                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                    })
+
+                    $('#kota_indo')
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append(kota)
+
+                }
+            })
+
+        })
+
+        $('#kota_indo').on('change', function (){
+            let kota_id = $(this).children("option:selected").attr('id');
+            $('#kec_indo').prop('disabled', false);
+            console.log(kota_id)
+
+            $.ajax({
+                url: `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${kota_id}`,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    let res = response.kecamatan;
+                    console.log(res);
+                    let kecamatan = res.map(function (data) {
+                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                    })
+                    $('#kec_indo')
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append(kecamatan)
+                }
+            })
+        })
+
+        $('#kec_indo').on('change', function (){
+            let kec_id = $(this).children("option:selected").attr('id');
+            $('#desa_indo').prop('disabled', false);
+            console.log(kec_id)
+
+            $.ajax({
+                url: `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${kec_id}`,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    let res = response.kelurahan;
+                    console.log(res);
+                    let desa = res.map(function (data) {
+                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                    })
+
+                    $('#desa_indo')
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append(desa)
+
+                }
+            })
+        })
     });
 </script>
 @endsection

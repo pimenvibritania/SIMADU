@@ -8,6 +8,12 @@
             @endphp
         </div>
     @endif
+    <div class="col-md-4 mb-3">
+        <a href="{{route('pengampunan.index')}}" class="btn btn-danger" >
+            <i class="fa fa-arrow-left"></i>
+            Kembali
+        </a>
+    </div>
     <div class="register">
         <div class="row">
             <div class="col-md-3 register-left">

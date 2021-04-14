@@ -4,7 +4,7 @@
         class="navbar navbar-expand-lg navbar-light p-4 px-md-4 mb-3 bg-body border-bottom"
         style="font-family: Poppins, sans-serif;">
         <div class="container">
-            <a class="navbar-brand" href="{{url('dashboard')}}">
+            <a class="navbar-brand" href="{{url('/')}}">
                 <span class="mytitle">SIMADU</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#targetModal-header-2-2">
@@ -64,12 +64,12 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link px-md-4 active" aria-current="page" href="#"
-                        >Menu</a
+                        <a class="nav-link px-md-4 active" aria-current="page" href="{{route('dashboard')}}"
+                        >Dashboard</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
+                        <a class="nav-link px-md-4" href="{{route('surat.dashboard')}}">Pengajuan Surat</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link px-md-4" href="#">Menu</a>

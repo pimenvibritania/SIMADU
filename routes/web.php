@@ -79,13 +79,20 @@ Route::group([
     ], function (){
 
         Route::get('dashboard', function (){
-           return view('pages.surat.dahboard');
+           return view('pages.surat.dashboard');
         })->name('surat.dashboard');
 
         Route::resource('izin-tinggal', 'IzinTinggalController');
         Route::resource('pengampunan', 'PengampunanController');
         Route::resource('alamat-mesir', 'AlamatMesirController');
+        Route::resource('alamat-indonesia', 'AlamatIndonesiaController');
         Route::resource('masuk-mesir', 'MasukMesirController');
+        Route::resource('visa-umroh', 'VisaUmrohController');
+        Route::resource('visa-haji', 'VisaHajiController');
+        Route::resource('kepentingan', 'KepentinganController');
+        Route::resource('keterangan-lahir', 'KeteranganLahirController');
+        Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
+
 
     });
 });

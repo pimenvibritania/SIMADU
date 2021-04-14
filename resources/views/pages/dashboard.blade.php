@@ -45,8 +45,8 @@
            <div class="card-body">
                <div class="row">
                    <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('izin-tinggal.create')}}" style="text-decoration: none">
-                           <div class="card gr-1">
+                       <a href="{{route('izin-tinggal.index')}}" style="text-decoration: none">
+                           <div class="card izin-tinggal">
                                <div class="txt">
                                    <h1>PENGAJUAN </br>
                                        IZIN TINGGAL</h1>
@@ -55,15 +55,13 @@
                                        pulang dan menetap kembali di Indonesia
                                    </p>
                                </div>
-                               <div class="ico-card">
-                                   <i class="fa fa-home ex-card"></i>
-                               </div>
+
                            </div>
                        </a>
                    </div>
                    <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('pengampunan.create')}}" style="text-decoration: none">
-                           <div class="card gr-1">
+                       <a href="{{route('pengampunan.index')}}" style="text-decoration: none">
+                           <div class="card pengampunan">
                                <div class="txt">
                                    <h1>PENGAJUAN </br>
                                        PENGAMPUNAN</h1>
@@ -72,15 +70,13 @@
                                        Anda pindah antar Negara di luar negeri
                                    </p>
                                </div>
-                               <div class="ico-card">
-                                   <i class="ex-card fa fa-hammer"></i>
-                               </div>
+
                            </div>
                        </a>
                    </div>
                    <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('alamat-mesir.create')}}" style="text-decoration: none">
-                           <div class="card gr-1">
+                       <a href="{{route('alamat-mesir.index')}}" style="text-decoration: none">
+                           <div class="card mesir">
                                <div class="txt">
                                    <h1>PENGAJUAN </br>
                                        KETERANGAN ALAMAT DI MESIR</h1>
@@ -89,9 +85,7 @@
                                        Anda pindah antar Negara di luar negeri
                                    </p>
                                </div>
-                               <div class="ico-card">
-                                   <i class="ex-card fa fa-flag-o"></i>
-                               </div>
+
                            </div>
                        </a>
                    </div>
