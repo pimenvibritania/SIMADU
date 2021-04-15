@@ -9,6 +9,7 @@ class AlamatIndonesia extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
+
     protected $table = 'alamat_indonesias';
     // protected $primaryKey = 'id';
     // public $timestamps = false;

@@ -52,7 +52,6 @@ class AlamatMesirCrudController extends CrudController
     protected function setupListOperation()
     {
 
-
         $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');

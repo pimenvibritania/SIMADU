@@ -1,4 +1,4 @@
-<section style="height: 100%; width: 100%; box-sizing: border-box; background-color: #FFFFFF">
+<section style=" width: 100%; box-sizing: border-box; background-color: #FFFFFF">
 
     <nav
         class="navbar navbar-expand-lg navbar-light p-4 px-md-4 mb-3 bg-body border-bottom"
@@ -71,15 +71,7 @@
                     <li class="nav-item">
                         <a class="nav-link px-md-4" href="{{route('surat.dashboard')}}">Pengajuan Surat</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
+
 
                 </ul>
 

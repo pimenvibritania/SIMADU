@@ -1,7 +1,5 @@
 @extends('layouts.default')
 
-<script src="http://api.iksgroup.co.id/apijs/lokasiapi.js"></script>
-
 @section('biodata')
     @if(Session::has('success'))
         <div class="alert alert-success">
@@ -26,7 +24,7 @@
                     <form class="row register-form" method="POST" action="{{route('biodata.store')}}" enctype="multipart/form-data">
                         @csrf
 
-{{--                        LEFT SIDE--}}
+                {{--LEFT SIDE--}}
                         <div class="col-md-6">
                             <div class="form-group mb-2">
                                 @if ($errors->has('nama'))
@@ -441,14 +439,15 @@
 <script >
     $(document).ready(function() {
         $.ajax({
-            url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
+            // url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
+            url: `{{route('wilayah.provinsi')}}` ,
             type: 'get',
             dataType: 'json',
             success: function(response) {
                let res = response.provinsi;
                console.log(res);
                let provinsi = res.map(function (data) {
-                    return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                    return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                 })
 
                 $('#prov_indo').append(provinsi)
@@ -462,14 +461,15 @@
             console.log(prov_id)
 
             $.ajax({
-                url: `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${prov_id}`,
+                // url: `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${prov_id}`,
+                url: `{{url('wilayah/kota')}}/${prov_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
-                    let res = response.kota_kabupaten;
-                    // console.log(res);
+                    let res = response.kota;
+                    console.log(res);
                     let kota = res.map(function (data) {
-                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                        return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
 
                     $('#kota_indo')
@@ -489,14 +489,15 @@
             console.log(kota_id)
 
             $.ajax({
-                url: `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${kota_id}`,
+                // url: `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${kota_id}`,
+                url: `{{url('wilayah/kecamatan')}}/${kota_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
                     let res = response.kecamatan;
                     console.log(res);
                     let kecamatan = res.map(function (data) {
-                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                        return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
                     $('#kec_indo')
                         .find('option')
@@ -513,14 +514,15 @@
             console.log(kec_id)
 
             $.ajax({
-                url: `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${kec_id}`,
+                // url: `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${kec_id}`,
+                url: `{{url('wilayah/desa')}}/${kec_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
-                    let res = response.kelurahan;
+                    let res = response.desa;
                     console.log(res);
                     let desa = res.map(function (data) {
-                        return `<option id="${data.id}" value="${data.nama}">${data.nama}</option>`
+                        return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
 
                     $('#desa_indo')

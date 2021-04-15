@@ -5,10 +5,14 @@
 // --------------------------
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
+use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
+use App\Http\Controllers\Admin\KepentinganCrudController;
+use App\Http\Controllers\Admin\KeteranganLahirCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
+use App\Http\Controllers\Admin\TidakKeluarNegeriCrudController;
 use App\Http\Controllers\Admin\VisaHajiCrudController;
 use App\Http\Controllers\Admin\VisaUmrohCrudController;
 use App\Http\Controllers\MasukMesirController;
@@ -53,16 +57,24 @@ Route::group([
     Route::post('visa-umroh/{id}/decline', [VisaUmrohCrudController::class, 'decline']);
     Route::get('visa-umroh/{id}/print', [VisaUmrohCrudController::class, 'print']);
 
-    Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
-    Route::crud('tandatangan', 'TandaTanganCrudController');
-    Route::crud('alamatmesir', 'AlamatMesirCrudController');
-    Route::crud('izintinggal', 'IzinTinggalCrudController');
-    Route::crud('masukmesir', 'MasukMesirCrudController');
+    Route::crud('alamat-indonesia', 'AlamatIndonesiaCrudController');
+    Route::post('alamat-indonesia/{id}/approve', [AlamatIndonesiaCrudController::class, 'approve']);
+    Route::post('alamat-indonesia/{id}/decline', [AlamatIndonesiaCrudController::class, 'decline']);
+    Route::get('alamat-indonesia/{id}/print', [AlamatIndonesiaCrudController::class, 'print']);
 
-    Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
-    Route::crud('visahaji', 'VisaHajiCrudController');
-    Route::crud('visaumroh', 'VisaUmrohCrudController');
+    Route::crud('tidak-keluar-negeri', 'TidakKeluarNegeriCrudController');
+    Route::post('tidak-keluar-negeri/{id}/approve', [TidakKeluarNegeriCrudController::class, 'approve']);
+    Route::post('tidak-keluar-negeri/{id}/decline', [TidakKeluarNegeriCrudController::class, 'decline']);
+    Route::get('tidak-keluar-negeri/{id}/print', [TidakKeluarNegeriCrudController::class, 'print']);
+
     Route::crud('kepentingan', 'KepentinganCrudController');
-    Route::crud('keteranganlahir', 'KeteranganLahirCrudController');
-    Route::crud('tidakkeluarnegeri', 'TidakKeluarNegeriCrudController');
+    Route::post('kepentingan/{id}/approve', [KepentinganCrudController::class, 'approve']);
+    Route::post('kepentingan/{id}/decline', [KepentinganCrudController::class, 'decline']);
+    Route::get('kepentingan/{id}/print', [KepentinganCrudController::class, 'print']);
+
+    Route::crud('keterangan-lahir', 'KeteranganLahirCrudController');
+    Route::post('keterangan-lahir/{id}/approve', [KeteranganLahirCrudController::class, 'approve']);
+    Route::post('keterangan-lahir/{id}/decline', [KeteranganLahirCrudController::class, 'decline']);
+    Route::get('keterangan-lahir/{id}/print', [KeteranganLahirCrudController::class, 'print']);
+
 }); // this should be the absolute last line of this file

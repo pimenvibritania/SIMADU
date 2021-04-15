@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\IzinTinggalController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,28 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
+});
+
+Route::group([
+    'prefix' => 'wilayah'
+], function (){
+
+    Route::get('provinsi',
+        [WilayahController::class, 'provisi'])
+        ->name('wilayah.provinsi');
+
+    Route::get('kota/{id}',
+        [WilayahController::class, 'kota'])
+        ->name('wilayah.kota');
+
+    Route::get('kecamatan/{id}',
+        [WilayahController::class, 'kecamatan'])
+        ->name('wilayah.kecamatan');
+
+    Route::get('desa/{id}',
+        [WilayahController::class, 'desa'])
+        ->name('wilayah.desa');
+
 });
 
 Route::resource('biodata', BiodataController::class)
