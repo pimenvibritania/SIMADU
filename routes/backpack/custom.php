@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
 use App\Http\Controllers\Admin\KepentinganCrudController;
 use App\Http\Controllers\Admin\KeteranganLahirCrudController;
+use App\Http\Controllers\Admin\LegalisirCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
 use App\Http\Controllers\Admin\TidakKeluarNegeriCrudController;
@@ -77,4 +78,21 @@ Route::group([
     Route::post('keterangan-lahir/{id}/decline', [KeteranganLahirCrudController::class, 'decline']);
     Route::get('keterangan-lahir/{id}/print', [KeteranganLahirCrudController::class, 'print']);
 
+    Route::crud('legalisir', 'LegalisirCrudController');
+    Route::post('legalisir/{id}/approve', [LegalisirCrudController::class, 'approve']);
+    Route::post('legalisir/{id}/decline', [LegalisirCrudController::class, 'decline']);
+    Route::get('legalisir/{id}/print', [LegalisirCrudController::class, 'print']);
+
+
+    Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
+    Route::crud('alamatmesir', 'AlamatMesirCrudController');
+    Route::crud('izintinggal', 'IzinTinggalCrudController');
+    Route::crud('keteranganlahir', 'KeteranganLahirCrudController');
+    Route::crud('masukmesir', 'MasukMesirCrudController');
+    Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
+    Route::crud('tandatangan', 'TandaTanganCrudController');
+    Route::crud('tidakkeluarnegeri', 'TidakKeluarNegeriCrudController');
+    Route::crud('visahaji', 'VisaHajiCrudController');
+    Route::crud('visaumroh', 'VisaUmrohCrudController');
+    Route::crud('wilayah', 'WilayahCrudController');
 }); // this should be the absolute last line of this file

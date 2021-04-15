@@ -2,6 +2,7 @@
     $ttd = \App\Models\TandaTangan::all() ?? null;
 @endphp
 
+
 @if($entry->status == 'new')
     <a href="javascript:void(0)" onclick="decline(this)"
        data-route="{{ url($crud->route . '/' . $entry->getKey() . '/decline' ) }}"
@@ -28,10 +29,27 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="form-group ">
-                        <label for="no-surat" class="col-form-label">No Surat</label>
-                        <input readonly type="text" class="form-control" id="no-surat" value="{{$entry->no_surat}}">
-                    </div>
+                    @if($crud->entity_name == 'legalisir')
+                        <div class="form-group ">
+                            <label for="no-surat" class="col-form-label">No Permohonan</label>
+                            <input readonly type="text" class="form-control" id="no-permohonan" value="{{$entry->no_permohonan}}">
+                        </div>
+                        <div class="form-group ">
+                            <label for="nama" class="col-form-label">Nama Dokumen</label>
+                            <input readonly type="text" class="form-control" id="nama" value="{{$entry->nama}}">
+                        </div>
+                        <a target="_blank"
+                           class="btn btn-primary"
+                           href="{{asset('uploads/legalisir/'.$entry->img_docs)}}">
+                            <i class="la la-eye"></i>
+                            Lihat dokumen
+                        </a>
+                    @else
+                        <div class="form-group ">
+                            <label for="no-surat" class="col-form-label">No Surat</label>
+                            <input readonly type="text" class="form-control" id="no-surat" value="{{$entry->no_surat}}">
+                        </div>
+                    @endif
 
                     <div class="form-group">
                         <label for="nama" class="col-form-label">Nama</label>
@@ -45,20 +63,25 @@
 
                     <form method="POST" action="{{url($crud->route . '/' . $entry->getKey() . '/approve' )}}">
                         @csrf
-                        <div class="form-group">
-                            <label for="tanda-tangan" class="col-form-label">Penanda tangan</label>
-                            <select class="form-control" id="tanda-tangan" name="tanda_tangan_id">
-                               @if(!$ttd->isEmpty())
-                                    @foreach($ttd as $tanda)
-                                        <option value="{{$tanda->id}}" >
-                                            {{$tanda->nama . ' - ' . $tanda->jabatan}}
-                                        </option>
-                                    @endforeach
-                                @else
-                                <option disabled >Data kosong</option>
-                                   @endif
-                            </select>
-                        </div>
+
+                        @if($crud->entity_name != 'legalisir')
+                            <div class="form-group">
+                                <label for="tanda-tangan" class="col-form-label">Penanda tangan</label>
+                                <select class="form-control" id="tanda-tangan" name="tanda_tangan_id">
+                                    @if(!$ttd->isEmpty())
+                                        @foreach($ttd as $tanda)
+                                            <option value="{{$tanda->id}}" >
+                                                {{$tanda->nama . ' - ' . $tanda->jabatan}}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option disabled >Data kosong</option>
+                                    @endif
+                                </select>
+                            </div>
+
+                        @endif
+
                         <div class="form-group">
                             <label for="tgl_ambil" class="col-form-label">Tanggal ambil</label>
                             <input type="date" class="date form-control"

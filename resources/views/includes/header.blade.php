@@ -64,12 +64,12 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link px-md-4 active" aria-current="page" href="{{route('dashboard')}}"
+                        <a class="nav-link px-md-4 {{Request::is('dashboard') ? 'active' : ''}}" aria-current="page" href="{{route('dashboard')}}"
                         >Dashboard</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-md-4" href="{{route('surat.dashboard')}}">Pengajuan Surat</a>
+                        <a class="nav-link px-md-4 {{Request::is('surat/*') ? 'active' : ''}}" href="{{route('surat.dashboard')}}">Pengajuan Surat</a>
                     </li>
 
 

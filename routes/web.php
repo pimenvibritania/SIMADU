@@ -115,6 +115,7 @@ Route::group([
         Route::resource('kepentingan', 'KepentinganController');
         Route::resource('keterangan-lahir', 'KeteranganLahirController');
         Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
+        Route::resource('legalisir', 'LegalisirController');
 
 
     });

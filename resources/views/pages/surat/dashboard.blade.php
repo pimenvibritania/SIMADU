@@ -178,6 +178,22 @@
                         </a>
                     </div>
 
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('legalisir.index')}}" style="text-decoration: none">
+                            <div class="card legalisir">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+
+                                        LEGALISIR DOKUMEN</h1>
+                                    <p>
+                                        Digunakan untuk melakukan lapor diri jika Anda
+                                        pulang dan menetap kembali di Indonesia
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>

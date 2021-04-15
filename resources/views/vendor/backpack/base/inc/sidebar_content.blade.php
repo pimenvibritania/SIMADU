@@ -25,6 +25,7 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tidak-keluar-negeri') }}'><i class='nav-icon la la-outdent'></i> Tidak Keluar Negeri</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('kepentingan') }}'><i class='nav-icon la la-warning'></i> Kepentingan</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keterangan-lahir') }}'><i class='nav-icon la la-baby'></i> Keterangan Lahir</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('legalisir') }}'><i class='nav-icon la la-print'></i> Legalisir</a></li>
 
     </ul>
 </li>
@@ -37,3 +38,19 @@
     </ul>
 
 </li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamatindonesia') }}'><i class='nav-icon la la-question'></i> AlamatIndonesias</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamatmesir') }}'><i class='nav-icon la la-question'></i> AlamatMesirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('biodata') }}'><i class='nav-icon la la-question'></i> Biodatas</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintinggal') }}'><i class='nav-icon la la-question'></i> IzinTinggals</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('kepentingan') }}'><i class='nav-icon la la-question'></i> Kepentingans</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganlahir') }}'><i class='nav-icon la la-question'></i> KeteranganLahirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukmesir') }}'><i class='nav-icon la la-question'></i> MasukMesirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pendidikanmesir') }}'><i class='nav-icon la la-question'></i> PendidikanMesirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pengampunan') }}'><i class='nav-icon la la-question'></i> Pengampunans</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('riwayatpendidikan') }}'><i class='nav-icon la la-question'></i> RiwayatPendidikans</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-question'></i> TandaTangans</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('tidakkeluarnegeri') }}'><i class='nav-icon la la-question'></i> TidakKeluarNegeris</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visahaji') }}'><i class='nav-icon la la-question'></i> VisaHajis</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('visaumroh') }}'><i class='nav-icon la la-question'></i> VisaUmrohs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('wilayah') }}'><i class='nav-icon la la-question'></i> Wilayahs</a></li>
