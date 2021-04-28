@@ -5,6 +5,7 @@
 // --------------------------
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
+use App\Http\Controllers\Admin\AktaLahirCrudController;
 use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
@@ -82,6 +83,14 @@ Route::group([
     Route::post('legalisir/{id}/approve', [LegalisirCrudController::class, 'approve']);
     Route::post('legalisir/{id}/decline', [LegalisirCrudController::class, 'decline']);
     Route::get('legalisir/{id}/print', [LegalisirCrudController::class, 'print']);
+
+    Route::crud('akta-lahir', 'AktaLahirCrudController');
+    Route::post('akta-lahir/{id}/approve', [AktaLahirCrudController::class, 'approve']);
+    Route::post('akta-lahir/{id}/decline', [AktaLahirCrudController::class, 'decline']);
+    Route::get('akta-lahir/{id}/print', [AktaLahirCrudController::class, 'print']);
+    Route::get('akta-lahir/{id}/delete', [AktaLahirCrudController::class, 'delete']);
+
+
 
 
     Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');

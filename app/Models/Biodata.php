@@ -39,7 +39,7 @@ class Biodata extends Model
         'berlaku_paspor_to',
         'tiba_mesir',
         'tanggal_lapor',
-        'izin_tinggal',
+        'dikeluarkan_oleh',
         'pendidikan_akhir',
         'pekerjaan',
         'tujuan_mesir',
@@ -80,7 +80,6 @@ class Biodata extends Model
         'berlaku_paspor_to' => 'date',
         'tiba_mesir' => 'date',
         'tanggal_lapor' => 'date',
-        'izin_tinggal' => 'date',
     ];
 
 

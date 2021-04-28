@@ -40,7 +40,7 @@ class CreateBiodatasTable extends Migration
             $table->date('berlaku_paspor_to');
             $table->date('tiba_mesir');
             $table->date('tanggal_lapor');
-            $table->date('izin_tinggal');
+            $table->string('dikeluarkan_oleh');
             $table->string('pendidikan_akhir')->nullable();
             $table->string('pekerjaan')->nullable();
             $table->string('tujuan_mesir');

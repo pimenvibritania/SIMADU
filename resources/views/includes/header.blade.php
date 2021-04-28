@@ -69,7 +69,7 @@
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-md-4 {{Request::is('surat/*') ? 'active' : ''}}" href="{{route('surat.dashboard')}}">Pengajuan Surat</a>
+                        <a class="nav-link px-md-4 {{Request::is('surat/*') ? 'active' : ''}}" href="{{route('surat.dashboard')}}">Pengajuan & Permohonan</a>
                     </li>
 
 

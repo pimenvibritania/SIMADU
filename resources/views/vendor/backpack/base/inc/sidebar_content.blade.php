@@ -54,3 +54,6 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('visahaji') }}'><i class='nav-icon la la-question'></i> VisaHajis</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('visaumroh') }}'><i class='nav-icon la la-question'></i> VisaUmrohs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('wilayah') }}'><i class='nav-icon la la-question'></i> Wilayahs</a></li>
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('aktalahir') }}'><i class='nav-icon la la-question'></i> AktaLahirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('legalisir') }}'><i class='nav-icon la la-question'></i> Legalisirs</a></li>

@@ -65,7 +65,7 @@ class BiodataController extends Controller
             'berlaku_paspor_to'=> 'required',
             'tiba_mesir'=> 'required',
             'tanggal_lapor'=> 'required',
-            'izin_tinggal'=> 'required',
+            'dikeluarkan_oleh'=> 'required',
             'tujuan_mesir'=> 'required',
             'nama_ayah'=> 'required',
             'nama_ibu'=> 'required',
@@ -118,8 +118,9 @@ class BiodataController extends Controller
 
         Biodata::create($request->all());
 
-        return redirect(backpack_user()->hasRole('mahasiswa') ? 'pendidikan' : 'dashboard');
-
+        return redirect(backpack_user()->hasRole('mahasiswa')
+            ? 'pendidikan'
+            : 'dashboard');
 
     }
 

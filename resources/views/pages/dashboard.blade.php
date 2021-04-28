@@ -33,7 +33,7 @@
        <div class="card mb-5">
            <div class="row card-header">
                 <div class="col-md-6">
-                    Surat - Menyurat
+                    Pengajuan dan Permohonan
                 </div>
                <div class="col-md-6">
                   <a href="{{route('surat.dashboard')}}" class="link-dashboard">

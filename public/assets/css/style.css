@@ -170,6 +170,21 @@
     background-size: cover;
 }
 
+.akta{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/akta.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.akta:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/akta.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .gr-4{
     background-image: url("https://image.freepik.com/free-vector/coronavirus-test-kit-background_23-2148540144.jpg");
     background-repeat: no-repeat;
@@ -181,6 +196,13 @@
     url("https://image.freepik.com/free-vector/coronavirus-test-kit-background_23-2148540144.jpg");
     background-size: cover;
 
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .image-cover{
