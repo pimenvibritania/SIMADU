@@ -111,7 +111,7 @@
                            </a>
                        </div>
                        <div class="col-md-6 col-lg-4 column">
-                           <a href="{{route('pengampunan.index')}}" style="text-decoration: none">
+                           <a href="{{route('pindah-kuliah-indonesia.index')}}" style="text-decoration: none">
                                <div class="card pengampunan">
                                    <div class="txt">
                                        <h1>SURAT PINDAH</br>
@@ -126,7 +126,7 @@
                            </a>
                        </div>
                        <div class="col-md-6 col-lg-4 column">
-                           <a href="{{route('alamat-mesir.index')}}" style="text-decoration: none">
+                           <a href="{{route('pindah-kuliah-luar-negeri.index')}}" style="text-decoration: none">
                                <div class="card mesir">
                                    <div class="txt">
                                        <h1>SURAT PINDAH</br>

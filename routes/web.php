@@ -133,6 +133,8 @@ Route::group([
         })->name('surat.dashboard');
 
         Route::resource('keterangan-belajar', 'KeteranganBelajarController');
+        Route::resource('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaController');
+        Route::resource('pindah-kuliah-luar-negeri', 'PindahKuliahLuarNegeriController');
 
     });
 });

@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\LegalisirCrudController;
 use App\Http\Controllers\Admin\MasterPnbpCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
+use App\Http\Controllers\Admin\PindahKuliahIndonesiaCrudController;
+use App\Http\Controllers\Admin\PindahKuliahLuarNegeriCrudController;
 use App\Http\Controllers\Admin\TidakKeluarNegeriCrudController;
 use App\Http\Controllers\Admin\VisaHajiCrudController;
 use App\Http\Controllers\Admin\VisaUmrohCrudController;
@@ -98,6 +100,15 @@ Route::group([
     Route::post('keterangan-belajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
     Route::get('keterangan-belajar/{id}/print', [KeteranganBelajarCrudController::class, 'print']);
 
+    Route::crud('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaCrudController');
+    Route::post('pindah-kuliah-indonesia/{id}/approve', [PindahKuliahIndonesiaCrudController::class, 'approve']);
+    Route::post('pindah-kuliah-indonesia/{id}/decline', [PindahKuliahIndonesiaCrudController::class, 'decline']);
+    Route::get('pindah-kuliah-indonesia/{id}/print', [PindahKuliahIndonesiaCrudController::class, 'print']);
+
+    Route::crud('pindah-kuliah-luar-negeri', 'PindahKuliahLuarNegeriCrudController');
+    Route::post('pindah-kuliah-luar-negeri/{id}/approve', [PindahKuliahLuarNegeriCrudController::class, 'approve']);
+    Route::post('pindah-kuliah-luar-negeri/{id}/decline', [PindahKuliahLuarNegeriCrudController::class, 'decline']);
+    Route::get('pindah-kuliah-luar-negeri/{id}/print', [PindahKuliahLuarNegeriCrudController::class, 'print']);
 
 
     Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
@@ -121,4 +132,7 @@ Route::group([
 
     Route::crud('aktalahir', 'AktaLahirCrudController');
     Route::crud('masterpnbp', 'MasterPnbpCrudController');
+    Route::crud('keteranganbelajar', 'KeteranganBelajarCrudController');
+    Route::crud('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaCrudController');
+    Route::crud('pindahkuliahindonesia', 'PindahKuliahIndonesiaCrudController');
 }); // this should be the absolute last line of this file
