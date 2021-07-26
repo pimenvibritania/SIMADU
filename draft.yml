@@ -1,17 +1,15 @@
 models:
-  Models\RiwayatPendidikan:
-    biodata_id: id foreign
-    jenjang: string
-    instansi: string
-    tempat: string
-    masuk: date
-    keluar: date
-  Models\PendidikanMesir:
-    biodata_id: id foreign
-    jenjang: string
-    instansi: string
-    tempat: string
-    masuk: date
-    keluar: date
+  Models\MasterPnbp:
+    kode: string
+    is_active: boolean
+    jenis: string
+    biaya: string
+  Models\Pnbp:
+    master_pnbp_id: id foreign
+    tanggal: date
+    nama_pemohon: string
+    kode_pnbp: string
+    biaya: string
+    keterangan: string
 
-seeders: RiwayatPendidikan, PendidikanMesir
+seeders: MasterPnbp, Pnbp

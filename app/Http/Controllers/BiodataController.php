@@ -175,7 +175,7 @@ class BiodataController extends Controller
 
     public function pendidikan(Request $request){
 
-        $bio = Biodata::find(backpack_user()->biodata)->first();
+        $bio = Biodata::where('user_id', auth()->user()->id)->first();
         $request->validate([
             'file_img_ijazah' => 'mimetypes:application/pdf|max:10000'
         ]);

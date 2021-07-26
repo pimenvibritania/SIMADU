@@ -89,7 +89,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'role:user|mahasiwa|tki'],
+    'middleware' => ['web', 'role:user|mahasiswa|tki'],
     'namespace' => 'App\Http\Controllers'
 ], function (){
 
@@ -98,7 +98,9 @@ Route::group([
     })->name('dashboard');
 
     Route::group([
-        'prefix' => 'surat'
+        'prefix' => 'surat',
+        'middleware' => ['web', 'role:tki'],
+
     ], function (){
 
         Route::get('dashboard', function (){
@@ -117,6 +119,20 @@ Route::group([
         Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
         Route::resource('legalisir', 'LegalisirController');
         Route::resource('akta-lahir', 'AktaLahirController');
+
+    });
+
+    Route::group([
+        'prefix' => 'surat',
+        'middleware' => ['web', 'role:mahasiswa'],
+
+    ], function (){
+
+        Route::get('dashboard', function (){
+            return view('pages.surat.dashboard');
+        })->name('surat.dashboard');
+
+        Route::resource('keterangan-belajar', 'KeteranganBelajarController');
 
     });
 });

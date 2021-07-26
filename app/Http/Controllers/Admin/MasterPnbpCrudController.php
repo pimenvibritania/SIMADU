@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\TandaTanganRequest;
+use App\Http\Requests\MasterPnbpRequest;
+use App\Models\MasterPnbp;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class TandaTanganCrudController
+ * Class MasterPnbpCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class TandaTanganCrudController extends CrudController
+class MasterPnbpCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -26,9 +27,9 @@ class TandaTanganCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\TandaTangan::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/tandatangan');
-        CRUD::setEntityNameStrings('tandatangan', 'tanda_tangans');
+        CRUD::setModel(\App\Models\MasterPnbp::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/master-pnbp');
+        CRUD::setEntityNameStrings('master-pnbp', 'master_pnbps');
     }
 
     /**
@@ -39,12 +40,10 @@ class TandaTanganCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('nama');
-        CRUD::column('jabatan');
-        CRUD::column('nip');
-
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::column('kode');
+        CRUD::column('is_active');
+        CRUD::column('jenis');
+        CRUD::column('biaya');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -61,12 +60,12 @@ class TandaTanganCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TandaTanganRequest::class);
+        CRUD::setValidation(MasterPnbpRequest::class);
 
-        CRUD::field('nama');
-        CRUD::field('jabatan');
-        CRUD::field('nip');
-
+        CRUD::field('kode');
+        CRUD::field('is_active');
+        CRUD::field('jenis');
+        CRUD::field('biaya');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -84,5 +83,15 @@ class TandaTanganCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function ajax(){
+        $kode = request('kode');
+        $res = MasterPnbp::where('kode', $kode)->first();
+        return response()->json([
+            'kode' => $res->kode,
+            'jenis' => $res->jenis,
+            'biaya' => $res->biaya
+        ]);
     }
 }

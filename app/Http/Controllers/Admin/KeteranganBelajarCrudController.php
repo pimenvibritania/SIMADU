@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\IzinTinggalRequest;
-use App\Models\IzinTinggal;
+use App\Http\Requests\KeteranganBelajarRequest;
+use App\Models\Mahasiswa\KeteranganBelajar;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\Writer\PDF;
 use Prologue\Alerts\Facades\Alert;
-use Rawilk\Printing\Facades\Printing;
 
 /**
- * Class IzinTinggalCrudController
+ * Class KeteranganBelajarCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class IzinTinggalCrudController extends CrudController
+class KeteranganBelajarCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
         store as traitStore;
     }
@@ -41,10 +38,11 @@ class IzinTinggalCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\IzinTinggal::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/izin-tinggal');
-        CRUD::setEntityNameStrings('izin-tinggal', 'izin_tinggals');
+        CRUD::setModel(\App\Models\Mahasiswa\KeteranganBelajar::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/keterangan-belajar');
+        CRUD::setEntityNameStrings('keterangan-belajar', 'keterangan-belajars');
         $this->crud->enableExportButtons();
+
     }
 
     /**
@@ -71,7 +69,7 @@ class IzinTinggalCrudController extends CrudController
             'approved' => 'Approved',
             'declined' => 'Declined',
         ], function($value) { // if the filter is active
-             $this->crud->addClause('where', 'status', $value);
+            $this->crud->addClause('where', 'status', $value);
         });
 
         // daterange filter
@@ -82,15 +80,15 @@ class IzinTinggalCrudController extends CrudController
         ],
             false,
             function ($value) { // if the filter is active, apply these constraints
-                 $dates = json_decode($value);
-                 $this->crud->addClause('where', 'created_at', '>=', $dates->from);
-                 $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
             });
 
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('izin-tinggal/' . $entry->id . '/show');
+                    return backpack_url('keterangan-belajar/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -143,7 +141,7 @@ class IzinTinggalCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(IzinTinggalRequest::class);
+        CRUD::setValidation(KeteranganBelajarRequest::class);
 
         CRUD::setFromDb(); // fields
 
@@ -166,22 +164,30 @@ class IzinTinggalCrudController extends CrudController
     }
 
     public function print($id){
-        $izin = IzinTinggal::find($id);
-
-        $template = new TemplateProcessor('word-template/K-izin-tinggal.docx');
+        $izin = KeteranganBelajar::find($id);
+        $t_ajaran_1 = intval(now()->isoFormat('Y'));
+        $t_ajaran_2 = $t_ajaran_1 + 1;
+        $template = new TemplateProcessor('word-template/M-keterangan-belajar.docx');
         $template->setValues([
             'no_surat' => $izin->no_surat,
             'nama' => $izin->user->name,
-            'nama_arab' => $izin->user->biodata->nama,
+//            'nama_arab' => $izin->user->biodata->nama,
             'no_paspor' => $izin->user->biodata->no_paspor,
+            'pekerjaan' => $izin->user->biodata->pekerjaan,
             'tgl_lahir' => $izin->user->biodata->tanggal_lahir->format('d/M/Y'),
+            'alamat_mesir' => $izin->user->biodata->alamat_mesir,
+            'kota_mesir' => $izin->user->biodata->kota_mesir,
+            'provinsi_mesir' => $izin->user->biodata->provinsi_mesir,
+            'no_mesir' => $izin->user->biodata->no_mesir,
+            'thn_ajaran' => $t_ajaran = $t_ajaran_1 . "/" . $t_ajaran_2,
             'tgl_verif' => now()->isoFormat('dddd, D MMMM Y'),
             'ttd_nama' => $izin->tandaTangan->nama,
             'ttd_jabatan' => $izin->tandaTangan->jabatan,
+            'ttd_nip' => $izin->tandaTangan->nip,
 
         ]);
 
-        $filename = 'izin-tinggal_' . $izin->user->name;
+        $filename = 'keterangan-belajar' . $izin->user->name;
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
@@ -194,17 +200,17 @@ class IzinTinggalCrudController extends CrudController
 
     public function approve($id){
 
-        IzinTinggal::find($id)->update([
+        KeteranganBelajar::find($id)->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'approved'
         ]);
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/izin-tinggal');
+        return redirect('admin/keterangan-belajar');
     }
 
     public function decline($id){
-        IzinTinggal::find($id)->update([
+        KeteranganBelajar::find($id)->update([
             'status' => 'declined'
         ]);
     }

@@ -23,7 +23,6 @@
 @section('content')
   <!-- Default box -->
   <div class="row">
-
     <!-- THE ACTUAL CONTENT -->
     <div class="{{ $crud->getListContentClass() }}">
 
@@ -47,6 +46,18 @@
           @include('crud::inc.filters_navbar')
         @endif
 
+{{--        @php--}}
+{{--            $params = $crud->getRequest()->request->all();--}}
+{{--            if ($params){--}}
+{{--                $te = json_decode($params['from_to'], true);--}}
+{{--                $pex = date('F', strtotime($te['from'])) .' ' .  $te['from'] .--}}
+{{--                ' - ' . date('F', strtotime($te['to'])) . ' ' . $te['to'];--}}
+{{--            }--}}
+{{--        @endphp--}}
+
+{{--        @if($params)--}}
+{{--            {{dd($pex)}}--}}
+{{--        @endif--}}
         <table id="crudTable" class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
             <thead>
               <tr>
@@ -79,17 +90,17 @@
                       data-visible="{{var_export($column['visibleInTable'] ?? true)}}"
                       data-can-be-visible-in-table="true"
                       data-visible-in-modal="{{var_export($column['visibleInModal'] ?? true)}}"
-                      @if(isset($column['visibleInExport']))                     
+                      @if(isset($column['visibleInExport']))
                          @if($column['visibleInExport'] === false)
-                           data-visible-in-export="false"   
-                           data-force-export="false"    
-                         @else    
-                           data-visible-in-export="true"    
-                           data-force-export="true"   
-                         @endif   
-                       @else    
-                         data-visible-in-export="true"    
-                         data-force-export="false"    
+                           data-visible-in-export="false"
+                           data-force-export="false"
+                         @else
+                           data-visible-in-export="true"
+                           data-force-export="true"
+                         @endif
+                       @else
+                         data-visible-in-export="true"
+                         data-force-export="false"
                        @endif
                     @endif
                   >
@@ -98,8 +109,8 @@
                 @endforeach
 
                 @if ( $crud->buttons()->where('stack', 'line')->count() )
-                  <th data-orderable="false" 
-                      data-priority="{{ $crud->getActionsColumnPriority() }}" 
+                  <th data-orderable="false"
+                      data-priority="{{ $crud->getActionsColumnPriority() }}"
                       data-visible-in-export="false"
                       >{{ trans('backpack::crud.actions') }}</th>
                 @endif

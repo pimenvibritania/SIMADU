@@ -29,7 +29,6 @@ class RedirectIfAuthenticated
 
                 }
 
-
                 return redirect('dashboard');
 
             }

@@ -103,16 +103,18 @@
                             </div>
                         </div>
 
-                        <div class="text-center mt-3">
-                            <div class="col-md-12">
-                                <label for="file_img_ijazah" class="mb-2" >Ijazah</label>
-                                @if ($errors->has('file_img_ijazah'))
-                                    <br>
-                                    <span class="text-danger">{{ $errors->first('file_img_ijazah') }}</span>
-                                @endif
-                                <input type="file" class="form-control"  name="file_img_ijazah" />
+                       @if(auth()->user()->biodata->img_ijazah == null)
+                            <div class="text-center mt-3">
+                                <div class="col-md-12">
+                                    <label for="file_img_ijazah" class="mb-2" >Ijazah</label>
+                                    @if ($errors->has('file_img_ijazah'))
+                                        <br>
+                                        <span class="text-danger">{{ $errors->first('file_img_ijazah') }}</span>
+                                    @endif
+                                    <input type="file" class="form-control"  name="file_img_ijazah" />
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="col-md">
                             <button type="submit" style="width: 100%; " class="mt-3 btn btn-primary">Tambah</button>

@@ -12,7 +12,8 @@ class TandaTangan extends Model
 
     protected $fillable = [
         'nama',
-        'jabatan'
+        'jabatan',
+        'nip'
     ];
 
 }

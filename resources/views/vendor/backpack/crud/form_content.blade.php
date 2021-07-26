@@ -1,3 +1,7 @@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+
 <input type="hidden" name="http_referrer" value={{ session('referrer_url_override') ?? old('http_referrer') ?? \URL::previous() ?? url($crud->route) }}>
 
 {{-- See if we're using tabs --}}
@@ -8,6 +12,59 @@
   <div class="card">
     <div class="card-body row">
       @include('crud::inc.show_fields', ['fields' => $crud->fields()])
+
+{{--        START PNBP TRANSACTION--}}
+      @if($crud->entity_name == 'pnbp')
+        <div class="form-group col-sm-4" element="div">
+            <label>Biaya</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text" readonly name="biaya" value="" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-sm-8" element="div">
+            <label>Jenis Pnbp</label>
+            <input type="text" readonly name="jenis_pnbp" value="" class="form-control">
+        </div>
+        <input type="hidden" name="kode_pnbp" value="" class="form-control">
+
+
+            <script>
+
+            $(function () {
+                $("#kodePnbp").change(function () {
+                    let kode = $(this).find("option:selected").text();
+                    // let _token   = $('meta[name="csrf-token"]').attr('content');
+                    // alert("Selected Text: " + kode);
+                    $.ajax({
+                        url: "{{route('pnbp_ajax')}}",
+                        type:"POST",
+                        data:{
+                            kode:kode,
+                            // _token: _token
+                        },
+                        success:function(response){
+                            // console.log(response);
+                            if(response) {
+                                // $('.success').text(response.success);
+                                $('input[name=jenis_pnbp]').val(response.jenis);
+                                $('input[name=biaya]').val(response.biaya);
+                                $('input[name=kode_pnbp]').val(response.kode);
+
+                            }
+                        },
+                    });
+
+
+                });
+            });
+          </script>
+      @endif
+{{--        END PNBP TRANSACTION--}}
+
+
     </div>
   </div>
 @endif

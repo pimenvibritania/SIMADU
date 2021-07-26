@@ -42,7 +42,8 @@
                   </a>
                </div>
            </div>
-           <div class="card-body">
+           @if(auth()->user()->hasROle('tki'))
+               <div class="card-body">
                <div class="row">
                    <div class="col-md-6 col-lg-4 column">
                        <a href="{{route('izin-tinggal.index')}}" style="text-decoration: none">
@@ -92,6 +93,57 @@
 
                </div>
            </div>
+           @else
+               <div class="card-body">
+                   <div class="row">
+                       <div class="col-md-6 col-lg-4 column">
+                           <a href="{{route('keterangan-belajar.index')}}" style="text-decoration: none">
+                               <div class="card izin-tinggal">
+                                   <div class="txt">
+                                       <h1>SURAT </br>
+                                           KETERANGAN BELAJAR</h1>
+                                       <p>
+                                           lorem ipsum
+                                       </p>
+                                   </div>
+
+                               </div>
+                           </a>
+                       </div>
+                       <div class="col-md-6 col-lg-4 column">
+                           <a href="{{route('pengampunan.index')}}" style="text-decoration: none">
+                               <div class="card pengampunan">
+                                   <div class="txt">
+                                       <h1>SURAT PINDAH</br>
+                                           KULIAH KE INDONESIA</h1>
+                                       <p>
+                                           lorem ipsum
+
+                                       </p>
+                                   </div>
+
+                               </div>
+                           </a>
+                       </div>
+                       <div class="col-md-6 col-lg-4 column">
+                           <a href="{{route('alamat-mesir.index')}}" style="text-decoration: none">
+                               <div class="card mesir">
+                                   <div class="txt">
+                                       <h1>SURAT PINDAH</br>
+                                           KULIAH KE LUAR NEGERI</h1>
+                                       <p>
+                                           lorem ipsum
+
+                                       </p>
+                                   </div>
+
+                               </div>
+                           </a>
+                       </div>
+
+                   </div>
+               </div>
+           @endif
        </div>
 
     </div>

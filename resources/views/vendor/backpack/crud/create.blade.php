@@ -45,7 +45,6 @@
 		      @else
 		      	@include('crud::form_content', [ 'fields' => $crud->fields(), 'action' => 'create' ])
 		      @endif
-
 	          @include('crud::inc.form_save_buttons')
 		  </form>
 	</div>
