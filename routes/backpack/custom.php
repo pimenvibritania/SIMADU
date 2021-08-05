@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\KuliahIfthaCrudController;
 use App\Http\Controllers\Admin\LegalisirCrudController;
 use App\Http\Controllers\Admin\MasterPnbpCrudController;
 use App\Http\Controllers\Admin\MasukKuliahCrudController;
+use App\Http\Controllers\Admin\MasukMahadCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
 use App\Http\Controllers\Admin\PindahKuliahIndonesiaCrudController;
@@ -124,6 +125,11 @@ Route::group([
     Route::post('kuliahiftha/{id}/approve', [KuliahIfthaCrudController::class, 'approve']);
     Route::post('kuliahiftha/{id}/decline', [KuliahIfthaCrudController::class, 'decline']);
     Route::get('kuliahiftha/{id}/print', [KuliahIfthaCrudController::class, 'print']);
+
+    Route::crud('masukmahad', 'MasukMahadCrudController');
+    Route::post('masukmahad/{id}/approve', [MasukMahadCrudController::class, 'approve']);
+    Route::post('masukmahad/{id}/decline', [MasukMahadCrudController::class, 'decline']);
+    Route::get('masukmahad/{id}/print', [MasukMahadCrudController::class, 'print']);
 
     //ADMIN TRANSACTION
 

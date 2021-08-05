@@ -165,6 +165,13 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     }
 
     public function print($id){
+
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
         $izin = PindahKuliahIndonesia::find($id);
         $template = new TemplateProcessor('word-template/M-pindah-kuliah-indonesia.docx');
         $template->setValues([

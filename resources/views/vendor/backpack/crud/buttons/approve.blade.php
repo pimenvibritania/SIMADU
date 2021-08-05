@@ -1,7 +1,8 @@
 @php
     $ttd = \App\Models\TandaTangan::all() ?? null;
     $ganti = \App\Models\ChangableWord::all() ?? null;
-    $ganti_kb = $ganti->where('type', 'tujuan');
+    $ganti_tujuan = $ganti->where('type', 'tujuan');
+    $ganti_keterangan = $ganti->where('type', 'keterangan');
 @endphp
 
 @if($entry->status == 'new')
@@ -233,14 +234,14 @@
                             </script>
                         @endif
 
-{{--                        MASUK KULIAH--}}
-                        @if($crud->entity_name == ('masukkuliah' || 'kuliahiftha'))
+{{--                        MASUK KULIAH & IFTHA && Mahad--}}
+                        @if($crud->entity_name == ('masukkuliah' || 'kuliahiftha' || 'masukmahad'))
                             <div class="form-group mt-3">
                                 <label for="changable-word" class="col-form-label">Ditunjukan Kepada:</label>
                                 <select class="form-control" id="changable-word" name="changable-word-id">
                                     @if(!$ganti->isEmpty())
                                         <option value=""> Select option</option>
-                                        @foreach($ganti_kb as $word)
+                                        @foreach($ganti_tujuan as $word)
                                             <option value="{{$word->id}}" >
                                                 {{$word->judul}}
                                             </option>
@@ -252,10 +253,69 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="preview-word" class="col-form-label">Preview Tujuan</label>
-                                <textarea readonly rows="4" class="form-control" id="preview-word">
+                                <textarea readonly rows="3" class="form-control" id="preview-word">
 
                                 </textarea>
                             </div>
+
+                            @if($crud->entity_name == 'masukmahad')
+
+                                <div class="form-group mt-3">
+                                    <label for="jenjang" class="col-form-label">Jenjang</label>
+                                    <input readonly type="text" class="form-control" id="jenjang" value="{{$entry->jenjang}}">
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label for="changable-word-2" class="col-form-label">Keterangan</label>
+                                    <select class="form-control" id="changable-word-2" name="changable-word-id-2">
+                                        @if(!$ganti->isEmpty())
+                                            <option value=""> Select option</option>
+                                            @foreach($ganti_keterangan as $word)
+                                                <option value="{{$word->id}}" >
+                                                    {{$word->judul}}
+                                                </option>
+                                            @endforeach
+                                        @else
+                                            <option disabled >Data kosong</option>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="preview-word-2" class="col-form-label">Preview Keterangan</label>
+                                    <textarea readonly rows="6" class="form-control" id="preview-word-2">
+
+                                </textarea>
+                                </div>
+                                <script>
+                                    $('#changable-word-2').change(function(){
+                                        $('#preview-word-2').val('');
+                                        word_id = this.value
+                                        console.log(word_id)
+                                        if (word_id !== ''){
+                                            $.ajax({
+                                                url: `{{backpack_url('changable-word')}}/${word_id}`,
+                                                type: 'GET',
+                                                success: function(result) {
+                                                    // Show an alert with the result
+                                                    console.log(result.response)
+                                                    $('#preview-word-2').val(result.response.deskripsi);
+
+                                                },
+                                                error: function(result) {
+                                                    // Show an alert with the result
+                                                    new Noty({
+                                                        text: "The new entry could not be created. Please try again.",
+                                                        type: "warning"
+                                                    }).show();
+
+                                                    console.log(result);
+                                                }
+                                            })
+
+                                        }
+                                    });
+                                </script>
+                            @endif
 
                             <script>
                                 $('#changable-word').change(function(){

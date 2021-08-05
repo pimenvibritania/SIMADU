@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MasukKuliahRequest;
-use App\Models\Mahasiswa\MasukKuliah;
-use App\Notifications\MasukKuliahNotification;
+use App\Http\Requests\MasukMahadRequest;
+use App\Models\Mahasiswa\MasukMahad;
+use App\Notifications\MasukMahadNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
 /**
- * Class MasukKuliahCrudController
+ * Class MasukMahadCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class MasukKuliahCrudController extends CrudController
+class MasukMahadCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -32,6 +33,7 @@ class MasukKuliahCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
         update as traitUpdate;
     }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -39,9 +41,9 @@ class MasukKuliahCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Mahasiswa\MasukKuliah::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/masukkuliah');
-        CRUD::setEntityNameStrings('masukkuliah', 'masuk_kuliahs');
+        CRUD::setModel(\App\Models\Mahasiswa\MasukMahad::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/masukmahad');
+        CRUD::setEntityNameStrings('masukmahad', "Masuk Ma'had");
         $this->crud->enableExportButtons();
 
     }
@@ -59,7 +61,6 @@ class MasukKuliahCrudController extends CrudController
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
 
-
         $this->crud->addButtonFromView('line', 'approve', 'approve', 'end');
 
         $this->crud->addFilter([
@@ -74,7 +75,6 @@ class MasukKuliahCrudController extends CrudController
             $this->crud->addClause('where', 'status', $value);
         });
 
-        // daterange filter
         $this->crud->addFilter([
             'type'  => 'date_range',
             'name'  => 'from_to',
@@ -90,7 +90,7 @@ class MasukKuliahCrudController extends CrudController
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('masukkuliah/' . $entry->id . '/show');
+                    return backpack_url('masukmahad/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -99,8 +99,7 @@ class MasukKuliahCrudController extends CrudController
         CRUD::column('user')->type('relationship')
             ->label('name');
 
-        CRUD::column('fakultas_id')->type('relationship')
-            ->label('fakultas');
+        CRUD::column('jenjang');
 
         CRUD::column('created_at')
             ->type('date')
@@ -130,12 +129,6 @@ class MasukKuliahCrudController extends CrudController
                 'style' => 'width: 100px'
             ]
         );
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -146,9 +139,10 @@ class MasukKuliahCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MasukKuliahRequest::class);
+        CRUD::setValidation(MasukMahadRequest::class);
 
         CRUD::setFromDb(); // fields
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -168,49 +162,53 @@ class MasukKuliahCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function approve($id){
-
-        $kb = MasukKuliah::find($id);
-        $cw = request('changable-word-id');
-        $kb->update([
-            'tanda_tangan_id' => request('tanda_tangan_id'),
-            'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'disetujui'
-        ]);
-        $kb->words()->attach($cw);
-
-        Notification::send($kb->user,
-            new MasukKuliahNotification($kb));
-
-        Alert::success('Pendaftaran kuliah telah di setujui')->flash();
-        return redirect('admin/masukkuliah');
-    }
-
-    public function decline($id){
-        MasukKuliah::find($id)->update([
-            'status' => 'ditolak'
-        ]);
-    }
-
-    public function print($id){
+    public function approve(Request $request, $id){
 
         if ((\request('changable-word-id') == null) ||
+            (\request('changable-word-id-2') == null) ||
             (\request('tanda_tangan_id') == null) ||
             (\request('tgl_ambil') == null)){
             Alert::error('Semua field harus diisi')->flash();
             return redirect()->back();
         }
 
-        $izin = MasukKuliah::find($id);
+        $kb = MasukMahad::find($id);
+        $cw = request('changable-word-id');
+        $cw2 = request('changable-word-id-2');
+        $kb->update([
+            'tanda_tangan_id' => request('tanda_tangan_id'),
+            'tgl_ambil'     => request('tgl_ambil'),
+            'status' => 'disetujui'
+        ]);
+
+        $kb->words()->attach([$cw, $cw2]);
+
+        Notification::send($kb->user,
+            new MasukMahadNotification($kb));
+
+        Alert::success('Pendaftaran kuliah Mahad di setujui')->flash();
+        return redirect('admin/masukmahad');
+    }
+
+    public function decline($id){
+        MasukMahad::find($id)->update([
+            'status' => 'ditolak'
+        ]);
+    }
+
+    public function print($id){
+        $izin = MasukMahad::find($id);
         $t_ajaran_1 = intval(now()->isoFormat('Y'));
         $t_ajaran_2 = $t_ajaran_1 + 1;
-        $template = new TemplateProcessor('word-template/M-masuk-kuliah.docx');
+        $template = new TemplateProcessor('word-template/M-masuk-mahad.docx');
         $tujuan = $izin->words()->where('type', 'tujuan')->first();
+        $keterangan = $izin->words()->where('type', 'keterangan')->first();
         $template->setValues([
             'no_surat' => $izin->no_surat,
             'nama_arab' => $izin->user->biodata->nama,
             'no_paspor' => $izin->user->biodata->no_paspor,
             'tujuan' => $tujuan->deskripsi,
+            'w_keterangan' => $keterangan->deskripsi,
             'thn_ajaran' => $t_ajaran = $t_ajaran_1 . "/" . $t_ajaran_2,
             'tgl_verif' => now()->format('d M Y'),
             'ttd_nama' => $izin->tandaTangan->nama,
@@ -218,7 +216,7 @@ class MasukKuliahCrudController extends CrudController
 
         ]);
 
-        $filename = 'masuk-kuliah_' . $izin->user->name;
+        $filename = 'masuk-mahad_' . $izin->user->name;
         $template->saveAs($filename . '.docx' );
 
         $izin->update([

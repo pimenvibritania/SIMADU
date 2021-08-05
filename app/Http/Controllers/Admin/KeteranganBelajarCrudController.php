@@ -167,6 +167,13 @@ class KeteranganBelajarCrudController extends CrudController
     }
 
     public function print($id){
+
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
         $izin = KeteranganBelajar::find($id);
         $t_ajaran_1 = intval(now()->isoFormat('Y'));
         $t_ajaran_2 = $t_ajaran_1 + 1;

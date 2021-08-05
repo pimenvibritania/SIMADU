@@ -138,6 +138,8 @@ Route::group([
         Route::resource('custom-letter', 'CustomLetterController');
         Route::resource('masuk-kuliah', 'MasukKuliahController');
         Route::resource('kuliah-iftha', 'KuliahIfthaController');
+        Route::resource('masuk-mahad', 'MasukMahadController');
+
 
     });
 });
