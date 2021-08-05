@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 @section('content')
     <div class="container">
@@ -13,7 +14,6 @@
         <div class="card mb-5">
             <div class="card-header">
                     Dashboard
-
             </div>
             <div class="card-body">
                 <div class="row">

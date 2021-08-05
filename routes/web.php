@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\IzinTinggalController;
 use App\Http\Controllers\WilayahController;
@@ -24,6 +25,9 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::post('mark-notification', [AdminController::class, 'markNotification'])
+    ->name('markNotification');
 
 Route::group([
     'prefix' => 'wilayah'
@@ -97,15 +101,15 @@ Route::group([
         return view('pages.dashboard');
     })->name('dashboard');
 
+    Route::get('surat/dashboard', function (){
+       return view('pages.surat.dashboard');
+    })->name('surat.dashboard');
+
     Route::group([
         'prefix' => 'surat',
         'middleware' => ['web', 'role:tki'],
 
     ], function (){
-
-        Route::get('dashboard', function (){
-           return view('pages.surat.dashboard');
-        })->name('surat.dashboard');
 
         Route::resource('izin-tinggal', 'IzinTinggalController');
         Route::resource('pengampunan', 'PengampunanController');
@@ -128,13 +132,12 @@ Route::group([
 
     ], function (){
 
-        Route::get('dashboard', function (){
-            return view('pages.surat.dashboard');
-        })->name('surat.dashboard');
-
         Route::resource('keterangan-belajar', 'KeteranganBelajarController');
         Route::resource('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaController');
         Route::resource('pindah-kuliah-luar-negeri', 'PindahKuliahLuarNegeriController');
+        Route::resource('custom-letter', 'CustomLetterController');
+        Route::resource('masuk-kuliah', 'MasukKuliahController');
+        Route::resource('kuliah-iftha', 'KuliahIfthaController');
 
     });
 });

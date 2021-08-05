@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PindahKuliahLuarNegeriRequest;
 use App\Models\Mahasiswa\PindahKuliahLuarNegeri;
+use App\Notifications\PindahLuarNegeriNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
@@ -38,7 +40,7 @@ class PindahKuliahLuarNegeriCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Mahasiswa\PindahKuliahLuarNegeri::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/pindah-kuliah-luar-negeri');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/pindahkuliahluarnegeri');
         CRUD::setEntityNameStrings('pindahkuliahluarnegeri', 'pindah_kuliah_luar_negeris');
         $this->crud->enableExportButtons();
 
@@ -65,8 +67,8 @@ class PindahKuliahLuarNegeriCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
@@ -112,7 +114,7 @@ class PindahKuliahLuarNegeriCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -185,7 +187,7 @@ class PindahKuliahLuarNegeriCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'diunduh'
         ]);
 
         return response()->download($filename . '.docx', '')
@@ -194,18 +196,23 @@ class PindahKuliahLuarNegeriCrudController extends CrudController
 
     public function approve($id){
 
-        PindahKuliahLuarNegeri::find($id)->update([
+        $pk = PindahKuliahLuarNegeri::find($id);
+        $pk->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+
+        Notification::send($pk->user,
+            new PindahLuarNegeriNotification($pk));
+
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/pindah-kuliah-luar-negeri');
+        return redirect('admin/pindahkuliahluarnegeri');
     }
 
     public function decline($id){
         PindahKuliahLuarNegeri::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }

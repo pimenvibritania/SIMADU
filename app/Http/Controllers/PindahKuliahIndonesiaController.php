@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Mahasiswa\PindahKuliahIndonesia;
+use App\Models\User;
+use App\Notifications\PindahKuliahNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
 class PindahKuliahIndonesiaController extends Controller
@@ -42,28 +45,11 @@ class PindahKuliahIndonesiaController extends Controller
                     }
 
                 })
-                ->addColumn('action', function($row){
-
-//                    $btn = '<a href="{{url()}}" class="edit btn btn-primary btn-sm">View</a>';
-
-                    return $this->getActionColumn($row);
-                })
-                ->rawColumns(['status','action'])
+                ->rawColumns(['status'])
                 ->make(true);
         }
 
         return view('pages.surat.pindah_kuliah_indonesia.index');
-    }
-
-    private function getActionColumn($data)
-    {
-        $showUrl = route('pindah-kuliah-indonesia.show', $data->id);
-        return "<a class='waves-effect btn mybtn' data-value='$data->id'
-                href='$showUrl'><i class='fa fa-eye'></i> Details</a>";
-//        $editUrl = route('admin.brands.edit', $data->id);
-//        return "<a class='waves-effect btn btn-success' data-value='$data->id' href='$showUrl'><i class='material-icons'>visibility</i>Details</a>
-//                        <a class='waves-effect btn btn-primary' data-value='$data->id' href='$editUrl'><i class='material-icons'>edit</i>Update</a>
-//                        <button class='waves-effect btn deepPink-bgcolor delete' data-value='$data->id' ><i class='material-icons'>delete</i>Delete</button>";
     }
 
     public function create()
@@ -93,7 +79,7 @@ class PindahKuliahIndonesiaController extends Controller
             strtoupper(substr($name, 0, 1)) . '/' . backpack_user()->id ,
             3);
 
-        PindahKuliahIndonesia::create([
+        $pk = PindahKuliahIndonesia::create([
             'user_id' => backpack_user()->id,
             'no_permohonan' => $no_permohonan,
             'no_surat' => $request->no_surat,
@@ -102,6 +88,14 @@ class PindahKuliahIndonesiaController extends Controller
             'keperluan' => $request->keperluan,
             'status' => 'new'
         ]);
+
+        $admins = User::whereHas('roles', function ($query){
+            $query->where('id', 1);
+        })->get();
+
+        Notification::send($admins, new PindahKuliahNotification(
+            $pk->with('user')->where('id', $pk->id)->first()
+        ));
 
         return \redirect('surat/pindah-kuliah-indonesia')
             ->with('successMsg','Pengajuan Pindah Kuliah ke Indonesia berhasil di ajukan');

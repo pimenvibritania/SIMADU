@@ -1,3 +1,16 @@
+<style>
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background-color: #868686;
+    }
+
+    .dropdown-menu > li:hover, .dropdown-menu > li:focus {
+        background-color: #868686;
+    }
+</style>
+@php
+    $notifications = auth()->user()->unreadNotifications;
+
+@endphp
 <section style=" width: 100%; box-sizing: border-box; background-color: #FFFFFF">
 
     <nav
@@ -74,7 +87,117 @@
 
 
                 </ul>
+                <div class="dropdown">
+                    <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span style="font-size: 1.5em; color: black;">
+                            <i class="fas fa-bell"></i>
+                                <span id="badge" style="font-size: 0.5em;
+                                float: right;
+                                color: white;
+                                border-radius: 25px ;
+                                padding: 2px 8px;
+                                background: red">
+                                    {{$notifications->count()}}
+                                </span>
 
+                        </span>
+                    </a>
+
+                    <ul class="no-notif dropdown-menu dropdown-menu-md-left" style="right: 0; left: auto" aria-labelledby="dropdownMenuButton1">
+                       @if(isset($notifications))
+                            @forelse($notifications as $notif)
+                                @if($loop->iteration > 10)
+
+                                    @break
+
+                                @endif
+                                <li class="notif dropdown-item" >
+                                    <a style="font-size: 0.8em" href="{{route($notif->data['uri'] )}}" class="btn btn-secondary " role="alert">
+                                        Pengajuan dengan nomor permohonan [{{$notif->data['data']['no_permohonan']}}] {{$notif->data['data']['status']}}
+                                    </a>
+                                    <a style="font-size: 0.8em" href="#" class="btn btn-danger float-right mark-as-read ml-4 " data-id="{{$notif->id}}">
+                                        x
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                @if($loop->last)
+                                    <div style="margin-left: 1em; padding: 5px 0px">
+                                        <a style="font-size: 0.8em" href="#"  class="btn btn-sm btn-danger " id="mark-all">
+                                            Mark all as read
+                                        </a>
+                                    </div>
+                                @endif
+                            @empty
+                                <li class="dropdown-item">
+                                    There are no new notifications
+                                </li>
+                            @endforelse
+
+                                <script>
+                                    function sendMarkRequest(id = null) {
+                                        return $.ajax("{{route('markNotification')}}", {
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            },
+                                            method: "POST",
+                                            data: {
+                                                id
+                                            },
+                                            success: function(result) {
+                                                // Show an alert with the result
+                                                console.log(result.total)
+                                                // $('#preview-word').val(result.response.deskripsi);
+                                                $('span#badge').text(result.total)
+                                            },
+                                        });
+                                    }
+
+                                    $(function () {
+                                        $('.mark-as-read').click(function () {
+                                            let request = sendMarkRequest($(this).data('id'));
+
+                                            request.done(()=>{
+                                                $(this).parents('li.notif').remove();
+                                                if( !$('li.notif').length )         // use this if you are using id to check
+                                                {
+                                                    $('a#mark-all').remove();
+                                                    $('div.dropdown-divider').remove();
+                                                    $('ul.no-notif').append(
+                                                        `
+                                                        <li class="dropdown-item">
+                                                            There are no new notifications
+                                                        </li>
+                                                        `
+                                                    );
+                                                }
+                                            });
+                                        });
+
+                                        $('#mark-all').click(function () {
+                                            let request = sendMarkRequest();
+
+                                            request.done(()=>{
+                                                $('li.notif').remove();
+                                                $('a#mark-all').remove();
+                                                $('div.dropdown-divider').remove();
+                                                $('ul.no-notif').append(
+                                                    `
+                                                        <li class="dropdown-item">
+                                                            There are no new notifications
+                                                        </li>
+                                                        `
+                                                );
+                                            })
+                                        })
+
+                                    })
+                                </script>
+
+                       @endif
+
+{{--                        <li><a class="dropdown-item" href="{{ backpack_url('logout') }}"><i class="fa fa-sign-out" style="margin-right: 10px"></i> {{ trans('backpack::base.logout') }}</a></li>--}}
+                    </ul>
+                </div>
                 <div class="dropdown">
                     <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <img class="img-avatar" src="{{ backpack_avatar_url(backpack_auth()->user()) }}" alt="{{ backpack_auth()->user()->name }}">
@@ -89,4 +212,6 @@
             </div>
         </div>
     </nav>
+
+
 </section>

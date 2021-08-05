@@ -1,15 +1,15 @@
 models:
-  Models\MasterPnbp:
-    kode: string
-    is_active: boolean
-    jenis: string
-    biaya: string
-  Models\Pnbp:
-    master_pnbp_id: id foreign
-    tanggal: date
-    nama_pemohon: string
-    kode_pnbp: string
-    biaya: string
-    keterangan: string
+  Models\KuliahIftha:
+    user_id: id foreign
+    fakultas_id: id foreign
+    type: string
+    no_permohonan: string
+    no_surat: string
+    tujuan: string
+    keperluan: string
+    tanda_tangan_id: id foreign nullable
+    status: string
+    jml_surat: integer
+    tgl_ambil: date nullable
 
-seeders: MasterPnbp, Pnbp
+seeders: KuliahIftha

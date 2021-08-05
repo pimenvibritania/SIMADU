@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\KeteranganBelajarRequest;
 use App\Models\Mahasiswa\KeteranganBelajar;
+use App\Models\User;
+use App\Notifications\KeteranganBelajarNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
@@ -66,8 +69,8 @@ class KeteranganBelajarCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
@@ -113,7 +116,7 @@ class KeteranganBelajarCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -191,7 +194,7 @@ class KeteranganBelajarCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'diunduh'
         ]);
 
         return response()->download($filename . '.docx', '')
@@ -200,18 +203,23 @@ class KeteranganBelajarCrudController extends CrudController
 
     public function approve($id){
 
-        KeteranganBelajar::find($id)->update([
+        $kb = KeteranganBelajar::find($id);
+        $kb->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+
+        Notification::send($kb->user,
+            new KeteranganBelajarNotification($kb));
+
         Alert::success('Surat izin telah di setujui')->flash();
         return redirect('admin/keterangan-belajar');
     }
 
     public function decline($id){
         KeteranganBelajar::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PindahKuliahIndonesiaRequest;
 use App\Models\Mahasiswa\PindahKuliahIndonesia;
+use App\Notifications\PindahKuliahNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
@@ -194,19 +196,22 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     }
 
     public function approve($id){
-
-        PindahKuliahIndonesia::find($id)->update([
+        $pk = PindahKuliahIndonesia::find($id);
+        $pk->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+        Notification::send($pk->user,
+            new PindahKuliahNotification($pk));
+
         Alert::success('Surat izin telah di setujui')->flash();
         return redirect('admin/pindah-kuliah-indonesia');
     }
 
     public function decline($id){
         PindahKuliahIndonesia::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }

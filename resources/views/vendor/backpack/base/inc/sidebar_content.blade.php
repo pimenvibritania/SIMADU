@@ -22,6 +22,12 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-graduation-cap"></i> Layanan Mahasiswa</a>
     <ul class="nav-dropdown-items">
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keterangan-belajar') }}'><i class='nav-icon la la-book-open'></i> Keterangan Belajar</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindah-kuliah-indonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-plane-departure'></i> Pindah Kuliah Luar Negeri</a></li>
+        <div class="dropdown-divider"></div>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-cash-register'></i> Daftar Kuliah</a></li>
+
 
     </ul>
 </li>
@@ -46,6 +52,8 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-signature'></i> Penanda Tangan</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('master-pnbp') }}'><i class='nav-icon la la-archive'></i> Master PNBP</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fakultas') }}'><i class='nav-icon la la-building-o'></i> Fakultas</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('changableword') }}'><i class='nav-icon la la-pen-square'></i> Changable Words</a></li>
 
     </ul>
 
@@ -61,15 +69,23 @@
     </ul>
 </li>
 
+{{--<li class='nav-item'><a class='nav-link' href='{{ backpack_url('customletter') }}'><i class='nav-icon la la-question'></i> CustomLetters</a></li>--}}
+
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('aktalahir') }}'><i class='nav-icon la la-question'></i> AktaLahirs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamatindonesia') }}'><i class='nav-icon la la-question'></i> AlamatIndonesias</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('alamatmesir') }}'><i class='nav-icon la la-question'></i> AlamatMesirs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('biodata') }}'><i class='nav-icon la la-question'></i> Biodatas</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('changableword') }}'><i class='nav-icon la la-question'></i> ChangableWords</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintinggal') }}'><i class='nav-icon la la-question'></i> IzinTinggals</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('kepentingan') }}'><i class='nav-icon la la-question'></i> Kepentingans</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganlahir') }}'><i class='nav-icon la la-question'></i> KeteranganLahirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('kuliahiftha') }}'><i class='nav-icon la la-question'></i> KuliahIfthas</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('legalisir') }}'><i class='nav-icon la la-question'></i> Legalisirs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('fakultas') }}'><i class='nav-icon la la-question'></i> Fakultas</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganbelajar') }}'><i class='nav-icon la la-question'></i> KeteranganBelajars</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-question'></i> MasukKuliahs</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahindonesia') }}'><i class='nav-icon la la-question'></i> PindahKuliahIndonesias</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-question'></i> PindahKuliahLuarNegeris</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masterpnbp') }}'><i class='nav-icon la la-question'></i> MasterPnbps</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukmesir') }}'><i class='nav-icon la la-question'></i> MasukMesirs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pendidikanmesir') }}'><i class='nav-icon la la-question'></i> PendidikanMesirs</a></li>
@@ -81,5 +97,3 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('visahaji') }}'><i class='nav-icon la la-question'></i> VisaHajis</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('visaumroh') }}'><i class='nav-icon la la-question'></i> VisaUmrohs</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('wilayah') }}'><i class='nav-icon la la-question'></i> Wilayahs</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahindonesia') }}'><i class='nav-icon la la-question'></i> PindahKuliahIndonesias</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-question'></i> PindahKuliahLuarNegeris</a></li>

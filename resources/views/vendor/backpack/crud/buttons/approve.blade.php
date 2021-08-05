@@ -1,5 +1,7 @@
 @php
     $ttd = \App\Models\TandaTangan::all() ?? null;
+    $ganti = \App\Models\ChangableWord::all() ?? null;
+    $ganti_kb = $ganti->where('type', 'tujuan');
 @endphp
 
 @if($entry->status == 'new')
@@ -176,6 +178,115 @@
                     <form method="POST" action="{{url($crud->route . '/' . $entry->getKey() . '/approve' )}}">
                         @csrf
 
+{{--                        CUSTOM LETTER--}}
+
+                        @if($crud->entity_name == 'customletter')
+                            <div class="form-group mt-3">
+                                <label for="changable-word" class="col-form-label">Ganti Kata Surat</label>
+                                <select class="form-control" id="changable-word" name="changable-word-id">
+                                    @if(!$ganti->isEmpty())
+                                        <option value=""> Select option</option>
+                                    @foreach($ganti as $word)
+                                            <option value="{{$word->id}}" >
+                                                {{$word->judul}}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option disabled >Data kosong</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="preview-word" class="col-form-label">Preview Kata</label>
+                                <textarea readonly rows="7" class="form-control" id="preview-word">
+
+                                </textarea>
+                            </div>
+                            <script>
+                                $('#changable-word').change(function(){
+                                    $('#preview-word').val('');
+                                    word_id = this.value
+                                    console.log(word_id)
+                                    if (word_id !== ''){
+                                        $.ajax({
+                                            url: `{{backpack_url('changable-word')}}/${word_id}`,
+                                            type: 'GET',
+                                            success: function(result) {
+                                                // Show an alert with the result
+                                                console.log(result.response)
+                                                $('#preview-word').val(result.response.deskripsi);
+
+                                            },
+                                            error: function(result) {
+                                                // Show an alert with the result
+                                                new Noty({
+                                                    text: "The new entry could not be created. Please try again.",
+                                                    type: "warning"
+                                                }).show();
+
+                                                console.log(result);
+                                            }
+                                        })
+
+                                    }
+                                });
+                            </script>
+                        @endif
+
+{{--                        MASUK KULIAH--}}
+                        @if($crud->entity_name == ('masukkuliah' || 'kuliahiftha'))
+                            <div class="form-group mt-3">
+                                <label for="changable-word" class="col-form-label">Ditunjukan Kepada:</label>
+                                <select class="form-control" id="changable-word" name="changable-word-id">
+                                    @if(!$ganti->isEmpty())
+                                        <option value=""> Select option</option>
+                                        @foreach($ganti_kb as $word)
+                                            <option value="{{$word->id}}" >
+                                                {{$word->judul}}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option disabled >Data kosong</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="preview-word" class="col-form-label">Preview Tujuan</label>
+                                <textarea readonly rows="4" class="form-control" id="preview-word">
+
+                                </textarea>
+                            </div>
+
+                            <script>
+                                $('#changable-word').change(function(){
+                                    $('#preview-word').val('');
+                                    word_id = this.value
+                                    console.log(word_id)
+                                    if (word_id !== ''){
+                                        $.ajax({
+                                            url: `{{backpack_url('changable-word')}}/${word_id}`,
+                                            type: 'GET',
+                                            success: function(result) {
+                                                // Show an alert with the result
+                                                console.log(result.response)
+                                                $('#preview-word').val(result.response.deskripsi);
+
+                                            },
+                                            error: function(result) {
+                                                // Show an alert with the result
+                                                new Noty({
+                                                    text: "The new entry could not be created. Please try again.",
+                                                    type: "warning"
+                                                }).show();
+
+                                                console.log(result);
+                                            }
+                                        })
+
+                                    }
+                                });
+                            </script>
+                        @endif
                         @if($crud->entity_name != 'legalisir')
                             <div class="form-group mt-3">
                                 <label for="tanda-tangan" class="col-form-label">Petugas</label>
@@ -258,14 +369,14 @@
 
 @endif
 
-@if($entry->status == 'approved')
+@if($entry->status == 'disetujui')
     <a href="{{url($crud->route . '/' . $entry->getKey() . '/print')}}" class="btn btn-primary" style="width: 200px">
         <i class="la la-download "></i>
         Download
     </a>
 
 @endif
-@if($entry->status == 'declined')
+@if($entry->status == 'ditolak')
     <a href="{{url($crud->route . '/' . $entry->getKey() . '/delete')}}"
        class="btn btn-danger" style="width: 100px"
        onclick="return confirm('Data pada User juga akan terhapus, Anda yakin?');">

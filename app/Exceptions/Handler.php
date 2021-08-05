@@ -53,9 +53,16 @@ class Handler extends ExceptionHandler
                     if (auth()->user()->hasRole('admin')) {
                         return redirect('admin/dashboard');
                     }
-                   if (auth()->user()->biodata->riwayatPendidikan->count() == 0){
-                       return redirect('pendidikan');
-                   }
+                    if (\auth()->user()->roles->first()->name == 'mahasiswa'){
+
+                        if (auth()->user()->biodata->riwayatPendidikan->count() == 0){
+                            return redirect('pendidikan');
+                        }
+
+                        return redirect('dashboard');
+
+                    }
+
                     return redirect('dashboard');
                 }
             }

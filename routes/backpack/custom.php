@@ -5,15 +5,19 @@
 // --------------------------
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AktaLahirCrudController;
 use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
+use App\Http\Controllers\Admin\ChangableWordCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
 use App\Http\Controllers\Admin\KepentinganCrudController;
 use App\Http\Controllers\Admin\KeteranganBelajarCrudController;
 use App\Http\Controllers\Admin\KeteranganLahirCrudController;
+use App\Http\Controllers\Admin\KuliahIfthaCrudController;
 use App\Http\Controllers\Admin\LegalisirCrudController;
 use App\Http\Controllers\Admin\MasterPnbpCrudController;
+use App\Http\Controllers\Admin\MasukKuliahCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
 use App\Http\Controllers\Admin\PindahKuliahIndonesiaCrudController;
@@ -29,6 +33,7 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
 //    Route::crud('contact', 'ContactCrudController');
+
     Route::crud('biodata', 'BiodataCrudController');
 
     Route::crud('izin-tinggal', 'IzinTinggalCrudController');
@@ -105,23 +110,20 @@ Route::group([
     Route::post('pindah-kuliah-indonesia/{id}/decline', [PindahKuliahIndonesiaCrudController::class, 'decline']);
     Route::get('pindah-kuliah-indonesia/{id}/print', [PindahKuliahIndonesiaCrudController::class, 'print']);
 
-    Route::crud('pindah-kuliah-luar-negeri', 'PindahKuliahLuarNegeriCrudController');
-    Route::post('pindah-kuliah-luar-negeri/{id}/approve', [PindahKuliahLuarNegeriCrudController::class, 'approve']);
-    Route::post('pindah-kuliah-luar-negeri/{id}/decline', [PindahKuliahLuarNegeriCrudController::class, 'decline']);
-    Route::get('pindah-kuliah-luar-negeri/{id}/print', [PindahKuliahLuarNegeriCrudController::class, 'print']);
+    Route::crud('pindahkuliahluarnegeri', 'PindahKuliahLuarNegeriCrudController');
+    Route::post('pindahkuliahluarnegeri/{id}/approve', [PindahKuliahLuarNegeriCrudController::class, 'approve']);
+    Route::post('pindahkuliahluarnegeri/{id}/decline', [PindahKuliahLuarNegeriCrudController::class, 'decline']);
+    Route::get('pindahkuliahluarnegeri/{id}/print', [PindahKuliahLuarNegeriCrudController::class, 'print']);
 
+    Route::crud('masukkuliah', 'MasukKuliahCrudController');
+    Route::post('masukkuliah/{id}/approve', [MasukKuliahCrudController::class, 'approve']);
+    Route::post('masukkuliah/{id}/decline', [MasukKuliahCrudController::class, 'decline']);
+    Route::get('masukkuliah/{id}/print', [MasukKuliahCrudController::class, 'print']);
 
-    Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
-    Route::crud('alamatmesir', 'AlamatMesirCrudController');
-    Route::crud('izintinggal', 'IzinTinggalCrudController');
-    Route::crud('keteranganlahir', 'KeteranganLahirCrudController');
-    Route::crud('masukmesir', 'MasukMesirCrudController');
-    Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
-    Route::crud('tandatangan', 'TandaTanganCrudController');
-    Route::crud('tidakkeluarnegeri', 'TidakKeluarNegeriCrudController');
-    Route::crud('visahaji', 'VisaHajiCrudController');
-    Route::crud('visaumroh', 'VisaUmrohCrudController');
-    Route::crud('wilayah', 'WilayahCrudController');
+    Route::crud('kuliahiftha', 'KuliahIfthaCrudController');
+    Route::post('kuliahiftha/{id}/approve', [KuliahIfthaCrudController::class, 'approve']);
+    Route::post('kuliahiftha/{id}/decline', [KuliahIfthaCrudController::class, 'decline']);
+    Route::get('kuliahiftha/{id}/print', [KuliahIfthaCrudController::class, 'print']);
 
     //ADMIN TRANSACTION
 
@@ -130,9 +132,11 @@ Route::group([
     ->name('pnbp_ajax');
     Route::crud('pnbp', 'PnbpCrudController');
 
-    Route::crud('aktalahir', 'AktaLahirCrudController');
-    Route::crud('masterpnbp', 'MasterPnbpCrudController');
-    Route::crud('keteranganbelajar', 'KeteranganBelajarCrudController');
-    Route::crud('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaCrudController');
-    Route::crud('pindahkuliahindonesia', 'PindahKuliahIndonesiaCrudController');
+    Route::crud('fakultas', 'FakultasCrudController');
+
+    Route::crud('changableword', 'ChangableWordCrudController');
+    Route::get('changable-word/{id}', [ChangableWordCrudController::class, 'ajax'])
+    ->name('changable-ajax');
+    Route::get('changable-word-kb/{id}', [ChangableWordCrudController::class, 'kb']);
+
 }); // this should be the absolute last line of this file

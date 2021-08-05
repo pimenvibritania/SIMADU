@@ -35,7 +35,6 @@
                             <th>Tgl Ambil</th>
                             <th>Diajukan</th>
                             <th>Status</th>
-                            <th width="100px">Action</th>
                         </tr>
                         </thead>
                     </table>
@@ -64,7 +63,6 @@
                     {data: 'created_at', name: 'created_at'},
                     {data: 'status', name: 'status'},
                     // {data: 'email', name: 'email'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
 
