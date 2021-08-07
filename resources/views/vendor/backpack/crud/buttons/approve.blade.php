@@ -235,7 +235,9 @@
                         @endif
 
 {{--                        MASUK KULIAH & IFTHA && Mahad--}}
-                        @if($crud->entity_name == ('masukkuliah' || 'kuliahiftha' || 'masukmahad'))
+                        @if($crud->entity_name == 'masukkuliah'
+                            || $crud->entity_name == 'kuliahiftha'
+                            || $crud->entity_name == 'masukmahad')
                             <div class="form-group mt-3">
                                 <label for="changable-word" class="col-form-label">Ditunjukan Kepada:</label>
                                 <select class="form-control" id="changable-word" name="changable-word-id">
@@ -347,6 +349,71 @@
                                 });
                             </script>
                         @endif
+
+{{--                        KETERANGAN KULIAH ARAB--}}
+
+                        @if(
+
+                            $crud->entity_name == 'pindahfakultas' ||
+                            $crud->entity_name == 'masukruak' ||
+                            $crud->entity_name == 'cutikuliah'
+
+                            )
+
+                            <div class="form-group mt-3">
+                                <label for="changable-word" class="col-form-label">Keterangan:</label>
+                                <select class="form-control" id="changable-word" name="changable-word-id">
+                                    @if(!$ganti->isEmpty())
+                                        <option value=""> Select option</option>
+                                        @foreach($ganti_keterangan as $word)
+                                            <option value="{{$word->id}}" >
+                                                {{$word->judul}}
+                                            </option>
+                                        @endforeach
+                                    @else
+                                        <option disabled >Data kosong</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="preview-word" class="col-form-label">Preview Keterangan</label>
+                                <textarea readonly rows="3" class="form-control" id="preview-word">
+
+                                </textarea>
+                            </div>
+
+                            <script>
+                                $('#changable-word').change(function(){
+                                    $('#preview-word').val('');
+                                    word_id = this.value
+                                    console.log(word_id)
+                                    if (word_id !== ''){
+                                        $.ajax({
+                                            url: `{{backpack_url('changable-word')}}/${word_id}`,
+                                            type: 'GET',
+                                            success: function(result) {
+                                                // Show an alert with the result
+                                                console.log(result.response)
+                                                $('#preview-word').val(result.response.deskripsi);
+
+                                            },
+                                            error: function(result) {
+                                                // Show an alert with the result
+                                                new Noty({
+                                                    text: "The new entry could not be created. Please try again.",
+                                                    type: "warning"
+                                                }).show();
+
+                                                console.log(result);
+                                            }
+                                        })
+
+                                    }
+                                });
+                            </script>
+
+                        @endif
+
                         @if($crud->entity_name != 'legalisir')
                             <div class="form-group mt-3">
                                 <label for="tanda-tangan" class="col-form-label">Petugas</label>

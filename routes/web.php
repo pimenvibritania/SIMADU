@@ -139,7 +139,10 @@ Route::group([
         Route::resource('masuk-kuliah', 'MasukKuliahController');
         Route::resource('kuliah-iftha', 'KuliahIfthaController');
         Route::resource('masuk-mahad', 'MasukMahadController');
-
+        Route::resource('ket-non-beasiswa', 'KetNonBeasiswaController');
+        Route::resource('pindah-fakultas', 'PindahFakultasController');
+        Route::resource('masuk-ruak', 'MasukRuakController');
+        Route::resource('cuti-kuliah', 'CutiKuliahController');
 
     });
 });
