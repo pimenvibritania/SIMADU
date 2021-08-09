@@ -292,13 +292,13 @@
                     </div>
 
                     <div class="col-md-6 col-lg-4 column">
-                        <a href="{{route('custom-letter.index')}}" style="text-decoration: none">
+                        <a href="{{route('masuk-ruak.index')}}" style="text-decoration: none">
                             <div class="card izin-tinggal">
                                 <div class="txt">
-                                    <h1>CUSTOM </br>
-                                        LETTER</h1>
+                                    <h1>DAFTAR MASUK </br>
+                                        RUAK</h1>
                                     <p>
-                                        CUSTOM LETTER
+                                        LOREM
                                     </p>
                                 </div>
 
@@ -306,96 +306,129 @@
                         </a>
                     </div>
 
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('visa-haji.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card haji">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
-{{--                                        VISA HAJI</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika--}}
-{{--                                        Anda pindah antar Negara di luar negeri--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('visa-umroh.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card umroh">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
-{{--                                        VISA UMROH</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika--}}
-{{--                                        Anda pindah antar Negara di luar negeri--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('cuti-kuliah.index')}}" style="text-decoration: none">
+                            <div class="card haji">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        CUTI KULIAH</h1>
+                                    <p>
+                                        LOREM
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('pindah-fakultas.index')}}" style="text-decoration: none">
+                            <div class="card umroh">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        PINDAH FAKULTAS</h1>
+                                    <p>
+                                      LOREM
+                                    </p>
+                                </div>
 
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                            </div>
+                        </a>
+                    </div>
 
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('keterangan-lahir.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card lahir">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
-{{--                                        KETERANGAN LAHIR</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika--}}
-{{--                                        Anda pindah antar Negara di luar negeri--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('cabut-berkas.index')}}" style="text-decoration: none">
+                            <div class="card lahir">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        CABUT BERKAS</h1>
+                                    <p>
+                                       LOREM
+                                    </p>
+                                </div>
 
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                            </div>
+                        </a>
+                    </div>
 
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('kepentingan.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card kepentingan">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
-{{--                                        SURAT BERKEPENTINGAN</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika Anda--}}
-{{--                                        pulang dan menetap kembali di Indonesia--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('tidak-keluar-negeri.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card airport">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
-{{--                                        TIDAK--}}
-{{--                                        KELUAR NEGERI</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika Anda--}}
-{{--                                        pulang dan menetap kembali di Indonesia--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-md-6 col-lg-4 column">--}}
-{{--                        <a href="{{route('tidak-keluar-negeri.index')}}" style="text-decoration: none">--}}
-{{--                            <div class="card kepentingan">--}}
-{{--                                <div class="txt">--}}
-{{--                                    <h1>PENGAJUAN </br>--}}
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('daftar-nilai.index')}}" style="text-decoration: none">
+                            <div class="card kepentingan">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        DAFTAR NILAI</h1>
+                                    <p>
+                                        LOREM
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('keringanan-biaya.index')}}" style="text-decoration: none">
+                            <div class="card airport">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        KERINGANAN BIAYA</h1>
+                                    <p>
+                                        LOREM
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('minta-tashdiq.index')}}" style="text-decoration: none">
+                            <div class="card kepentingan">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
 
-{{--                                        KELUAR NEGERI</h1>--}}
-{{--                                    <p>--}}
-{{--                                        Digunakan untuk melakukan lapor diri jika Anda--}}
-{{--                                        pulang dan menetap kembali di Indonesia--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                                        PERMINTAAN TASHDIQ</h1>
+                                    <p>
+                                       LOREM
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('izin-libur.index')}}" style="text-decoration: none">
+                            <div class="card mesir">
+                                <div class="txt">
+                                    <h1>PENGAJUAN </br>
+                                        IZIN LIBUR</h1>
+                                    <p>
+                                        lorem
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('izin-sakit.index')}}" style="text-decoration: none">
+                            <div class="card indonesia">
+                                <div class="txt">
+                                    <h1>PENGAJUAN TIDAK MENGIKUTI </br>
+                                        UJIAN KARENA SAKIT</h1>
+                                    <p>
+                                        lorem
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 column">
+                        <a href="{{route('izin-tawaquf.index')}}" style="text-decoration: none">
+                            <div class="card gerbang-mesir">
+                                <div class="txt">
+                                    <h1>PENGAJUAN TIDAK MENGIKUTI </br>
+                                        UJIAN (TAWAQUF)</h1>
+                                    <p>
+                                        lorem
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
