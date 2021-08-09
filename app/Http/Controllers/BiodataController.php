@@ -221,10 +221,9 @@ class BiodataController extends Controller
 
     public function pendidikanIndex (){
 
-        $bio = Biodata::find(backpack_user()->biodata)->first();
-
+        $bio_id = backpack_user()->biodata->id;
         return view('pages.pendidikan')
-            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
-            ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio->id )->get());
+            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio_id )->get())
+            ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio_id )->get());
     }
 }
