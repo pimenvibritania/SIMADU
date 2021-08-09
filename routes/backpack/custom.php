@@ -9,10 +9,16 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AktaLahirCrudController;
 use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
+use App\Http\Controllers\Admin\CabutBerkasCrudController;
 use App\Http\Controllers\Admin\ChangableWordCrudController;
 use App\Http\Controllers\Admin\CutiKuliahCrudController;
+use App\Http\Controllers\Admin\DaftarNilaiCrudController;
+use App\Http\Controllers\Admin\IzinLiburCrudController;
+use App\Http\Controllers\Admin\IzinSakitCrudController;
+use App\Http\Controllers\Admin\IzinTawaqufCrudController;
 use App\Http\Controllers\Admin\IzinTinggalCrudController;
 use App\Http\Controllers\Admin\KepentinganCrudController;
+use App\Http\Controllers\Admin\KeringananBiayaCrudController;
 use App\Http\Controllers\Admin\KeteranganBelajarCrudController;
 use App\Http\Controllers\Admin\KeteranganLahirCrudController;
 use App\Http\Controllers\Admin\KetNonBeasiswaCrudController;
@@ -23,6 +29,7 @@ use App\Http\Controllers\Admin\MasukKuliahCrudController;
 use App\Http\Controllers\Admin\MasukMahadCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\MasukRuakCrudController;
+use App\Http\Controllers\Admin\MintaTashdiqCrudController;
 use App\Http\Controllers\Admin\PengampunanCrudController;
 use App\Http\Controllers\Admin\PindahFakultasCrudController;
 use App\Http\Controllers\Admin\PindahKuliahIndonesiaCrudController;
@@ -154,6 +161,41 @@ Route::group([
     Route::post('cutikuliah/{id}/decline', [CutiKuliahCrudController::class, 'decline']);
     Route::get('cutikuliah/{id}/print', [CutiKuliahCrudController::class, 'print']);
 
+    Route::crud('cabutberkas', 'CabutBerkasCrudController');
+    Route::post('cabutberkas/{id}/approve', [CabutBerkasCrudController::class, 'approve']);
+    Route::post('cabutberkas/{id}/decline', [CabutBerkasCrudController::class, 'decline']);
+    Route::get('cabutberkas/{id}/print', [CabutBerkasCrudController::class, 'print']);
+
+    Route::crud('daftarnilai', 'DaftarNilaiCrudController');
+    Route::post('daftarnilai/{id}/approve', [DaftarNilaiCrudController::class, 'approve']);
+    Route::post('daftarnilai/{id}/decline', [DaftarNilaiCrudController::class, 'decline']);
+    Route::get('daftarnilai/{id}/print', [DaftarNilaiCrudController::class, 'print']);
+
+    Route::crud('keringananbiaya', 'KeringananBiayaCrudController');
+    Route::post('keringananbiaya/{id}/approve', [KeringananBiayaCrudController::class, 'approve']);
+    Route::post('keringananbiaya/{id}/decline', [KeringananBiayaCrudController::class, 'decline']);
+    Route::get('keringananbiaya/{id}/print', [KeringananBiayaCrudController::class, 'print']);
+
+    Route::crud('mintatashdiq', 'MintaTashdiqCrudController');
+    Route::post('mintatashdiq/{id}/approve', [MintaTashdiqCrudController::class, 'approve']);
+    Route::post('mintatashdiq/{id}/decline', [MintaTashdiqCrudController::class, 'decline']);
+    Route::get('mintatashdiq/{id}/print', [MintaTashdiqCrudController::class, 'print']);
+
+    Route::crud('izinsakit', 'IzinSakitCrudController');
+    Route::post('izinsakit/{id}/approve', [IzinSakitCrudController::class, 'approve']);
+    Route::post('izinsakit/{id}/decline', [IzinSakitCrudController::class, 'decline']);
+    Route::get('izinsakit/{id}/print', [IzinSakitCrudController::class, 'print']);
+
+    Route::crud('izintawaquf', 'IzinTawaqufCrudController');
+    Route::post('izintawaquf/{id}/approve', [IzinTawaqufCrudController::class, 'approve']);
+    Route::post('izintawaquf/{id}/decline', [IzinTawaqufCrudController::class, 'decline']);
+    Route::get('izintawaquf/{id}/print', [IzinTawaqufCrudController::class, 'print']);
+
+    Route::crud('izinlibur', 'IzinLiburCrudController');
+    Route::post('izinlibur/{id}/approve', [IzinLiburCrudController::class, 'approve']);
+    Route::post('izinlibur/{id}/decline', [IzinLiburCrudController::class, 'decline']);
+    Route::get('izinlibur/{id}/print', [IzinLiburCrudController::class, 'print']);
+
 
     //ADMIN TRANSACTION
 
@@ -170,10 +212,13 @@ Route::group([
     ->name('changable-ajax');
     Route::get('changable-word-kb/{id}', [ChangableWordCrudController::class, 'kb']);
 
+
     Route::crud('aktalahir', 'AktaLahirCrudController');
     Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
     Route::crud('alamatmesir', 'AlamatMesirCrudController');
-    Route::crud('cutikuliah', 'CutiKuliahCrudController');
+    Route::crud('izinlibur', 'IzinLiburCrudController');
+    Route::crud('izinsakit', 'IzinSakitCrudController');
+    Route::crud('izintawaquf', 'IzinTawaqufCrudController');
     Route::crud('izintinggal', 'IzinTinggalCrudController');
     Route::crud('keteranganlahir', 'KeteranganLahirCrudController');
     Route::crud('customletter', 'CustomLetterCrudController');

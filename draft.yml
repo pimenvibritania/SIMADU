@@ -1,5 +1,5 @@
 models:
-  Models\PindahFakultas:
+  Models\IzinSakit:
     user_id: id foreign
     type: string
     no_permohonan: string
@@ -11,7 +11,7 @@ models:
     status: string
     jml_surat: integer
     tgl_ambil: date nullable
-  Models\CutiKuliah:
+  Models\IzinTawaquf:
     user_id: id foreign
     type: string
     no_permohonan: string
@@ -23,7 +23,7 @@ models:
     status: string
     jml_surat: integer
     tgl_ambil: date nullable
-  Models\MasukRuak:
+  Models\IzinLibur:
     user_id: id foreign
     type: string
     no_permohonan: string
@@ -36,4 +36,4 @@ models:
     jml_surat: integer
     tgl_ambil: date nullable
 
-seeders: PindahFakultas,CutiKuliah,MasukRuak
+seeders: IzinSakit,IzinTawaquf,IzinLibur

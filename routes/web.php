@@ -143,6 +143,13 @@ Route::group([
         Route::resource('pindah-fakultas', 'PindahFakultasController');
         Route::resource('masuk-ruak', 'MasukRuakController');
         Route::resource('cuti-kuliah', 'CutiKuliahController');
+        Route::resource('daftar-nilai', 'DaftarNilaiController');
+        Route::resource('minta-tashdiq', 'MintaTashdiqController');
+        Route::resource('cabut-berkas', 'CabutBerkasController');
+        Route::resource('keringanan-biaya', 'KeringananBiayaController');
+        Route::resource('izin-sakit', 'IzinSakitController');
+        Route::resource('izin-tawaquf', 'IzinTawaqufController');
+        Route::resource('izin-libur', 'IzinLiburController');
 
     });
 });

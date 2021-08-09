@@ -356,7 +356,14 @@
 
                             $crud->entity_name == 'pindahfakultas' ||
                             $crud->entity_name == 'masukruak' ||
-                            $crud->entity_name == 'cutikuliah'
+                            $crud->entity_name == 'cutikuliah' ||
+                            $crud->entity_name == 'cabutberkas' ||
+                            $crud->entity_name == 'daftarnilai' ||
+                            $crud->entity_name == 'keringananbiaya' ||
+                            $crud->entity_name == 'mintatashdiq' ||
+                            $crud->entity_name == 'izinsakit' ||
+                            $crud->entity_name == 'izintawaquf' ||
+                            $crud->entity_name == 'izinlibur'
 
                             )
 

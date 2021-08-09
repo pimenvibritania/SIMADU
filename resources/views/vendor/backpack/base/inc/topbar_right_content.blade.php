@@ -25,7 +25,7 @@
                 @endif
                 <div class="notif dropdown-item">
                     <a href="{{route($notif->data['uri'] )}}" class="btn btn-primary" role="alert">
-                        {{$notif->data['data']['user']['name']}} mengajukan permohonan surat [{{$notif->data['data']['no_permohonan']}}]
+                        {{$notif->data['data']['user']['name']}} mengajukan permohonan surat [{{$notif->data['data']['no_surat']}}]
                     </a>
                     <a href="#" class="float-right mark-as-read ml-4 mt-2" data-id="{{$notif->id}}">
                         Mark as read

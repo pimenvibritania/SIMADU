@@ -113,7 +113,7 @@
                                 @endif
                                 <li class="notif dropdown-item" >
                                     <a style="font-size: 0.8em" href="{{route($notif->data['uri'] )}}" class="btn btn-secondary " role="alert">
-                                        Pengajuan dengan nomor permohonan [{{$notif->data['data']['no_permohonan']}}] {{$notif->data['data']['status']}}
+                                        Pengajuan dengan nomor permohonan [{{$notif->data['data']['no_surat']}}] {{$notif->data['data']['status']}}
                                     </a>
                                     <a style="font-size: 0.8em" href="#" class="btn btn-danger float-right mark-as-read ml-4 " data-id="{{$notif->id}}">
                                         x
