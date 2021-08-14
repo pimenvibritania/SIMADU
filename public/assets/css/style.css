@@ -1,14 +1,224 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
 .gr-1 {
     background: linear-gradient(170deg, #01e4f8 0%, #1d3ede 100%);
 }
-.gr-2 {
-    background: linear-gradient(170deg, #b4ec51 0%, #429321 100%);
+
+.izin-tinggal{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/izin-tinggal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
-.gr-3 {
-    background: linear-gradient(170deg, #c86dd7 0%, #3023ae 100%);
+
+.izin-tinggal:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/izin-tinggal.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+.pengampunan{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/pengampunan.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.pengampunan:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/pengampunan.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mesir{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/mesir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.mesir:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/mesir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.indonesia{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/indonesia.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.indonesia:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/indonesia.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gerbang-mesir{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/gerbang-mesir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.gerbang-mesir:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/gerbang-mesir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.haji{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/haji.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.haji:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/haji.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.umroh{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/umroh.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.umroh:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/umroh.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lahir{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/lahir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lahir:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/lahir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.kepentingan{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/kepentingan.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.kepentingan:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/kepentingan.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.airport{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/airport.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.airport:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/airport.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.legalisir{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/legalisir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.legalisir:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/legalisir.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.akta{
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1)),
+    url("/images/background/akta.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.akta:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)),
+    url("/images/background/akta.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gr-4{
+    background-image: url("https://image.freepik.com/free-vector/coronavirus-test-kit-background_23-2148540144.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gr-4:hover{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)),
+    url("https://image.freepik.com/free-vector/coronavirus-test-kit-background_23-2148540144.jpg");
+    background-size: cover;
+
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.image-cover{
+
+    width: 100%;
+}
+
+.overlay{
+
+    width: 100%; /* Full width (cover the whole page) */
+
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
 * {
     transition: 0.5s;
 }
@@ -16,19 +226,23 @@
     height: 100vh !important;
 }
 .align-middle {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    /*position: relative;*/
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
 }
 .column {
-    margin-top: 3rem;
+    /*margin-top: 3rem;*/
     padding-left: 3rem;
 }
 .column:hover {
     padding-left: 0;
+
 }
 .column:hover .card .txt {
     margin-left: 1rem;
+    padding: 20px;
+
+
 }
 .column:hover .card .txt h1, .column:hover .card .txt p {
     color: rgba(255, 255, 255, 1);
@@ -51,14 +265,22 @@
     font-family: 'Oswald', sans-serif;
     box-shadow: 0 0 21px rgba(0, 0, 0, .27);
 }
+
+.black{
+    background-color: rgba(0,0,0,0.9);
+
+}
 .card .txt {
     margin-left: -3rem;
     z-index: 1;
 }
 .card .txt h1 {
     font-size: 1.5rem;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: uppercase;
+    line-height: 1.5;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+
 }
 .card .txt p {
     font-size: 0.7rem;
@@ -96,8 +318,10 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    /*background: rgba(0,0,0,0.1);*/
 }
-.card i {
+
+.card i.ex-card {
     position: relative;
     right: -50%;
     top: 60%;
@@ -208,6 +432,14 @@
     background-color: #02bde9;
     border-color: #04bde8;
 }
+.isDisabled {
+    color: currentColor;
+    background-color: #5a5e5f;
+    border-color: #5a5e5f;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
 
 
 .whistle{
@@ -272,7 +504,7 @@
     color: #0fc0ef;
     font-family: 'Raleway';
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 800;
 }
 img{
     vertical-align: middle;
@@ -917,4 +1149,23 @@ img{
     background: #FFF;
     border-color: #DDD;
     border-top: 1px solid #FFF;
+}
+
+.link-dashboard{
+    float: right;
+    text-decoration: none;
+}
+
+.link-dashboard:hover{
+    color: #046681;
+}
+
+.page-item.active .page-link{
+    background-color: #04b5e0;
+    border-color: #04b5e0;
+}
+
+.small{
+    margin-left: 15px;
+    color: slategrey;
 }

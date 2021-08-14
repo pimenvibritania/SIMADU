@@ -21,6 +21,9 @@ class CreateBiodatasTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('img_profile')->nullable();
             $table->string('img_ktp');
+            $table->string('img_akte');
+            $table->string('img_paspor');
+            $table->string('img_ijazah')->nullable();
             $table->string('no_induk');
             $table->string('nama');
             $table->string('kelamin');
@@ -37,9 +40,9 @@ class CreateBiodatasTable extends Migration
             $table->date('berlaku_paspor_to');
             $table->date('tiba_mesir');
             $table->date('tanggal_lapor');
-            $table->date('izin_tinggal');
+            $table->string('dikeluarkan_oleh');
             $table->string('pendidikan_akhir')->nullable();
-            $table->string('pekerjaan_indo')->nullable();
+            $table->string('pekerjaan')->nullable();
             $table->string('tujuan_mesir');
             $table->string('nama_pasangan')->nullable();
             $table->string('nama_ayah');

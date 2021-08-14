@@ -4,7 +4,7 @@
     @include('includes.head')
 </head>
 <body>
-<header class="row">
+<header>
     @include('includes.header')
 </header>
 

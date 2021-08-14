@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\IzinTinggalController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +26,43 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::resource('biodata', \App\Http\Controllers\BiodataController::class)
+Route::post('mark-notification', [AdminController::class, 'markNotification'])
+    ->name('markNotification');
+
+Route::group([
+    'prefix' => 'wilayah'
+], function (){
+
+    Route::get('provinsi',
+        [WilayahController::class, 'provisi'])
+        ->name('wilayah.provinsi');
+
+    Route::get('kota/{id}',
+        [WilayahController::class, 'kota'])
+        ->name('wilayah.kota');
+
+    Route::get('kecamatan/{id}',
+        [WilayahController::class, 'kecamatan'])
+        ->name('wilayah.kecamatan');
+
+    Route::get('desa/{id}',
+        [WilayahController::class, 'desa'])
+        ->name('wilayah.desa');
+
+});
+
+Route::resource('biodata', BiodataController::class)
     ->except('index');
+
+Route::group([
+    'middleware' => ['web', 'role:user|mahasiswa']
+], function (){
+
+    Route::get('pendidikan', [BiodataController::class, 'pendidikanIndex']);
+
+    Route::post('pendidikan/create', [BiodataController::class, 'pendidikan'])->name('pendidikan.create');
+
+});
 
 Route::group([
     'namespace' => 'App\Http\Controllers'
@@ -36,10 +75,10 @@ Route::group([
     });
 
 
-    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('backpack.auth.password.email');
+//    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
+//    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+//    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
+//    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('backpack.auth.password.email');
 
     Route::get('logout', 'LoginController@logout')->name('backpack.auth.logout');
     Route::post('logout', 'LoginController@logout');
@@ -54,15 +93,68 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'role:user'],
+    'middleware' => ['web', 'role:user|mahasiswa|tki'],
     'namespace' => 'App\Http\Controllers'
 ], function (){
 
     Route::get('/dashboard', function (){
         return view('pages.dashboard');
     })->name('dashboard');
+
+    Route::get('surat/dashboard', function (){
+       return view('pages.surat.dashboard');
+    })->name('surat.dashboard');
+
+    Route::group([
+        'prefix' => 'surat',
+        'middleware' => ['web', 'role:tki'],
+
+    ], function (){
+
+        Route::resource('izin-tinggal', 'IzinTinggalController');
+        Route::resource('pengampunan', 'PengampunanController');
+        Route::resource('alamat-mesir', 'AlamatMesirController');
+        Route::resource('alamat-indonesia', 'AlamatIndonesiaController');
+        Route::resource('masuk-mesir', 'MasukMesirController');
+        Route::resource('visa-umroh', 'VisaUmrohController');
+        Route::resource('visa-haji', 'VisaHajiController');
+        Route::resource('kepentingan', 'KepentinganController');
+        Route::resource('keterangan-lahir', 'KeteranganLahirController');
+        Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
+        Route::resource('legalisir', 'LegalisirController');
+        Route::resource('akta-lahir', 'AktaLahirController');
+
+    });
+
+    Route::group([
+        'prefix' => 'surat',
+        'middleware' => ['web', 'role:mahasiswa'],
+
+    ], function (){
+
+        Route::resource('keterangan-belajar', 'KeteranganBelajarController');
+        Route::resource('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaController');
+        Route::resource('pindah-kuliah-luar-negeri', 'PindahKuliahLuarNegeriController');
+        Route::resource('custom-letter', 'CustomLetterController');
+        Route::resource('masuk-kuliah', 'MasukKuliahController');
+        Route::resource('kuliah-iftha', 'KuliahIfthaController');
+        Route::resource('masuk-mahad', 'MasukMahadController');
+        Route::resource('ket-non-beasiswa', 'KetNonBeasiswaController');
+        Route::resource('pindah-fakultas', 'PindahFakultasController');
+        Route::resource('masuk-ruak', 'MasukRuakController');
+        Route::resource('cuti-kuliah', 'CutiKuliahController');
+        Route::resource('daftar-nilai', 'DaftarNilaiController');
+        Route::resource('minta-tashdiq', 'MintaTashdiqController');
+        Route::resource('cabut-berkas', 'CabutBerkasController');
+        Route::resource('keringanan-biaya', 'KeringananBiayaController');
+        Route::resource('izin-sakit', 'IzinSakitController');
+        Route::resource('izin-tawaquf', 'IzinTawaqufController');
+        Route::resource('izin-libur', 'IzinLiburController');
+
+    });
 });
 
+//admin route
 Route::group(
     [
         'prefix' => config('backpack.base.route_prefix', 'admin'),

@@ -1,7 +1,35 @@
 created:
-    - database/factories/Models/BiodataFactory.php
-    - database/migrations/2021_03_17_130242_create_biodatas_table.php
-    - app/Models/Biodata.php
-    - database/seeders/BiodataSeeder.php
+    - database/factories/Models/IzinSakitFactory.php
+    - database/factories/Models/IzinTawaqufFactory.php
+    - database/factories/Models/IzinLiburFactory.php
+    - database/migrations/2021_08_08_034556_create_izin_sakits_table.php
+    - database/migrations/2021_08_08_034557_create_izin_tawaqufs_table.php
+    - database/migrations/2021_08_08_034558_create_izin_liburs_table.php
+    - app/Models/IzinSakit.php
+    - app/Models/IzinTawaquf.php
+    - app/Models/IzinLibur.php
+    - database/seeders/IzinSakitSeeder.php
+    - database/seeders/IzinTawaqufSeeder.php
+    - database/seeders/IzinLiburSeeder.php
 models:
     Models\Biodata: { is_active: boolean, user_id: 'id foreign', no_induk: string, nama: string, kelamin: string, agama: string, is_nikah: boolean, tempat_lahir: string, tanggal_lahir: date, tinggi_badan: string, jenis_vipa_1: string, no_paspor: string, jenis_paspor: string, keluar_paspor: string, berlaku_paspor_from: date, berlaku_paspor_to: date, tiba_mesir: date, tanggal_lapor: date, izin_tinggal: date, pendidikan_akhir: 'string nullable', pekerjaan_indo: 'string nullable', tujuan_mesir: string, nama_pasangan: 'string nullable', nama_ayah: string, nama_ibu: string, alamat_ayah: string, alamat_ibu: string, pekerjaan_ayah: string, pekerjaan_ibu: string, no_ayah: string, no_ibu: string, catatan: 'text nullable', alamat_mesir: text, kota_mesir: string, provinsi_mesir: string, no_mesir: string, alamat_indo: text, kecamatan_indo: string, desa_indo: string, kota_indo: string, provinsi_indo: string, pos_indo: string, no_indo: string }
+    Models\RiwayatPendidikan: { biodata_id: 'id foreign', jenjang: string, instansi: string, tempat: string, masuk: date, keluar: date }
+    Models\PendidikanMesir: { biodata_id: 'id foreign', jenjang: string, instansi: string, tempat: string, masuk: date, keluar: date }
+    Models\MasterPnbp: { kode: string, is_active: boolean, jenis: string, biaya: string }
+    Models\Pnbp: { master_pnbp_id: 'id foreign', tanggal: date, nama_pemohon: string, kode_pnbp: string, biaya: string, keterangan: string }
+    Models\ChangableWord: { judul: string, deskripsi: boolean, is_active: boolean }
+    Models\CustomLetter: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable', changable_word_id: 'id foreign nullable' }
+    Models\MasukKuliah: { user_id: 'id foreign', fakultas_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\KuliahIftha: { user_id: 'id foreign', fakultas_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\MasukMahad: { user_id: 'id foreign', jenjang: string, type: string, no_permohonan: string, no_surat: string, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\KetNonBeasiswa: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\PindahFakultas: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\CutiKuliah: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\MasukRuak: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\CabutBerkas: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\MintaTashdiq: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\DaftarNilai: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\KeringananBiaya: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\IzinSakit: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\IzinTawaquf: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }
+    Models\IzinLibur: { user_id: 'id foreign', type: string, no_permohonan: string, no_surat: string, thn_ajaran: integer, tujuan: string, keperluan: string, tanda_tangan_id: 'id foreign nullable', status: string, jml_surat: integer, tgl_ambil: 'date nullable' }

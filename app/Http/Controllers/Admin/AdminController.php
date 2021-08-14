@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
@@ -41,5 +42,30 @@ class AdminController extends Controller
     {
         // The '/admin' route is not to be used as a page, because it breaks the menu's active state.
         return redirect(backpack_url('dashboard'));
+    }
+
+    public function markNotification(Request $request){
+
+        $notif = 0;
+
+        auth()->user()
+            ->unreadNotifications
+            ->when($request->input('id'), function ($query) use ($request){
+                return $query->where('id', $request->input('id'));
+            })
+            ->markAsRead();
+
+        if (!auth()->user()->unreadNotifications->isEmpty()){
+
+            foreach (auth()->user()->notifications as $not){
+                if ($not->read_at == null){
+                    $notif++;
+                }
+            }
+        }
+
+        return response()->json([
+            'total' => $notif
+        ]);
     }
 }
