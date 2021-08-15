@@ -1,153 +1,257 @@
-
 @extends('layouts.default')
+
+@php
+    $notification = \Illuminate\Support\Facades\DB::table('notifications')
+        ->where('notifiable_id', backpack_user()->id);
+    $notif = $notification->whereYear('created_at', '=', now()->format('Y'))
+        ->whereMonth('created_at', '=', now()->format('m'))->get();
+    $allNotif = $notification->get();
+    $total_notif = count($notif);
+@endphp
+
 @section('content')
-    <div class="container">
-
-        @if(session()->has('successMsg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session()->get('successMsg') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="container-fluid">
+        <div aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+        </div>
+        <div class="row mt-4">
+            @php
+                $setuju= 0;
+                $tolak =0;
+                foreach ($allNotif as $all){
+                    json_decode($all->data)->data->status == 'disetujui'
+                    ? $setuju++
+                    : $tolak++;
+                }
+            @endphp
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Diajukan</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{count($allNotif)}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-mail-bulk text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
-
-    {{--Dashboard--}}
-        <div class="card mb-5">
-            <div class="card-header">
-                    Dashboard
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Disetujui</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{$setuju}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-envelope-open text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="jumbotron">
-                        <h1 class="display-4">Hello, world!</h1>
-                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                        <hr class="my-4">
-                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                        <a class="" href="#" role="button">Learn more</a>
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Ditolak</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{$tolak}}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                    <i class="fas fa-envelope text-lg opacity-10" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row my-4">
+            <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <div class="row">
+                            <div class="col-lg-6 col-7">
+                                <h6>Projects</h6>
+                                <p class="text-sm mb-0">
+                                    <i class="fa fa-check text-info" aria-hidden="true"></i>
+                                    <span class="font-weight-bold ms-1">Total {{$total_notif}} pengajuan</span> pada bulan ini.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nomor Surat</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengajuan</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengambilan</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Penanda Tangan</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $index = 1;
+                                @endphp
+                                @foreach($notif as $not)
+                                    @php
+                                        $dateAmbil = date_create(json_decode($not->data)->data->tgl_ambil);
+                                        $dateAjukan = date_create(json_decode($not->data)->data->created_at);
+                                        if (json_decode($not->data)->data->tanda_tangan_id != null){
+                                            $ttd = \App\Models\TandaTangan::find(json_decode($not->data)->data->tanda_tangan_id);
+                                            $ttdName = $ttd->nama;
+                                        } else {
+                                            $ttdName = '-';
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <td class="text-sm text-center" style="width: 20px">
+                                            <span class="text-sm font-weight-bold">  {{$index++}} </span>
+                                        </td>
+                                        <td class="text-sm" >
+                                            <a href="{{route(json_decode($not->data)->uri)}}">
+                                                <span class="text-sm font-weight-bold"> {{json_decode($not->data)->data->no_surat}}</span>
+                                            </a>
+                                        </td>
+                                        <td class="text-sm text-center" >
+                                            <span class="text-sm font-weight-bold"> {{$dateAjukan->format('d, M Y')}}</span>
+                                        </td>
+                                        <td class="text-sm text-center" >
+                                            <span class="text-sm font-weight-bold">  {{$dateAmbil->format('d, M Y')}} </span>
+                                        </td>
+                                        <td class="text-sm text-center" >
+                                            <span class="text-sm font-weight-bold">  {{json_decode($not->data)->data->status}} </span>
+                                        </td>
+                                        <td class="text-sm text-center" >
+                                            <span class="text-sm font-weight-bold">  {{$ttdName}} </span>
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    <div class="card-header pb-0">
+                        <h6>Orders overview</h6>
+                        <p class="text-sm">
+                            <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                            <span class="font-weight-bold">24%</span> this month
+                        </p>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="timeline timeline-one-side">
+                            <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-bell-55 text-success text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-html5 text-danger text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-cart text-info text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-credit-card text-warning text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-key-25 text-primary text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
+                                </div>
+                            </div>
+                            <div class="timeline-block">
+                  <span class="timeline-step">
+                    <i class="ni ni-money-coins text-dark text-gradient"></i>
+                  </span>
+                                <div class="timeline-content">
+                                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
+                                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        {{--        Surat menyurat--}}
-       <div class="card mb-5">
-           <div class="row card-header">
-                <div class="col-md-6">
-                    Pengajuan dan Permohonan
-                </div>
-               <div class="col-md-6">
-                  <a href="{{route('surat.dashboard')}}" class="link-dashboard">
-                      <i class="fa fa-hand-o-right"></i>
-                      Lainnya ...
-                  </a>
-               </div>
-           </div>
-           @if(auth()->user()->hasROle('tki'))
-               <div class="card-body">
-               <div class="row">
-                   <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('izin-tinggal.index')}}" style="text-decoration: none">
-                           <div class="card izin-tinggal">
-                               <div class="txt">
-                                   <h1>PENGAJUAN </br>
-                                       IZIN TINGGAL</h1>
-                                   <p>
-                                       Digunakan untuk melakukan lapor diri jika Anda
-                                       pulang dan menetap kembali di Indonesia
-                                   </p>
-                               </div>
-
-                           </div>
-                       </a>
-                   </div>
-                   <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('pengampunan.index')}}" style="text-decoration: none">
-                           <div class="card pengampunan">
-                               <div class="txt">
-                                   <h1>PENGAJUAN </br>
-                                       PENGAMPUNAN</h1>
-                                   <p>
-                                       Digunakan untuk melakukan lapor diri jika
-                                       Anda pindah antar Negara di luar negeri
-                                   </p>
-                               </div>
-
-                           </div>
-                       </a>
-                   </div>
-                   <div class="col-md-6 col-lg-4 column">
-                       <a href="{{route('alamat-mesir.index')}}" style="text-decoration: none">
-                           <div class="card mesir">
-                               <div class="txt">
-                                   <h1>PENGAJUAN </br>
-                                       KETERANGAN ALAMAT DI MESIR</h1>
-                                   <p>
-                                       Digunakan untuk melakukan lapor diri jika
-                                       Anda pindah antar Negara di luar negeri
-                                   </p>
-                               </div>
-
-                           </div>
-                       </a>
-                   </div>
-
-               </div>
-           </div>
-           @else
-               <div class="card-body">
-                   <div class="row">
-                       <div class="col-md-6 col-lg-4 column">
-                           <a href="{{route('keterangan-belajar.index')}}" style="text-decoration: none">
-                               <div class="card izin-tinggal">
-                                   <div class="txt">
-                                       <h1>SURAT </br>
-                                           KETERANGAN BELAJAR</h1>
-                                       <p>
-                                           lorem ipsum
-                                       </p>
-                                   </div>
-
-                               </div>
-                           </a>
-                       </div>
-                       <div class="col-md-6 col-lg-4 column">
-                           <a href="{{route('pindah-kuliah-indonesia.index')}}" style="text-decoration: none">
-                               <div class="card pengampunan">
-                                   <div class="txt">
-                                       <h1>SURAT PINDAH</br>
-                                           KULIAH KE INDONESIA</h1>
-                                       <p>
-                                           lorem ipsum
-
-                                       </p>
-                                   </div>
-
-                               </div>
-                           </a>
-                       </div>
-                       <div class="col-md-6 col-lg-4 column">
-                           <a href="{{route('pindah-kuliah-luar-negeri.index')}}" style="text-decoration: none">
-                               <div class="card mesir">
-                                   <div class="txt">
-                                       <h1>SURAT PINDAH</br>
-                                           KULIAH KE LUAR NEGERI</h1>
-                                       <p>
-                                           lorem ipsum
-
-                                       </p>
-                                   </div>
-
-                               </div>
-                           </a>
-                       </div>
-
-                   </div>
-               </div>
-           @endif
-       </div>
-
     </div>
-
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src=""></script>
 @endsection
 
 @section('biodata')

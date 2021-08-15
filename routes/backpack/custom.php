@@ -111,10 +111,10 @@ Route::group([
     Route::get('akta-lahir/{id}/delete', [AktaLahirCrudController::class, 'delete']);
 
     //Mahasiswa Routes
-    Route::crud('keterangan-belajar', 'KeteranganBelajarCrudController');
-    Route::post('keterangan-belajar/{id}/approve', [KeteranganBelajarCrudController::class, 'approve']);
-    Route::post('keterangan-belajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
-    Route::get('keterangan-belajar/{id}/print', [KeteranganBelajarCrudController::class, 'print']);
+    Route::crud('keteranganbelajar', 'KeteranganBelajarCrudController');
+    Route::post('keteranganbelajar/{id}/approve', [KeteranganBelajarCrudController::class, 'approve']);
+    Route::post('keteranganbelajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
+    Route::get('keteranganbelajar/{id}/print', [KeteranganBelajarCrudController::class, 'print']);
 
     Route::crud('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaCrudController');
     Route::post('pindah-kuliah-indonesia/{id}/approve', [PindahKuliahIndonesiaCrudController::class, 'approve']);

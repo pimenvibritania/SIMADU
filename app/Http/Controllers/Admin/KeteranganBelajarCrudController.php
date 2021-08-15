@@ -42,7 +42,7 @@ class KeteranganBelajarCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Mahasiswa\KeteranganBelajar::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/keterangan-belajar');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/keteranganbelajar');
         CRUD::setEntityNameStrings('keterangan-belajar', 'keterangan-belajars');
         $this->crud->enableExportButtons();
 
@@ -168,12 +168,6 @@ class KeteranganBelajarCrudController extends CrudController
 
     public function print($id){
 
-        if ((\request('tanda_tangan_id') == null) ||
-            (\request('tgl_ambil') == null)){
-            Alert::error('Semua field harus diisi')->flash();
-            return redirect()->back();
-        }
-
         $izin = KeteranganBelajar::find($id);
         $t_ajaran_1 = intval(now()->isoFormat('Y'));
         $t_ajaran_2 = $t_ajaran_1 + 1;
@@ -209,6 +203,11 @@ class KeteranganBelajarCrudController extends CrudController
     }
 
     public function approve($id){
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
 
         $kb = KeteranganBelajar::find($id);
         $kb->update([
@@ -221,12 +220,16 @@ class KeteranganBelajarCrudController extends CrudController
             new KeteranganBelajarNotification($kb));
 
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/keterangan-belajar');
+        return redirect('admin/keteranganbelajar');
     }
 
     public function decline($id){
-        KeteranganBelajar::find($id)->update([
+        $kb = KeteranganBelajar::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new KeteranganBelajarNotification($kb));
     }
 }

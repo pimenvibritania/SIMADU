@@ -9,12 +9,8 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="col mb-3 ">
-                <a href="{{route('surat.dashboard')}}" class="btn btn-danger text-left" >
-                    <i class="fa fa-arrow-left"></i>
-                    Kembali
-                </a>
-                <a href="{{route('izin-tinggal.create')}}" class="btn mybtn text-right" >
+            <div class="col">
+                <a href="{{route('izin-tinggal.create')}}" class="btn btn-info" >
                     <i class="fa fa-plus-square"></i>
                     Ajukan
                 </a>
@@ -28,7 +24,6 @@
                     <table id="example" class="table table-striped data-table table-hover dt-responsive display nowrap" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>No</th>
                             <th>No Surat</th>
                             <th>No Permohonan</th>
                             <th>Jml Surat</th>
@@ -56,7 +51,6 @@
                 serverSide: true,
                 ajax: "{{ route('izin-tinggal.index') }}",
                 columns: [
-                    {data: 'id', name: 'id'},
                     {data: 'no_surat', name: 'no_surat'},
                     {data: 'no_permohonan', name: 'no_permohonan'},
                     {data: 'jml_surat', name: 'jml_surat'},

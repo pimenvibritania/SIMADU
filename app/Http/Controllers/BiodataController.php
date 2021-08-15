@@ -32,10 +32,16 @@ class BiodataController extends Controller
      */
     public function create()
     {
-        if (!is_null(auth()->user()->biodata))
-            return redirect('dashboard');
+        if (!is_null(auth()->user())){
+            if (is_null(auth()->user()->biodata)){
+                return view('pages.biodata');
 
-        return view('pages.biodata');
+            }
+            return redirect('dashboard');
+        }
+        return redirect('login');
+
+
     }
 
     /**
@@ -88,7 +94,7 @@ class BiodataController extends Controller
             'no_indo'=> 'required',
             'file_img_ktp' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'file_img_akte' => 'required|mimetypes:application/pdf|max:10000',
+            'file_img_akte' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_paspor' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -134,9 +140,10 @@ class BiodataController extends Controller
     {
         if (is_null(auth()->user()->biodata))
             return redirect('dashboard');
-        $bio = Biodata::find($id);
 
-        return \view('pages.biodata_show')->with($bio);
+        $bio = Biodata::where('user_id', backpack_user()->id)->first();
+
+        return \view('pages.biodata_show')->with('bio', $bio);
     }
 
     /**
@@ -177,7 +184,7 @@ class BiodataController extends Controller
 
         $bio = Biodata::where('user_id', auth()->user()->id)->first();
         $request->validate([
-            'file_img_ijazah' => 'mimetypes:application/pdf|max:10000'
+            'file_img_ijazah' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         if ($request->file_img_ijazah != null){

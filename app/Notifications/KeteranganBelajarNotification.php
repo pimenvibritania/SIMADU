@@ -59,8 +59,8 @@ class KeteranganBelajarNotification extends Notification
     {
 
         $uri = $notifiable->roles != 'admin' ?
-            'keterangan-belajar.index' :
-            'keteranganbelajar.index';
+            'keteranganbelajar.index' :
+            'keterangan-belajar.index';
 
         return [
             'uri' => $uri,

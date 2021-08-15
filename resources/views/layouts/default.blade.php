@@ -3,26 +3,21 @@
 <head>
     @include('includes.head')
 </head>
-<body>
-<header>
-    @include('includes.header')
-</header>
+<body class="g-sidenav-show  bg-gray-100">
+@include('includes.sidebar')
 
-<div class="container">
-
-    <div id="main" class="row">
-
+<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+    @include('includes.navbar')
+    <div class=" py-4">
         @if(auth()->user()->biodata == null)
             @yield('biodata')
         @else
             @yield('content')
         @endif
-
-{{--            @yield('content')--}}
+        @include('includes.copyright')
     </div>
-    <footer class="row">
-        @include('includes.footer')
-    </footer>
-</div>
+</main>
+
+@include('includes.footer')
 </body>
 </html>
