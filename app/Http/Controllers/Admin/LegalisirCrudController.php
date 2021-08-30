@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LegalisirRequest;
 use App\Models\Legalisir;
+use App\Notifications\LegalisirNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use Prologue\Alerts\Facades\Alert;
 
 /**
@@ -39,7 +41,7 @@ class LegalisirCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Legalisir::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/legalisir');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/legalisirs');
         CRUD::setEntityNameStrings('legalisir', 'legalisirs');
     }
 
@@ -64,17 +66,29 @@ class LegalisirCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
-//        $this->crud->addClause('where', 'status', '=', 'new');
+
+        // daterange filter
+        $this->crud->addFilter([
+            'type'  => 'date_range',
+            'name'  => 'from_to',
+            'label' => 'Date range'
+        ],
+            false,
+            function ($value) { // if the filter is active, apply these constraints
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            });
 
         CRUD::column('no_permohonan')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('legalisir/' . $entry->id . '/show');
+                    return backpack_url('legalisirs/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -99,7 +113,7 @@ class LegalisirCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -111,12 +125,6 @@ class LegalisirCrudController extends CrudController
                 'style' => 'width: 100px'
             ]
         );
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -158,18 +166,30 @@ class LegalisirCrudController extends CrudController
     }
 
     public function approve($id){
-
-        Legalisir::find($id)->update([
+        if (request('tgl_ambil') == null){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+        $kb = Legalisir::find($id);
+        $kb->update([
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+
+        Notification::send($kb->user,
+            new LegalisirNotification($kb));
+
         Alert::success('Pengajuan legalisir telah di setujui')->flash();
-        return redirect('admin/legalisir');
+        return redirect('admin/legalisirs');
     }
 
     public function decline($id){
-        Legalisir::find($id)->update([
-            'status' => 'declined'
+        $kb = Legalisir::find($id);
+        $kb->update([
+            'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new LegalisirNotification($kb));
     }
 }

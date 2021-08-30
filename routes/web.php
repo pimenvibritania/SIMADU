@@ -121,8 +121,7 @@ Route::group([
         Route::resource('kepentingan', 'KepentinganController');
         Route::resource('keterangan-lahir', 'KeteranganLahirController');
         Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
-        Route::resource('legalisir', 'LegalisirController');
-        Route::resource('akta-lahir', 'AktaLahirController');
+
 
     });
 
@@ -151,6 +150,13 @@ Route::group([
         Route::resource('izin-tawaquf', 'IzinTawaqufController');
         Route::resource('izin-libur', 'IzinLiburController');
 
+    });
+
+    Route::group([
+        'prefix' => 'surat'
+    ], function (){
+        Route::resource('legalisir', 'LegalisirController');
+        Route::resource('akta-lahir', 'AktaLahirController');
     });
 });
 

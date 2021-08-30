@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\AktaLahir;
+use App\Models\User;
+use App\Notifications\AktaLahirNotification;
 use Illuminate\Http\Request as Requests;
+use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
 class AktaLahirController extends Controller
@@ -28,7 +31,7 @@ class AktaLahirController extends Controller
                                 class="btn btn-secondary">diajukan</a>
                                 ';
 
-                    } elseif ($izin->status == 'declined'){
+                    } elseif ($izin->status == 'ditolak'){
                         return '<a href="javascript:void(0)"
                                 style="cursor: not-allowed;"
                                class="btn  btn-danger">ditolak</a>
@@ -39,30 +42,12 @@ class AktaLahirController extends Controller
                                class="btn btn-success">disetujui</a>
                                ';
                     }
-
                 })
-                ->addColumn('action', function($row){
-
-//                    $btn = '<a href="{{url()}}" class="edit btn btn-primary btn-sm">View</a>';
-
-                    return $this->getActionColumn($row);
-                })
-                ->rawColumns(['status','action'])
+                ->rawColumns(['status'])
                 ->make(true);
         }
 
         return view('pages.surat.akta-lahir.index');
-    }
-
-    private function getActionColumn($data)
-    {
-        $showUrl = route('akta-lahir.show', $data->id);
-        return "<a class='waves-effect btn mybtn' data-value='$data->id'
-                href='$showUrl'><i class='fa fa-eye'></i> Details</a>";
-//        $editUrl = route('admin.brands.edit', $data->id);
-//        return "<a class='waves-effect btn btn-success' data-value='$data->id' href='$showUrl'><i class='material-icons'>visibility</i>Details</a>
-//                        <a class='waves-effect btn btn-primary' data-value='$data->id' href='$editUrl'><i class='material-icons'>edit</i>Update</a>
-//                        <button class='waves-effect btn deepPink-bgcolor delete' data-value='$data->id' ><i class='material-icons'>delete</i>Delete</button>";
     }
 
     public function create()
@@ -176,7 +161,15 @@ class AktaLahirController extends Controller
         $request->file_izin_tinggal_ayah->move(public_path('uploads/akta/izin_ayah'), $izin_ayah);
         $request->file_izin_tinggal_ibu->move(public_path('uploads/akta/izin_ibu'), $izin_ibu);
 
-        AktaLahir::create($request->all());
+        $mk = AktaLahir::create($request->all());
+
+        $admins = User::whereHas('roles', function ($query){
+            $query->where('id', 1);
+        })->get();
+
+        Notification::send($admins, new AktaLahirNotification(
+            $mk->with('user')->where('id', $mk->id)->first()
+        ));
 
         return redirect('surat/akta-lahir')
             ->with('successMsg', 'Permohonan Akta berhasil diajukan');

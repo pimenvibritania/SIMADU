@@ -1,39 +1,9 @@
 models:
-  Models\IzinSakit:
-    user_id: id foreign
-    type: string
-    no_permohonan: string
-    no_surat: string
-    thn_ajaran: integer
-    tujuan: string
-    keperluan: string
-    tanda_tangan_id: id foreign nullable
-    status: string
-    jml_surat: integer
-    tgl_ambil: date nullable
-  Models\IzinTawaquf:
-    user_id: id foreign
-    type: string
-    no_permohonan: string
-    no_surat: string
-    thn_ajaran: integer
-    tujuan: string
-    keperluan: string
-    tanda_tangan_id: id foreign nullable
-    status: string
-    jml_surat: integer
-    tgl_ambil: date nullable
-  Models\IzinLibur:
-    user_id: id foreign
-    type: string
-    no_permohonan: string
-    no_surat: string
-    thn_ajaran: integer
-    tujuan: string
-    keperluan: string
-    tanda_tangan_id: id foreign nullable
-    status: string
-    jml_surat: integer
-    tgl_ambil: date nullable
+  Models\Paspor:
+    nama: string
+    tgl_terbit: date
+    no_lama: string
+    no_baru: string
+    berlaku: date
 
-seeders: IzinSakit,IzinTawaquf,IzinLibur
+seeders: IzinSakit

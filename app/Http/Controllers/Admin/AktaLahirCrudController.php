@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\Helper;
 use App\Http\Requests\AktaLahirRequest;
 use App\Models\AktaLahir;
+use App\Notifications\AktaLahirNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use DateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PHPUnit\TextUI\Help;
 use Prologue\Alerts\Facades\Alert;
@@ -46,7 +48,7 @@ class AktaLahirCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\AktaLahir::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/akta-lahir');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/aktalahir');
         CRUD::setEntityNameStrings('akta-lahir', 'akta_lahirs');
     }
 
@@ -71,35 +73,29 @@ class AktaLahirCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
-//        $this->crud->addClause('where', 'status', '=', 'new');
-        CRUD::column('status')->wrapper(
-            [
-                'class' => function ($crud, $column, $entry, $related_key) {
-                    if ($entry->status == 'new'){
-                        return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
-                        return 'btn btn-primary text-white';
-                    } else {
-                        return 'btn btn-danger text-white';
 
-                    }
-
-                },
-
-                'style' => 'width: 100px'
-            ]
-        );
-
+        // daterange filter
+        $this->crud->addFilter([
+            'type'  => 'date_range',
+            'name'  => 'from_to',
+            'label' => 'Date range'
+        ],
+            false,
+            function ($value) { // if the filter is active, apply these constraints
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            });
 
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('akta-lahir/' . $entry->id . '/show');
+                    return backpack_url('aktalahir/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -121,13 +117,23 @@ class AktaLahirCrudController extends CrudController
             ->type('date')
             ->label('diambil');
 
+        CRUD::column('status')->wrapper(
+            [
+                'class' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->status == 'new'){
+                        return 'btn btn-success text-white';
+                    } elseif($entry->status == 'disetujui'){
+                        return 'btn btn-primary text-white';
+                    } else {
+                        return 'btn btn-danger text-white';
 
+                    }
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
+                },
+
+                'style' => 'width: 100px'
+            ]
+        );
     }
 
     /**
@@ -180,29 +186,44 @@ class AktaLahirCrudController extends CrudController
 
     public function approve($id){
 
-        AktaLahir::find($id)->update([
+        if (
+            (\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
+        $kb = AktaLahir::find($id);
+        $kb->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+        Notification::send($kb->user,
+            new AktaLahirNotification($kb));
+
         Alert::success('Akta Lahir telah di setujui')->flash();
-        return redirect('admin/akta-lahir');
+        return redirect('admin/aktalahir');
     }
 
     public function decline($id){
-        AktaLahir::find($id)->update([
-            'status' => 'declined',
+        $kb= AktaLahir::find($id);
+        $kb->update([
+            'status' => 'ditolak',
             'alasan_ditolak' => request('alasan_ditolak')
         ]);
 
+        Notification::send($kb->user,
+            new AktaLahirNotification($kb));
+
         Alert::success('Akta Lahir telah di tolak')->flash();
-        return redirect('admin/akta-lahir');
+        return redirect('admin/aktalahir');
     }
 
     public function delete($id){
         AktaLahir::destroy($id);
         Alert::success('Akta Lahir telah di hapus')->flash();
-        return redirect('admin/akta-lahir');
+        return redirect('admin/aktalahir');
     }
 
     public function print($id){
@@ -253,7 +274,7 @@ class AktaLahirCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $akta->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download($filename . '.docx', '')

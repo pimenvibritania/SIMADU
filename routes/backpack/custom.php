@@ -99,16 +99,16 @@ Route::group([
     Route::post('keterangan-lahir/{id}/decline', [KeteranganLahirCrudController::class, 'decline']);
     Route::get('keterangan-lahir/{id}/print', [KeteranganLahirCrudController::class, 'print']);
 
-    Route::crud('legalisir', 'LegalisirCrudController');
-    Route::post('legalisir/{id}/approve', [LegalisirCrudController::class, 'approve']);
-    Route::post('legalisir/{id}/decline', [LegalisirCrudController::class, 'decline']);
-    Route::get('legalisir/{id}/print', [LegalisirCrudController::class, 'print']);
+    Route::crud('legalisirs', 'LegalisirCrudController');
+    Route::post('legalisirs/{id}/approve', [LegalisirCrudController::class, 'approve']);
+    Route::post('legalisirs/{id}/decline', [LegalisirCrudController::class, 'decline']);
+    Route::get('legalisirs/{id}/print', [LegalisirCrudController::class, 'print']);
 
-    Route::crud('akta-lahir', 'AktaLahirCrudController');
-    Route::post('akta-lahir/{id}/approve', [AktaLahirCrudController::class, 'approve']);
-    Route::post('akta-lahir/{id}/decline', [AktaLahirCrudController::class, 'decline']);
-    Route::get('akta-lahir/{id}/print', [AktaLahirCrudController::class, 'print']);
-    Route::get('akta-lahir/{id}/delete', [AktaLahirCrudController::class, 'delete']);
+    Route::crud('aktalahir', 'AktaLahirCrudController');
+    Route::post('aktalahir/{id}/approve', [AktaLahirCrudController::class, 'approve']);
+    Route::post('aktalahir/{id}/decline', [AktaLahirCrudController::class, 'decline']);
+    Route::get('aktalahir/{id}/print', [AktaLahirCrudController::class, 'print']);
+    Route::get('aktalahir/{id}/delete', [AktaLahirCrudController::class, 'delete']);
 
     //Mahasiswa Routes
     Route::crud('keteranganbelajar', 'KeteranganBelajarCrudController');

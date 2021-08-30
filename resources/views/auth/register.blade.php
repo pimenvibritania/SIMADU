@@ -11,7 +11,7 @@
                         {!! csrf_field() !!}
 
                         <div class="form-group">
-                            <label class="control-label" for="name">{{ trans('backpack::base.name') }}</label>
+                            <label class="control-label" for="name">Nama Lengkap (Indonesia)</label>
 
                             <div>
                                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="name" value="{{ old('name') }}">
