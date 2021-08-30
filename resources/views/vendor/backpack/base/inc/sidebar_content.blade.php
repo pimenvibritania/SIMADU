@@ -29,16 +29,16 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukmahad') }}'><i class='nav-icon la la-moon'></i> Masuk Ma'had</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('kuliahiftha') }}'><i class='nav-icon la la-school'></i> Kuliah Iftha</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('ketnonbeasiswa') }}'><i class='nav-icon la la-id-badge'></i> Ket Tidak Menerima Beasiswa</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cutikuliah') }}'><i class='nav-icon la la-question'></i> Cuti Kuliah</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukruak') }}'><i class='nav-icon la la-question'></i> Masuk Ruak</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahfakultas') }}'><i class='nav-icon la la-question'></i> Pindah Fakultas</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cabutberkas') }}'><i class='nav-icon la la-question'></i> Cabut Berkas</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('daftarnilai') }}'><i class='nav-icon la la-question'></i> Daftar Nilais</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keringananbiaya') }}'><i class='nav-icon la la-question'></i> Keringanan Biaya</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mintatashdiq') }}'><i class='nav-icon la la-question'></i> Minta Tashdiq</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinlibur') }}'><i class='nav-icon la la-question'></i> Izin Libur</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinsakit') }}'><i class='nav-icon la la-question'></i> Izin Tidak Ikut Ujian (Sakit)</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-question'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cutikuliah') }}'><i class='nav-icon la la-running'></i> Cuti Kuliah</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukruak') }}'><i class='nav-icon la la-door-open'></i> Masuk Ruak</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahfakultas') }}'><i class='nav-icon la la-building-o'></i> Pindah Fakultas</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cabutberkas') }}'><i class='nav-icon la la-file-archive'></i> Cabut Berkas</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('daftarnilai') }}'><i class='nav-icon la la-sort-numeric-up-alt'></i> Daftar Nilais</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keringananbiaya') }}'><i class='nav-icon la la-money-bill'></i> Keringanan Biaya</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mintatashdiq') }}'><i class='nav-icon la la-envelope-square'></i> Minta Tashdiq</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinlibur') }}'><i class='nav-icon la la-umbrella-beach'></i> Izin Libur</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinsakit') }}'><i class='nav-icon la la-hospital-symbol'></i> Izin Tidak Ikut Ujian (Sakit)</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-flag'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>
     </ul>
 </li>
 <li class="nav-item nav-dropdown">
@@ -53,6 +53,8 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-briefcase"></i> Admin Transactions</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pnbp') }}'><i class='nav-icon la la-stream'></i> PNBP</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('paspor') }}'><i class='nav-icon la la-passport'></i> Pembuatan Paspor</a></li>
+
     </ul>
 </li>
 
@@ -79,4 +81,3 @@
     </ul>
 </li>
 
-{{--<li class='nav-item'><a class='nav-link' href='{{ backpack_url('customletter') }}'><i class='nav-icon la la-question'></i> CustomLetters</a></li>--}}

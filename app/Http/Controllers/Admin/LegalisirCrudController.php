@@ -43,6 +43,8 @@ class LegalisirCrudController extends CrudController
         CRUD::setModel(\App\Models\Legalisir::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/legalisirs');
         CRUD::setEntityNameStrings('legalisir', 'legalisirs');
+        $this->crud->enableExportButtons();
+
     }
 
     /**
