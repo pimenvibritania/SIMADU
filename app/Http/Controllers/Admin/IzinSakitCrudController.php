@@ -190,9 +190,13 @@ class IzinSakitCrudController extends CrudController
     }
 
     public function decline($id){
-        IzinSakit::find($id)->update([
+        $kb = IzinSakit::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new IzinSakitNotification($kb));
     }
 
     public function print($id){

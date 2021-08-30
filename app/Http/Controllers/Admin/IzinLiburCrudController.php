@@ -204,9 +204,13 @@ class IzinLiburCrudController extends CrudController
     }
 
     public function decline($id){
-        IzinLibur::find($id)->update([
+        $kb=IzinLibur::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new IzinLiburNotification($kb));
     }
 
     public function print($id){

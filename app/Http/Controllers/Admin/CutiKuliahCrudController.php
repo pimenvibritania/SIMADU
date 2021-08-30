@@ -196,9 +196,13 @@ class CutiKuliahCrudController extends CrudController
     }
 
     public function decline($id){
-        CutiKuliah::find($id)->update([
+        $kb = CutiKuliah::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new CutiKuliahNotification($kb));
     }
 
     public function print($id){

@@ -196,9 +196,13 @@ class DaftarNilaiCrudController extends CrudController
     }
 
     public function decline($id){
-        DaftarNilai::find($id)->update([
+        $kb = DaftarNilai::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new DaftarNilaiNotification($kb));
     }
 
     public function print($id){

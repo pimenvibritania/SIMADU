@@ -191,9 +191,13 @@ class MasukMahadCrudController extends CrudController
     }
 
     public function decline($id){
-        MasukMahad::find($id)->update([
+        $kb= MasukMahad::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new MasukMahadNotification($kb));
     }
 
     public function print($id){

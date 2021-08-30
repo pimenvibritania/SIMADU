@@ -165,6 +165,13 @@ class KuliahIfthaCrudController extends CrudController
 
     public function approve($id){
 
+        if ((\request('changable-word-id') == null) ||
+            (\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
         $kb = KuliahIftha::find($id);
         $cw = request('changable-word-id');
         $kb->update([
@@ -182,19 +189,16 @@ class KuliahIfthaCrudController extends CrudController
     }
 
     public function decline($id){
-        KuliahIftha::find($id)->update([
+        $kb= KuliahIftha::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new KuliahIfthaNotification($kb));
     }
 
     public function print($id){
-
-        if ((\request('changable-word-id') == null) ||
-            (\request('tanda_tangan_id') == null) ||
-            (\request('tgl_ambil') == null)){
-            Alert::error('Semua field harus diisi')->flash();
-            return redirect()->back();
-        }
 
         $izin = KuliahIftha::find($id);
         $t_ajaran_1 = intval(now()->isoFormat('Y'));

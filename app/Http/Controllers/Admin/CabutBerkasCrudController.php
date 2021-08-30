@@ -190,9 +190,13 @@ class CabutBerkasCrudController extends CrudController
     }
 
     public function decline($id){
-        CabutBerkas::find($id)->update([
+        $kb = CabutBerkas::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new CabutBerkasNotification($kb));
     }
 
     public function print($id){

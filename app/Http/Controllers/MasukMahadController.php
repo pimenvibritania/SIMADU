@@ -55,7 +55,7 @@ class MasukMahadController extends Controller
     public function create()
     {
         $user = backpack_user()->biodata;
-        $no_surat = Helper::generateId(new MasukMahad(), 'no_surat', 'M/MK', 4);
+        $no_surat = Helper::generateId(new MasukMahad(), 'no_surat', 'M/MM', 4);
         return \view('pages.surat.masuk_mahad.create', [
             'user' => $user,
             'no_surat'   => $no_surat,

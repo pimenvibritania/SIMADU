@@ -192,9 +192,13 @@ class KetNonBeasiswaCrudController extends CrudController
     }
 
     public function decline($id){
-        KetNonBeasiswa::find($id)->update([
+        $kb = KetNonBeasiswa::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new KetNonBeasiswaNotification($kb));
     }
 
     public function print($id){

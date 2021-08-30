@@ -83,6 +83,160 @@
                             <span class="nav-link-text ms-1">Surat Pindah<br>Kuliah ke Nuar Negeri</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/masuk-kuliah') || Request::is('surat/masuk-kuliah/create') ? 'active' : ''
+                    }} " href="{{url('surat/masuk-kuliah')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-book-reader"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Pengajuan<br>Daftar Kuliah</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/masuk-mahad') || Request::is('surat/masuk-mahad/create') ? 'active' : ''
+                    }} " href="{{url('surat/masuk-mahad')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-quran"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Pengajuan<br>Masuk Ma'had</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/kuliah-iftha') || Request::is('surat/kuliah-iftha/create') ? 'active' : ''
+                    }} " href="{{url('surat/kuliah-iftha')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-mosque"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Pengajuan<br>Kuliah Iftha</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/ket-non-beasiswa') || Request::is('surat/ket-non-beasiswa/create') ? 'active' : ''
+                    }} " href="{{url('surat/ket-non-beasiswa')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-mosque"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Keterangan<br>Tidak Menerima<br>Beasiswa</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/masuk-ruak') || Request::is('surat/masuk-ruak/create') ? 'active' : ''
+                    }} " href="{{url('surat/masuk-ruak')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Keterangan<br>Masuk Ruak</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/cuti-kuliah') || Request::is('surat/cuti-kuliah/create') ? 'active' : ''
+                    }} " href="{{url('surat/cuti-kuliah')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Keterangan<br>Cuti Kuliah</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/pindah-fakultas') || Request::is('surat/pindah-fakultas/create') ? 'active' : ''
+                    }} " href="{{url('surat/pindah-fakultas')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Keterangan<br>Pindah Fakultas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/cabut-berkas') || Request::is('surat/cabut-berkas/create') ? 'active' : ''
+                    }} " href="{{url('surat/cabut-berkas')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Permintaan<br>Cabut Berkas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/daftar-nilai') || Request::is('surat/daftar-nilai/create') ? 'active' : ''
+                    }} " href="{{url('surat/daftar-nilai')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-window-restore"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Permintaan<br>Daftar Nilai</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/keringanan-biaya') || Request::is('surat/keringanan-biaya/create') ? 'active' : ''
+                    }} " href="{{url('surat/keringanan-biaya')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Permohonan<br>Keringanan Biaya</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/minta-tashdiq') || Request::is('surat/minta-tashdiq/create') ? 'active' : ''
+                    }} " href="{{url('surat/minta-tashdiq')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Permintaan<br>Minta Tashdiq</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/izin-libur') || Request::is('surat/izin-libur/create') ? 'active' : ''
+                    }} " href="{{url('surat/izin-libur')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-luggage-cart"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat Pengajuan<br>Izin Libur</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/izin-sakit') || Request::is('surat/izin-sakit/create') ? 'active' : ''
+                    }} " href="{{url('surat/izin-sakit')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-procedures"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan Tidak<br>Ikut Ujian (Sakit)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/izin-tawaquf') || Request::is('surat/izin-tawaquf/create') ? 'active' : ''
+                    }} " href="{{url('surat/izin-tawaquf')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-pray"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan Tidak<br>Ikut Ujian (Tawaquf)</span>
+                        </a>
+                    </li>
                 @endif
             @endif
 

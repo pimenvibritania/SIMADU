@@ -196,9 +196,13 @@ class KeringananBiayaCrudController extends CrudController
     }
 
     public function decline($id){
-        KeringananBiaya::find($id)->update([
+
+        $kb = KeringananBiaya::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+        Notification::send($kb->user,
+            new KeringananBiayaNotification($kb));
     }
 
     public function print($id){

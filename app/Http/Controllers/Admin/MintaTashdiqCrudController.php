@@ -195,9 +195,13 @@ class MintaTashdiqCrudController extends CrudController
     }
 
     public function decline($id){
-        MintaTashdiq::find($id)->update([
+        $kb= MintaTashdiq::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new MintaTashdiqNotification($kb));
     }
 
     public function print($id){

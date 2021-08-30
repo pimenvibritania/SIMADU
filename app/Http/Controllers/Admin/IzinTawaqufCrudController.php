@@ -191,9 +191,13 @@ class IzinTawaqufCrudController extends CrudController
     }
 
     public function decline($id){
-        IzinTawaquf::find($id)->update([
+        $kb = IzinTawaquf::find($id);
+        $kb->update([
             'status' => 'ditolak'
         ]);
+
+        Notification::send($kb->user,
+            new IzinTawaqufNotification($kb));
     }
 
     public function print($id){
