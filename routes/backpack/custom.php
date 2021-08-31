@@ -47,17 +47,17 @@ Route::group([
 
     Route::crud('biodata', 'BiodataCrudController');
 
-    Route::crud('izin-tinggal', 'IzinTinggalCrudController');
-    Route::post('izin-tinggal/{id}/approve', [IzinTinggalCrudController::class, 'approve']);
-    Route::post('izin-tinggal/{id}/decline', [IzinTinggalCrudController::class, 'decline']);
-    Route::get('izin-tinggal/{id}/print', [IzinTinggalCrudController::class, 'print']);
+    Route::crud('izintinggal', 'IzinTinggalCrudController');
+    Route::post('izintinggal/{id}/approve', [IzinTinggalCrudController::class, 'approve']);
+    Route::post('izintinggal/{id}/decline', [IzinTinggalCrudController::class, 'decline']);
+    Route::get('izintinggal/{id}/print', [IzinTinggalCrudController::class, 'print']);
 
     Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
 
-    Route::crud('pengampunan', 'PengampunanCrudController');
-    Route::post('pengampunan/{id}/approve', [PengampunanCrudController::class, 'approve']);
-    Route::post('pengampunan/{id}/decline', [PengampunanCrudController::class, 'decline']);
-    Route::get('pengampunan/{id}/print', [PengampunanCrudController::class, 'print']);
+    Route::crud('pengampunans', 'PengampunanCrudController');
+    Route::post('pengampunans/{id}/approve', [PengampunanCrudController::class, 'approve']);
+    Route::post('pengampunans/{id}/decline', [PengampunanCrudController::class, 'decline']);
+    Route::get('pengampunans/{id}/print', [PengampunanCrudController::class, 'print']);
 
     Route::crud('alamat-mesir', 'AlamatMesirCrudController');
     Route::post('alamat-mesir/{id}/approve', [AlamatMesirCrudController::class, 'approve']);

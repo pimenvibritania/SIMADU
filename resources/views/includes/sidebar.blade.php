@@ -40,11 +40,31 @@
                     <li class="nav-item">
                         <a class="nav-link {{
                     Request::is('surat/izin-tinggal') || Request::is('surat/izin-tinggal/create') ? 'active' : ''
-                    }} " href="{{url('surat/izin-tinggal')}}">
+                     }} " href="{{url('surat/izin-tinggal')}}">
                             <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fas fa-home"></i>
                             </div>
                             <span class="nav-link-text ms-1">Pengajuan<br>Izin Tinggal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/pengampunan') || Request::is('surat/pengampunan/create') ? 'active' : ''
+                    }} " href="{{url('surat/pengampunan')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-praying-hands"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Pengampunan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/alamat-mesir') || Request::is('surat/alamat-mesir/create') ? 'active' : ''
+                    }} " href="{{url('surat/alamat-mesir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Mesir</span>
                         </a>
                     </li>
                 @else
@@ -251,6 +271,16 @@
                             <i class="fas fa-baby"></i>
                         </div>
                         <span class="nav-link-text ms-1">Pengajuan Akta Lahir</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{
+                    Request::is('surat/legalisir') || Request::is('surat/legalisir/create') ? 'active' : ''
+                    }} " href="{{url('surat/legalisir')}}">
+                        <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Pengajuan Legalisir</span>
                     </a>
                 </li>
 

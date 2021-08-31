@@ -106,7 +106,6 @@
         </div>
     </div>
 
-
     <script type="text/javascript">
         $('.date').datepicker({
             format: 'yyyy-mm-dd'

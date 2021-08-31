@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\IzinTinggalRequest;
 use App\Models\IzinTinggal;
+use App\Notifications\IzinTinggalNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\Writer\PDF;
 use Prologue\Alerts\Facades\Alert;
@@ -42,7 +44,7 @@ class IzinTinggalCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\IzinTinggal::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/izin-tinggal');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/izintinggal');
         CRUD::setEntityNameStrings('izin-tinggal', 'izin_tinggals');
         $this->crud->enableExportButtons();
     }
@@ -68,8 +70,8 @@ class IzinTinggalCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
              $this->crud->addClause('where', 'status', $value);
         });
@@ -90,7 +92,7 @@ class IzinTinggalCrudController extends CrudController
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('izin-tinggal/' . $entry->id . '/show');
+                    return backpack_url('izintinggal/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -115,7 +117,7 @@ class IzinTinggalCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -128,11 +130,6 @@ class IzinTinggalCrudController extends CrudController
             ]
         );
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
     /**
@@ -147,11 +144,6 @@ class IzinTinggalCrudController extends CrudController
 
         CRUD::setFromDb(); // fields
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
     }
 
     /**
@@ -185,7 +177,7 @@ class IzinTinggalCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download($filename . '.docx', '')
@@ -194,18 +186,29 @@ class IzinTinggalCrudController extends CrudController
 
     public function approve($id){
 
-        IzinTinggal::find($id)->update([
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
+        $kb = IzinTinggal::find($id);
+        $kb->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
+
+        Notification::send($kb->user,
+            new IzinTinggalNotification($kb));
+
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/izin-tinggal');
+        return redirect('admin/izintinggal');
     }
 
     public function decline($id){
         IzinTinggal::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }
