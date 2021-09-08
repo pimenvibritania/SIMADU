@@ -113,7 +113,7 @@ Route::group([
 
         Route::resource('izin-tinggal', 'IzinTinggalController');
         Route::resource('pengampunan', 'PengampunanController');
-        Route::resource('alamat-mesir', 'AlamatMesirController');
+        Route::resource('alamatmesir', 'AlamatMesirController');
         Route::resource('alamat-indonesia', 'AlamatIndonesiaController');
         Route::resource('masuk-mesir', 'MasukMesirController');
         Route::resource('visa-umroh', 'VisaUmrohController');
@@ -121,7 +121,6 @@ Route::group([
         Route::resource('kepentingan', 'KepentinganController');
         Route::resource('keterangan-lahir', 'KeteranganLahirController');
         Route::resource('tidak-keluar-negeri', 'TidakKeluarNegeriController');
-
 
     });
 
