@@ -40,8 +40,9 @@ class AlamatIndonesiaCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\AlamatIndonesia::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/alamat-indonesia');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/alamatindonesia');
         CRUD::setEntityNameStrings('alamat-indonesia', 'alamat_indonesias');
+        $this->crud->enableExportButtons();
     }
 
     /**
@@ -65,16 +66,28 @@ class AlamatIndonesiaCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'disetujui' => 'Approved',
+            'ditolak' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
+        // daterange filter
+        $this->crud->addFilter([
+            'type'  => 'date_range',
+            'name'  => 'from_to',
+            'label' => 'Date range'
+        ],
+            false,
+            function ($value) { // if the filter is active, apply these constraints
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            });
 
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('alamat-indonesia/' . $entry->id . '/show');
+                    return backpack_url('alamatindonesia/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -99,7 +112,7 @@ class AlamatIndonesiaCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -174,7 +187,7 @@ class AlamatIndonesiaCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download($filename . '.docx', '')
@@ -183,19 +196,25 @@ class AlamatIndonesiaCrudController extends CrudController
 
     public function approve($id){
 
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
         AlamatIndonesia::find($id)->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         Alert::success('Surat keterangan alamat telah di setujui')->flash();
-        return redirect('admin/alamat-indonesia');
+        return redirect('admin/alamatindonesia');
     }
 
     public function decline($id){
         AlamatIndonesia::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }

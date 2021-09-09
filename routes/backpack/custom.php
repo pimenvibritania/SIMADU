@@ -59,10 +59,16 @@ Route::group([
     Route::post('pengampunans/{id}/decline', [PengampunanCrudController::class, 'decline']);
     Route::get('pengampunans/{id}/print', [PengampunanCrudController::class, 'print']);
 
-    Route::crud('alamat-mesir', 'AlamatMesirCrudController');
-    Route::post('alamat-mesir/{id}/approve', [AlamatMesirCrudController::class, 'approve']);
-    Route::post('alamat-mesir/{id}/decline', [AlamatMesirCrudController::class, 'decline']);
-    Route::get('alamat-mesir/{id}/print', [AlamatMesirCrudController::class, 'print']);
+    Route::crud('alamatmesir', 'AlamatMesirCrudController');
+    Route::post('alamatmesir/{id}/approve', [AlamatMesirCrudController::class, 'approve']);
+    Route::post('alamatmesir/{id}/decline', [AlamatMesirCrudController::class, 'decline']);
+    Route::get('alamatmesir/{id}/print', [AlamatMesirCrudController::class, 'print']);
+
+    Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
+    Route::post('alamatindonesia/{id}/approve', [AlamatIndonesiaCrudController::class, 'approve']);
+    Route::post('alamatindonesia/{id}/decline', [AlamatIndonesiaCrudController::class, 'decline']);
+    Route::get('alamatindonesia/{id}/print', [AlamatIndonesiaCrudController::class, 'print']);
+
 
     Route::crud('masuk-mesir', 'MasukMesirCrudController');
     Route::post('masuk-mesir/{id}/approve', [MasukMesirCrudController::class, 'approve']);
@@ -78,11 +84,6 @@ Route::group([
     Route::post('visa-umroh/{id}/approve', [VisaUmrohCrudController::class, 'approve']);
     Route::post('visa-umroh/{id}/decline', [VisaUmrohCrudController::class, 'decline']);
     Route::get('visa-umroh/{id}/print', [VisaUmrohCrudController::class, 'print']);
-
-    Route::crud('alamat-indonesia', 'AlamatIndonesiaCrudController');
-    Route::post('alamat-indonesia/{id}/approve', [AlamatIndonesiaCrudController::class, 'approve']);
-    Route::post('alamat-indonesia/{id}/decline', [AlamatIndonesiaCrudController::class, 'decline']);
-    Route::get('alamat-indonesia/{id}/print', [AlamatIndonesiaCrudController::class, 'print']);
 
     Route::crud('tidak-keluar-negeri', 'TidakKeluarNegeriCrudController');
     Route::post('tidak-keluar-negeri/{id}/approve', [TidakKeluarNegeriCrudController::class, 'approve']);

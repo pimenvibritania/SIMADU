@@ -32,7 +32,7 @@ class AlamatIndonesiaController extends Controller
                                 class="btn btn-secondary">diajukan</a>
                                 ';
 
-                    } elseif ($izin->status == 'declined'){
+                    } elseif ($izin->status == 'ditolak'){
                         return '<a href="javascript:void(0)"
                                 style="cursor: not-allowed;"
                                class="btn  btn-danger">ditolak</a>
@@ -45,28 +45,11 @@ class AlamatIndonesiaController extends Controller
                     }
 
                 })
-                ->addColumn('action', function($row){
-
-//                    $btn = '<a href="{{url()}}" class="edit btn btn-primary btn-sm">View</a>';
-
-                    return $this->getActionColumn($row);
-                })
-                ->rawColumns(['status','action'])
+                ->rawColumns(['status'])
                 ->make(true);
         }
 
         return view('pages.surat.alamat-indonesia.index');
-    }
-
-    private function getActionColumn($data)
-    {
-        $showUrl = route('izin-tinggal.show', $data->id);
-        return "<a class='waves-effect btn mybtn' data-value='$data->id'
-                href='$showUrl'><i class='fa fa-eye'></i> Details</a>";
-//        $editUrl = route('admin.brands.edit', $data->id);
-//        return "<a class='waves-effect btn btn-success' data-value='$data->id' href='$showUrl'><i class='material-icons'>visibility</i>Details</a>
-//                        <a class='waves-effect btn btn-primary' data-value='$data->id' href='$editUrl'><i class='material-icons'>edit</i>Update</a>
-//                        <button class='waves-effect btn deepPink-bgcolor delete' data-value='$data->id' ><i class='material-icons'>delete</i>Delete</button>";
     }
 
     /**

@@ -67,6 +67,16 @@
                             <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Mesir</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/alamat-indonesia') || Request::is('surat/alamat-indonesia/create') ? 'active' : ''
+                    }} " href="{{url('surat/alamat-indonesia')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Indonesia</span>
+                        </a>
+                    </li>
                 @else
 
                     {{--                MAHASISWA MENU--}}
