@@ -199,16 +199,16 @@ class BiodataController extends Controller
             ]);
         }
 
-        if ($request->pm_jenjang != null){
-            PendidikanMesir::create([
-                'biodata_id' => $bio->id,
-                'pm_jenjang' => $request->pm_jenjang,
-                'pm_instansi' => $request->pm_instansi,
-                'pm_tempat' => $request->pm_tempat,
-                'pm_masuk' => $request->pm_masuk,
-                'pm_keluar' => $request->pm_keluar
-            ]);
-        }
+//        if ($request->pm_jenjang != null){
+//            PendidikanMesir::create([
+//                'biodata_id' => $bio->id,
+//                'pm_jenjang' => $request->pm_jenjang,
+//                'pm_instansi' => $request->pm_instansi,
+//                'pm_tempat' => $request->pm_tempat,
+//                'pm_masuk' => $request->pm_masuk,
+//                'pm_keluar' => $request->pm_keluar
+//            ]);
+//        }
 
         if ($request->rp_jenjang != null){
             RiwayatPendidikan::create([
@@ -222,7 +222,7 @@ class BiodataController extends Controller
         }
 
         return redirect('pendidikan')
-            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
+//            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
             ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio->id )->get());
     }
 
@@ -230,7 +230,7 @@ class BiodataController extends Controller
 
         $bio_id = backpack_user()->biodata->id;
         return view('pages.pendidikan')
-            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio_id )->get())
+//            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio_id )->get())
             ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio_id )->get());
     }
 }

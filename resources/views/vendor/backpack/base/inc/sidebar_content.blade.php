@@ -21,8 +21,8 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-graduation-cap"></i> Layanan Mahasiswa</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keterangan-belajar') }}'><i class='nav-icon la la-book-open'></i> Keterangan Belajar</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindah-kuliah-indonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganbelajar') }}'><i class='nav-icon la la-book-open'></i> Keterangan Belajar</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahindonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-plane-departure'></i> Pindah Kuliah Luar Negeri</a></li>
         <div class="dropdown-divider"></div>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-cash-register'></i> Daftar Kuliah</a></li>
