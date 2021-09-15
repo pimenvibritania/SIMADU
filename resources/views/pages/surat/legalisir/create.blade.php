@@ -64,40 +64,40 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama" class="form-control" readonly type="text" value="{{$user->nama}}">
                                     <span class="form-label">Nama</span>
+                                    <input name="nama" class="form-control" readonly type="text" value="{{$user->nama}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="no_permohonan" class="form-control" readonly type="text" value="{{$no_permohonan}}">
                                     <span class="form-label">No Permohonan</span>
+                                    <input name="no_permohonan" class="form-control" readonly type="text" value="{{$no_permohonan}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input name="jml_surat" class="form-control" type="number" min="1">
                                     <span class="form-label">Jumlah Surat</span>
+                                    <input name="jml_surat" class="form-control" type="number" min="1">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama" value="{{old('nama')}}" class="form-control" type="text">
                                     <span class="form-label">Nama Dokumen</span>
+                                    <input name="nama" value="{{old('nama')}}" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_img_docs" class="form-control" type="file">
                                     <span class="form-label">Upload Dokumen<small style="color: red"> (*File harus PDF)</small></span>
+                                    <input name="file_img_docs" class="form-control" type="file">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group ">
-                                    <textarea class="form-control" name="keperluan"></textarea>
                                     <span class="form-label">Keperluan</span>
+                                    <textarea class="form-control" name="keperluan"></textarea>
                                 </div>
                             </div>
                         </div>

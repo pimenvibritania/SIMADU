@@ -90,7 +90,8 @@ class PnbpCrudController extends CrudController
         CRUD::column('nama_pemohon');
         CRUD::column('jenis_pnbp');
         CRUD::column('tanggal');
-        CRUD::column('biaya');
+        CRUD::column('biaya')
+            ->prefix("$");
         CRUD::column('keterangan');
 
         /**

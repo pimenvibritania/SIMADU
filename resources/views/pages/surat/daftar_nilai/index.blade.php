@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{route('masuk-kuliah.create')}}" class="btn btn-info" >
+                <a href="{{route('daftar-nilai.create')}}" class="btn btn-info" >
                     <i class="fa fa-plus-square"></i>
                     Ajukan
                 </a>

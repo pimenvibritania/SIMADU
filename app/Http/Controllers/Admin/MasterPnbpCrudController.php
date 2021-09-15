@@ -43,7 +43,7 @@ class MasterPnbpCrudController extends CrudController
         CRUD::column('kode');
         CRUD::column('is_active');
         CRUD::column('jenis');
-        CRUD::column('biaya');
+        CRUD::column('biaya')->prefix("$");
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -65,7 +65,9 @@ class MasterPnbpCrudController extends CrudController
         CRUD::field('kode');
         CRUD::field('is_active');
         CRUD::field('jenis');
-        CRUD::field('biaya');
+        CRUD::field('biaya')
+            ->type("number")
+            ->prefix("$");
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

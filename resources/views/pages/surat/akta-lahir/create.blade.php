@@ -49,14 +49,14 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="no_surat" class="form-control" readonly type="text" value="{{$no_surat}}">
                                     <span class="form-label">No Surat</span>
+                                    <input name="no_surat" class="form-control" readonly type="text" value="{{$no_surat}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="no_permohonan" class="form-control" readonly type="text" value="{{$no_permohonan}}">
                                     <span class="form-label">No Permohonan</span>
+                                    <input name="no_permohonan" class="form-control" readonly type="text" value="{{$no_permohonan}}">
                                 </div>
                             </div>
                         </div>
@@ -86,20 +86,20 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="nama_pelapor" class="form-control" readonly type="text" value="{{$user->name}}">
                                     <span class="form-label">Nama Pelapor</span>
+                                    <input name="nama_pelapor" class="form-control" readonly type="text" value="{{$user->name}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="nik_pelapor" class="form-control" type="text" value="{{old('nik_pelapor')}}">
                                     <span class="form-label">NIK Pelapor</span>
+                                    <input name="nik_pelapor" class="form-control" type="text" value="{{old('nik_pelapor')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="hubungan" class="form-control" type="text" value="{{old('hubungan')}}">
                                     <span class="form-label">Hubungan dengan Anak</span>
+                                    <input name="hubungan" class="form-control" type="text" value="{{old('hubungan')}}">
                                 </div>
                             </div>
                         </div>
@@ -165,25 +165,28 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input required name="nama_bayi" class="form-control" type="text" value="{{old('nama_bayi')}}">
                                     <span class="form-label">Nama Bayi</span>
+                                    <input required name="nama_bayi" class="form-control" type="text" value="{{old('nama_bayi')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <span class="form-label">Jenis Kelamin</span>
+
                                     <select class="form-control" name="jenis_kelamin" required>
                                         <option value="laki-laki">Laki-Laki</option>
                                         <option value="perempuan">Perempuan</option>
                                         <option value="other">Other</option>
                                     </select>
                                     <span class="select-arrow"></span>
-                                    <span class="form-label">Jenis Kelamin</span>
+
+
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="tempat_lahir" class="form-control" type="text" value="{{old('tempat_lahir')}}">
                                     <span class="form-label">Tempat Lahir</span>
+                                    <input required name="tempat_lahir" class="form-control" type="text" value="{{old('tempat_lahir')}}">
                                 </div>
                             </div>
 
@@ -192,46 +195,46 @@
                                     @if ($errors->has('tanggal_lahir'))
                                         <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
                                     @endif
-                                    <input value="{{old('tgl_lahir')}}" name="tgl_lahir" class="form-control" type="date" required>
                                     <span class="form-label">Tanggal Lahir</span>
+                                    <input value="{{old('tgl_lahir')}}" name="tgl_lahir" class="form-control" type="date" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="berat_kg" placeholder="Kilogram" class="form-control" type="number" min="0" value="{{old('berat_kg')}}">
                                     <span class="form-label">Berat Bayi (KG)</span>
+                                    <input required name="berat_kg" placeholder="Kilogram" class="form-control" type="number" min="0" value="{{old('berat_kg')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="berat_ons" placeholder="Ons" class="form-control" type="number" min="0" value="{{old('berat_ons')}}">
                                     <span class="form-label">Berat Bayi (ONS)</span>
+                                    <input required name="berat_ons" placeholder="Ons" class="form-control" type="number" min="0" value="{{old('berat_ons')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="panjang" placeholder="Centimeter" class="form-control" type="number" min="0" value="{{old('panjang')}}">
                                     <span class="form-label">Panjang Bayi (CM)</span>
+                                    <input required name="panjang" placeholder="Centimeter" class="form-control" type="number" min="0" value="{{old('panjang')}}">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input required name="jenis_kelahiran" class="form-control" type="text" value="{{old('jenis_kelahiran')}}">
                                     <span class="form-label">Jenis Kelahiran</span>
+                                    <input required name="jenis_kelahiran" class="form-control" type="text" value="{{old('jenis_kelahiran')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="kelahiran_ke" class="form-control" type="number" min="0" value="{{old('kelahiran_ke')}}">
                                     <span class="form-label">Kelahiran ke-</span>
+                                    <input required name="kelahiran_ke" class="form-control" type="number" min="0" value="{{old('kelahiran_ke')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input required name="anak_ke" class="form-control" type="number" min="0" value="{{old('anak_ke')}}">
                                     <span class="form-label">Anak ke-</span>
+                                    <input required name="anak_ke" class="form-control" type="number" min="0" value="{{old('anak_ke')}}">
                                 </div>
                             </div>
 
@@ -275,32 +278,32 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input required name="tempat_kelahiran" class="form-control" type="text" value="{{old('tempat_kelahiran')}}">
                                     <span class="form-label">Tempat Kelahiran</span>
+                                    <input required name="tempat_kelahiran" class="form-control" type="text" value="{{old('tempat_kelahiran')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input name="no_surat_rs" class="form-control" type="text" value="{{old('no_surat_rs')}}">
                                     <span class="form-label">No Surat RS</span>
+                                    <input name="no_surat_rs" class="form-control" type="text" value="{{old('no_surat_rs')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input value="{{old('tgl_surat_rs')}}" name="tgl_surat_rs" class="form-control" type="date">
                                     <span class="form-label">Tanggal Surat RS</span>
+                                    <input value="{{old('tgl_surat_rs')}}" name="tgl_surat_rs" class="form-control" type="date">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama_rs" class="form-control" type="text" value="{{old('nama_rs')}}">
                                     <span class="form-label">Nama Rumah Sakit</span>
+                                    <input name="nama_rs" class="form-control" type="text" value="{{old('nama_rs')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ">
-                                    <textarea class="form-control" value="{{old('alamat_rs')}}" name="alamat_rs"></textarea>
                                     <span class="form-label">Alamat Rumah Sakit</span>
+                                    <textarea class="form-control" value="{{old('alamat_rs')}}" name="alamat_rs"></textarea>
                                 </div>
                             </div>
 
@@ -358,50 +361,50 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="no_bukti" class="form-control" type="text" value="{{old('no_bukti')}}">
                                     <span class="form-label">No Bukti Pencatatan</span>
+                                    <input name="no_bukti" class="form-control" type="text" value="{{old('no_bukti')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input name="penerbit" class="form-control" type="text" value="{{old('penerbit')}}">
                                     <span class="form-label">Diterbitkan Oleh</span>
+                                    <input name="penerbit" class="form-control" type="text" value="{{old('penerbit')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input value="{{old('tgl_bukti')}}" name="tgl_bukti" class="form-control" type="date">
                                     <span class="form-label">Tanggal Bukti Pencatatan</span>
+                                    <input value="{{old('tgl_bukti')}}" name="tgl_bukti" class="form-control" type="date">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_paspor_ayah" class="form-control" type="file" value="{{old('file_paspor_ayah')}}">
                                     <span class="form-label">Scan Paspor Ayah</span>
+                                    <input name="file_paspor_ayah" class="form-control" type="file" value="{{old('file_paspor_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_paspor_ibu" class="form-control" type="file" value="{{old('file_paspor_ibu')}}">
                                     <span class="form-label">Scan Paspor Ibu</span>
+                                    <input name="file_paspor_ibu" class="form-control" type="file" value="{{old('file_paspor_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_izin_tinggal_ayah" class="form-control" type="file" value="{{old('file_izin_tinggal_ayah')}}">
                                     <span class="form-label">Scan Surat Izin Tinggal Ayah</span>
+                                    <input name="file_izin_tinggal_ayah" class="form-control" type="file" value="{{old('file_izin_tinggal_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_izin_tinggal_ibu" class="form-control" type="file" value="{{old('file_izin_tinggal_ibu')}}">
                                     <span class="form-label">Scan Surat Izin Tinggal Ibu</span>
+                                    <input name="file_izin_tinggal_ibu" class="form-control" type="file" value="{{old('file_izin_tinggal_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="file_sk_dokter" class="form-control" type="file" value="{{old('file_sk_dokter')}}">
                                     <span class="form-label">Scan Keterangan Dokter</span>
+                                    <input name="file_sk_dokter" class="form-control" type="file" value="{{old('file_sk_dokter')}}">
                                 </div>
                             </div>
                         </div>
@@ -472,68 +475,68 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="nama_ibu" class="form-control" type="text" value="{{old('nama_ibu')}}">
                                     <span class="form-label">Nama Ibu</span>
+                                    <input name="nama_ibu" class="form-control" type="text" value="{{old('nama_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input name="umur_ibu" class="form-control" type="number" min="0" value="{{old('umur_ibu')}}">
                                     <span class="form-label">Umur Ibu</span>
+                                    <input name="umur_ibu" class="form-control" type="number" min="0" value="{{old('umur_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input value="{{old('tgl_lahir_ibu')}}" name="tgl_lahir_ibu" class="form-control" type="date">
                                     <span class="form-label">Tanggal Lahir Ibu</span>
+                                    <input value="{{old('tgl_lahir_ibu')}}" name="tgl_lahir_ibu" class="form-control" type="date">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input name="agama_ibu" class="form-control" type="text" value="{{old('agama_ibu')}}">
                                     <span class="form-label">Agama Ibu</span>
+                                    <input name="agama_ibu" class="form-control" type="text" value="{{old('agama_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="pekerjaan_ibu" class="form-control" type="text" value="{{old('pekerjaan_ibu')}}">
                                     <span class="form-label">Pekerjaan Ibu</span>
+                                    <input name="pekerjaan_ibu" class="form-control" type="text" value="{{old('pekerjaan_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="no_paspor_ibu" class="form-control" type="text" value="{{old('no_paspor_ibu')}}">
                                     <span class="form-label">No Paspor Ibu</span>
+                                    <input name="no_paspor_ibu" class="form-control" type="text" value="{{old('no_paspor_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="kewarganegaraan_ibu" class="form-control" type="text" value="{{old('kewarganegaraan_ibu')}}">
                                     <span class="form-label">Kewarganegaraan Ibu</span>
+                                    <input name="kewarganegaraan_ibu" class="form-control" type="text" value="{{old('kewarganegaraan_ibu')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="tlp_ibu_indo" class="form-control" type="text" value="{{old('tlp_ibu_indo')}}">
                                     <span class="form-label">No Telefon Ibu (Indonesia)</span>
+                                    <input name="tlp_ibu_indo" class="form-control" type="text" value="{{old('tlp_ibu_indo')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="tlp_ibu_mesir" class="form-control" type="text" value="{{old('tlp_ibu_mesir')}}">
                                     <span class="form-label">No Telefon Ibu (Mesir)</span>
+                                    <input name="tlp_ibu_mesir" class="form-control" type="text" value="{{old('tlp_ibu_mesir')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ">
-                                    <textarea class="form-control" value="{{old('alamat_indo_ibu')}}" name="alamat_indo_ibu"></textarea>
                                     <span class="form-label">Alamat Ibu (Indonesia)</span>
+                                    <textarea class="form-control" value="{{old('alamat_indo_ibu')}}" name="alamat_indo_ibu"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ">
-                                    <textarea class="form-control" value="{{old('alamat_mesir_ibu')}}" name="alamat_mesir_ibu"></textarea>
                                     <span class="form-label">Alamat Ibu (Mesir)</span>
+                                    <textarea class="form-control" value="{{old('alamat_mesir_ibu')}}" name="alamat_mesir_ibu"></textarea>
                                 </div>
                             </div>
 
@@ -605,68 +608,68 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="nama_ayah" class="form-control" type="text" value="{{old('nama_ayah')}}">
                                     <span class="form-label">Nama Ayah</span>
+                                    <input name="nama_ayah" class="form-control" type="text" value="{{old('nama_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input name="umur_ayah" class="form-control" type="number" min="0" value="{{old('umur_ayah')}}">
                                     <span class="form-label">Umur Ayah</span>
+                                    <input name="umur_ayah" class="form-control" type="number" min="0" value="{{old('umur_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input value="{{old('tgl_lahir_ayah')}}" name="tgl_lahir_ayah" class="form-control" type="date">
                                     <span class="form-label">Tanggal Lahir Ayah</span>
+                                    <input value="{{old('tgl_lahir_ayah')}}" name="tgl_lahir_ayah" class="form-control" type="date">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input name="agama_ayah" class="form-control" type="text" value="{{old('agama_ayah')}}">
                                     <span class="form-label">Agama Ayah</span>
+                                    <input name="agama_ayah" class="form-control" type="text" value="{{old('agama_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="pekerjaan_ayah" class="form-control" type="text" value="{{old('pekerjaan_ayah')}}">
                                     <span class="form-label">Pekerjaan Ayah</span>
+                                    <input name="pekerjaan_ayah" class="form-control" type="text" value="{{old('pekerjaan_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="no_paspor_ayah" class="form-control" type="text" value="{{old('no_paspor_ayah')}}">
                                     <span class="form-label">No Paspor Ayah</span>
+                                    <input name="no_paspor_ayah" class="form-control" type="text" value="{{old('no_paspor_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="kewarganegaraan_ayah" class="form-control" type="text" value="{{old('kewarganegaraan_ayah')}}">
                                     <span class="form-label">Kewarganegaraan Ayah</span>
+                                    <input name="kewarganegaraan_ayah" class="form-control" type="text" value="{{old('kewarganegaraan_ayah')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="tlp_ayah_indo" class="form-control" type="text" value="{{old('tlp_ayah_indo')}}">
                                     <span class="form-label">No Telefon Ayah (Indonesia)</span>
+                                    <input name="tlp_ayah_indo" class="form-control" type="text" value="{{old('tlp_ayah_indo')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="tlp_ayah_mesir" class="form-control" type="text" value="{{old('tlp_ayah_mesir')}}">
                                     <span class="form-label">No Telefon Ayah (Mesir)</span>
+                                    <input name="tlp_ayah_mesir" class="form-control" type="text" value="{{old('tlp_ayah_mesir')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ">
-                                    <textarea class="form-control" value="{{old('alamat_indo_ayah')}}" name="alamat_indo_ayah"></textarea>
                                     <span class="form-label">Alamat Ayah (Indonesia)</span>
+                                    <textarea class="form-control" value="{{old('alamat_indo_ayah')}}" name="alamat_indo_ayah"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ">
-                                    <textarea class="form-control" value="{{old('alamat_mesir_ayah')}}" name="alamat_mesir_ayah"></textarea>
                                     <span class="form-label">Alamat Ayah (Mesir)</span>
+                                    <textarea class="form-control" value="{{old('alamat_mesir_ayah')}}" name="alamat_mesir_ayah"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -696,20 +699,20 @@
 
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <input name="no_akta_kawin" class="form-control" type="text" value="{{old('no_akta_kawin')}}">
                                     <span class="form-label">No Akta Nikah</span>
+                                    <input name="no_akta_kawin" class="form-control" type="text" value="{{old('no_akta_kawin')}}">
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <input name="instansi_kawin" class="form-control" type="text" value="{{old('instansi_kawin')}}">
                                     <span class="form-label">Instansi/Lembaga yang Mengeluarkan</span>
+                                    <input name="instansi_kawin" class="form-control" type="text" value="{{old('instansi_kawin')}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input value="{{old('tgl_kawin')}}" name="tgl_kawin" class="form-control" type="date">
                                     <span class="form-label">Tanggal Nikah</span>
+                                    <input value="{{old('tgl_kawin')}}" name="tgl_kawin" class="form-control" type="date">
                                 </div>
                             </div>
                         </div>
@@ -744,26 +747,26 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nik_saksi_1" class="form-control" type="text" value="{{old('nik_saksi_1')}}">
                                     <span class="form-label">NIK Saksi 1</span>
+                                    <input name="nik_saksi_1" class="form-control" type="text" value="{{old('nik_saksi_1')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama_saksi_1" class="form-control" type="text" value="{{old('nama_saksi_1')}}">
                                     <span class="form-label">Nama Saksi 1</span>
+                                    <input name="nama_saksi_1" class="form-control" type="text" value="{{old('nama_saksi_1')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nik_saksi_2" class="form-control" type="text" value="{{old('nik_saksi_2')}}">
                                     <span class="form-label">NIK Saksi 2</span>
+                                    <input name="nik_saksi_2" class="form-control" type="text" value="{{old('nik_saksi_2')}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama_saksi_2" class="form-control" type="text" value="{{old('nama_saksi_2')}}">
                                     <span class="form-label">Nama Saksi 2</span>
+                                    <input name="nama_saksi_2" class="form-control" type="text" value="{{old('nama_saksi_2')}}">
                                 </div>
                             </div>
                         </div>

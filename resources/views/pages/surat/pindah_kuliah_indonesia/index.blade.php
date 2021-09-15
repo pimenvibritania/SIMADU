@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <h3 class="text-center m-3">Surat Keterangan Belajar yang telah di ajukan</h3>
+            <h3 class="text-center m-3">Surat Pindah Kuliah ke Indonesia yang telah di ajukan</h3>
 
             <div style="width: 100%;" class="p-4">
                 <div class="table-responsive">

@@ -70,42 +70,42 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="nama" class="form-control" readonly type="text" value="{{$user->nama}}">
                                     <span class="form-label">Nama</span>
+                                    <input name="nama" class="form-control" readonly type="text" value="{{$user->nama}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input name="no_surat" class="form-control" readonly type="text" value="{{$no_surat}}">
                                     <span class="form-label">No Surat</span>
+                                    <input name="no_surat" class="form-control" readonly type="text" value="{{$no_surat}}">
                                 </div>
                             </div>
 
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <input name="tujuan" class="form-control" type="text">
                                     <span class="form-label">Tujuan</span>
+                                    <input name="tujuan" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <input name="jml_surat" class="form-control" type="number" min="1">
                                     <span class="form-label">Jumlah Surat</span>
+                                    <input name="jml_surat" class="form-control" type="number" min="1">
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input name="thn_ajaran" class="form-control" type="number" min="1">
                                     <span class="form-label">Tahun Ajaran</span>
+                                    <input name="thn_ajaran" class="form-control" type="number" min="1">
                                 </div>
                             </div>
 
 
                             <div class="col-md-8">
                                 <div class="form-group ">
-                                    <textarea class="form-control" name="keperluan"></textarea>
                                     <span class="form-label">Keperluan</span>
+                                   <textarea class="form-control" name="keperluan"></textarea>
                                 </div>
                             </div>
                         </div>

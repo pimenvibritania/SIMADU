@@ -9,7 +9,7 @@
     @include('crud::inc.show_tabbed_fields')
     <input type="hidden" name="current_tab" value="{{ Str::slug($crud->getTabs()[0]) }}" />
 @else
-  <div class="card">
+  <div class="card" onload="getLoadedData()">
     <div class="card-body row">
       @include('crud::inc.show_fields', ['fields' => $crud->fields()])
 
@@ -30,10 +30,29 @@
         </div>
         <input type="hidden" name="kode_pnbp" value="" class="form-control">
 
-
             <script>
 
             $(function () {
+                let initKode = ($("#kodePnbp").find("option").text());
+                $.ajax({
+                    url: "{{route('pnbp_ajax')}}",
+                    type:"POST",
+                    data:{
+                        kode:initKode,
+                        // _token: _token
+                    },
+                    success:function(response){
+                        // console.log(response);
+                        if(response) {
+                            // $('.success').text(response.success);
+                            $('input[name=jenis_pnbp]').val(response.jenis);
+                            $('input[name=biaya]').val(response.biaya);
+                            $('input[name=kode_pnbp]').val(response.kode);
+
+                        }
+                    },
+                });
+
                 $("#kodePnbp").change(function () {
                     let kode = $(this).find("option:selected").text();
                     // let _token   = $('meta[name="csrf-token"]').attr('content');
