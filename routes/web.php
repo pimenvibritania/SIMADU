@@ -59,8 +59,8 @@ Route::group([
 ], function (){
 
     Route::get('pendidikan', [BiodataController::class, 'pendidikanIndex'])->name('pendidikan.fill');
-
     Route::post('pendidikan/create', [BiodataController::class, 'pendidikan'])->name('pendidikan.create');
+    Route::get('pendidikan/add', [BiodataController::class, 'pendidikanAdd'])->name('pendidikan.add');
 
 });
 

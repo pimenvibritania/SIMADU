@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('biodata')
+@section('content')
     @if(Session::has('success'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
@@ -145,67 +145,4 @@
         format: 'yyyy-mm-dd'
     });
 </script>
-@endsection
-@section('content')
-    @if(session()->has('successMsg'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session()->get('successMsg') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <a href="{{route('pendidikan.add')}}" class="btn btn-info" >
-                    <i class="fa fa-plus-square"></i>
-                    Tambah Data
-                </a>
-            </div>
-        </div>
-        <div class="panel-body">
-            <h3 class="text-center m-3">Surat Pindah Kuliah ke Luar Negeri yang telah di ajukan</h3>
-
-            <div style="width: 100%;" class="p-4">
-                <div class="table-responsive">
-                    <table id="example" class="table table-striped data-table table-hover dt-responsive display nowrap" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th width="10px"></th>
-                            <th>Jenjang</th>
-                            <th>Instansi</th>
-                            <th>Alamat</th>
-                            <th>Masuk</th>
-                            <th>Keluar</th>
-
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(function () {
-
-            var table = $('.data-table').DataTable({
-
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('pendidikan.fill') }}",
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {data: 'rp_jenjang', name: 'rp_jenjang'},
-                    {data: 'rp_instansi', name: 'rp_instansi'},
-                    {data: 'rp_tempat', name: 'rp_tempat'},
-                    {data: 'rp_masuk', name: 'rp_masuk'},
-                    {data: 'rp_keluar', name: 'rp_keluar'},
-
-                ],
-
-            });
-
-        });
-    </script>
-
 @endsection

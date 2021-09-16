@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Yajra\DataTables\Facades\DataTables;
 
 class BiodataController extends Controller
 {
@@ -183,11 +184,12 @@ class BiodataController extends Controller
     public function pendidikan(Request $request){
 
         $bio = Biodata::where('user_id', auth()->user()->id)->first();
-        $request->validate([
-            'file_img_ijazah' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
 
         if ($request->file_img_ijazah != null){
+            $request->validate([
+                'file_img_ijazah' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
             $ijazahname = auth()->user()->email . '_' . time() . '.' .
                 $request->file_img_ijazah->extension();
 
@@ -198,17 +200,6 @@ class BiodataController extends Controller
                 'img_ijazah' => $request['img_ijazah']
             ]);
         }
-
-//        if ($request->pm_jenjang != null){
-//            PendidikanMesir::create([
-//                'biodata_id' => $bio->id,
-//                'pm_jenjang' => $request->pm_jenjang,
-//                'pm_instansi' => $request->pm_instansi,
-//                'pm_tempat' => $request->pm_tempat,
-//                'pm_masuk' => $request->pm_masuk,
-//                'pm_keluar' => $request->pm_keluar
-//            ]);
-//        }
 
         if ($request->rp_jenjang != null){
             RiwayatPendidikan::create([
@@ -222,15 +213,34 @@ class BiodataController extends Controller
         }
 
         return redirect('pendidikan')
-//            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio->id )->get())
             ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio->id )->get());
     }
 
-    public function pendidikanIndex (){
+    public function pendidikanIndex (Request $request){
 
-        $bio_id = backpack_user()->biodata->id;
+        $bio = backpack_user()->biodata;
+        $data = RiwayatPendidikan::where('biodata_id', $bio->id)->get();
+        if ($request->ajax()) {
+            return Datatables::of($data ?? null)
+                ->addIndexColumn()
+                ->editColumn('rp_masuk', function ($request) {
+                    return $request->created_at->format('Y-m-d'); // human readable format
+                })
+                ->editColumn('rp_keluar', function ($request) {
+                    return $request->created_at->format('Y-m-d'); // human readable format
+                })
+                ->make(true);
+        }
         return view('pages.pendidikan')
 //            ->with('pendidikanMesir', PendidikanMesir::where('biodata_id',$bio_id )->get())
-            ->with('riwayatPendidikan', RiwayatPendidikan::where('biodata_id',$bio_id )->get());
+            ->with('riwayatPendidikan', $data);
     }
+
+    public function pendidikanAdd(){
+        $bio = backpack_user()->biodata;
+        $data = RiwayatPendidikan::where('biodata_id', $bio->id)->get();
+        return view('pages.add_pendidikan')
+            ->with('riwayatPendidikan', $data);
+    }
+
 }
