@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('content')
+@section('biodata')
     @if(Session::has('success'))
         <div class="alert alert-success">
             {{ Session::get('success') }}

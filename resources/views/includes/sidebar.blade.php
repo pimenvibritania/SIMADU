@@ -18,7 +18,7 @@
                 </a>
             </li>
 
-            @if(auth()->user()->biodata == null)
+            @if(auth()->user()->biodata == null || auth()->user()->biodata->riwayatPendidikan->isEmpty())
                 <li class="nav-item">
                     <a class="nav-link {{
                     Request::is('biodata/create') ? 'active' : ''

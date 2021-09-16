@@ -9,11 +9,21 @@
 
         <h1 class="bio">403</h1>
         <h2 class="bio2">access forbidden!</h2>
-        <p class="bio3">Silahkan lengkapi biodata terlebih dahulu!</p>
-        <a href="{{\Illuminate\Support\Facades\URL::route('biodata.create')}}" class="btn mybtn-md" >
-            <i style="margin-right: 10px" class="fa fa-clipboard"></i>
-            <span>Isi Biodata</span>
-        </a>
+        @if(auth()->user()->biodata == null)
+            <p class="bio3">Silahkan lengkapi biodata terlebih dahulu!</p>
+            <a href="{{\Illuminate\Support\Facades\URL::route('biodata.create')}}" class="btn mybtn-md" >
+                <i style="margin-right: 10px" class="fa fa-clipboard"></i>
+                <span>Isi Biodata</span>
+            </a>
+        @elseif(auth()->user()->biodata->riwayatPendidikan->isEmpty())
+            <p class="bio3">Silahkan lengkapi riwayat pendidikan terlebih dahulu!</p>
+            <a href="{{\Illuminate\Support\Facades\URL::route('pendidikan.fill')}}" class="btn mybtn-md" >
+                <i style="margin-right: 10px" class="fa fa-clipboard"></i>
+                <span>Isi Riwayat Pendidikan</span>
+            </a>
+        @endif
+
+
     </div>
 </body>
 </html>

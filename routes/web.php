@@ -58,7 +58,7 @@ Route::group([
     'middleware' => ['web', 'role:user|mahasiswa']
 ], function (){
 
-    Route::get('pendidikan', [BiodataController::class, 'pendidikanIndex']);
+    Route::get('pendidikan', [BiodataController::class, 'pendidikanIndex'])->name('pendidikan.fill');
 
     Route::post('pendidikan/create', [BiodataController::class, 'pendidikan'])->name('pendidikan.create');
 
