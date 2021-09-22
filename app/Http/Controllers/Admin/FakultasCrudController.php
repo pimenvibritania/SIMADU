@@ -28,7 +28,7 @@ class FakultasCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\Fakultas::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/fakultas');
-        CRUD::setEntityNameStrings('fakultas', 'fakultas');
+        CRUD::setEntityNameStrings('fakultas', 'Fakultas');
     }
 
     /**

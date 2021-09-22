@@ -43,7 +43,7 @@ class VisaUmrohCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\VisaUmroh::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/visaumroh');
-        CRUD::setEntityNameStrings('visa-umroh', 'visa_umrohs');
+        CRUD::setEntityNameStrings('visa-umroh', 'Visa Umroh');
         $this->crud->enableExportButtons();
 
     }

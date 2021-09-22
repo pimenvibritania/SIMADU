@@ -28,7 +28,7 @@ class TandaTanganCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\TandaTangan::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tandatangan');
-        CRUD::setEntityNameStrings('tandatangan', 'tanda_tangans');
+        CRUD::setEntityNameStrings('tandatangan', 'Penanda Tangan');
     }
 
     /**

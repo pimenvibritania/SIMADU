@@ -49,7 +49,7 @@ class AktaLahirCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\AktaLahir::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/aktalahir');
-        CRUD::setEntityNameStrings('akta-lahir', 'akta_lahirs');
+        CRUD::setEntityNameStrings('akta-lahir', 'Akta Lahir');
         $this->crud->enableExportButtons();
 
     }

@@ -43,7 +43,7 @@ class KeteranganBelajarCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\KeteranganBelajar::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/keteranganbelajar');
-        CRUD::setEntityNameStrings('keterangan-belajar', 'keterangan-belajars');
+        CRUD::setEntityNameStrings('keterangan-belajar', 'Keterangan Belajar');
         $this->crud->enableExportButtons();
 
     }

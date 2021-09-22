@@ -43,7 +43,7 @@ class MasukMesirCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\MasukMesir::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/masukmesir');
-        CRUD::setEntityNameStrings('masuk-mesir', 'masuk_mesirs');
+        CRUD::setEntityNameStrings('masuk-mesir', 'Izin Masuk Mesir');
         $this->crud->enableExportButtons();
     }
 

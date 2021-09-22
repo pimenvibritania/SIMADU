@@ -42,7 +42,7 @@ class MasukRuakCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\MasukRuak::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/masukruak');
-        CRUD::setEntityNameStrings('masukruak', 'masuk_ruaks');
+        CRUD::setEntityNameStrings('masukruak', 'Masuk Ruak');
         $this->crud->enableExportButtons();
 
     }

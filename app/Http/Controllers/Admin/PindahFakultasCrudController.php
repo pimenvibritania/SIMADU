@@ -42,7 +42,7 @@ class PindahFakultasCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\PindahFakultas::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/pindahfakultas');
-        CRUD::setEntityNameStrings('pindahfakultas', 'pindah_fakultas');
+        CRUD::setEntityNameStrings('pindahfakultas', 'Pindah Fakultas');
         $this->crud->enableExportButtons();
 
     }

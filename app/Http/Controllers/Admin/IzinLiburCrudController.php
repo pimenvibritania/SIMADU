@@ -41,7 +41,7 @@ class IzinLiburCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\IzinLibur::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/izinlibur');
-        CRUD::setEntityNameStrings('izinlibur', 'izin_liburs');
+        CRUD::setEntityNameStrings('izinlibur', 'Izin Libur');
         $this->crud->enableExportButtons();
 
     }

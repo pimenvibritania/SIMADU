@@ -29,7 +29,7 @@ class MasterPnbpCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\MasterPnbp::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/master-pnbp');
-        CRUD::setEntityNameStrings('master-pnbp', 'master_pnbps');
+        CRUD::setEntityNameStrings('master-pnbp', 'Master PNBP');
     }
 
     /**

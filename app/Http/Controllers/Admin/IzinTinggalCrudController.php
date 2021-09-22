@@ -46,7 +46,7 @@ class IzinTinggalCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\IzinTinggal::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/izintinggal');
-        CRUD::setEntityNameStrings('izin-tinggal', 'izin_tinggals');
+        CRUD::setEntityNameStrings('izin-tinggal', 'Izin Tinggal');
         $this->crud->enableExportButtons();
     }
 

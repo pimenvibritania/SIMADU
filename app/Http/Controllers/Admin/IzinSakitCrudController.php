@@ -42,7 +42,7 @@ class IzinSakitCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\IzinSakit::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/izinsakit');
-        CRUD::setEntityNameStrings('izinsakit', 'izin_sakits');
+        CRUD::setEntityNameStrings('izinsakit', 'Izin Tidak Mengikuti Ujian Karena Sakit');
         $this->crud->enableExportButtons();
 
     }

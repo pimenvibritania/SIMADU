@@ -43,7 +43,7 @@ class KetNonBeasiswaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\KetNonBeasiswa::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/ketnonbeasiswa');
-        CRUD::setEntityNameStrings('ketnonbeasiswa', 'ket_non_beasiswas');
+        CRUD::setEntityNameStrings('ketnonbeasiswa', 'Keterangan Tidak Menerima Beasiswa');
         $this->crud->enableExportButtons();
 
     }

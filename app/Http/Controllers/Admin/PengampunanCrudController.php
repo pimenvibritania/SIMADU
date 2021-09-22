@@ -42,7 +42,7 @@ class PengampunanCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Pengampunan::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/pengampunans');
-        CRUD::setEntityNameStrings('pengampunan', 'pengampunans');
+        CRUD::setEntityNameStrings('pengampunan', 'Pengampunan');
         $this->crud->enableExportButtons();
 
     }

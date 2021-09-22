@@ -42,7 +42,7 @@ class CabutBerkasCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\CabutBerkas::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/cabutberkas');
-        CRUD::setEntityNameStrings('cabutberkas', 'cabut_berkas');
+        CRUD::setEntityNameStrings('cabutberkas', 'Cabut Berkas');
         $this->crud->enableExportButtons();
 
     }

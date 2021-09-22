@@ -43,7 +43,7 @@ class IzinTawaqufCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\IzinTawaquf::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/izintawaquf');
-        CRUD::setEntityNameStrings('izintawaquf', 'izin_tawaqufs');
+        CRUD::setEntityNameStrings('izintawaquf', 'Izin Tidak Mengikuti Ujian Karena Tawaquf');
         $this->crud->enableExportButtons();
 
     }

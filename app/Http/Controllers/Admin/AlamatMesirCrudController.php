@@ -42,7 +42,7 @@ class AlamatMesirCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\AlamatMesir::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/alamatmesir');
-        CRUD::setEntityNameStrings('alamat-mesir', 'alamat_mesirs');
+        CRUD::setEntityNameStrings('alamat-mesir', 'Keterangan Alamat Mesir');
         $this->crud->enableExportButtons();
 
     }

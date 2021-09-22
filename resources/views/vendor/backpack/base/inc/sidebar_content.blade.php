@@ -23,7 +23,7 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-graduation-cap"></i> Layanan Mahasiswa</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganbelajar') }}'><i class='nav-icon la la-book-open'></i> Keterangan Belajar</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahindonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindah-kuliahindonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-plane-departure'></i> Pindah Kuliah Luar Negeri</a></li>
         <div class="dropdown-divider"></div>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-cash-register'></i> Daftar Kuliah</a></li>
@@ -46,8 +46,8 @@
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-globe"></i> Layanan Umum</a>
     <ul class="nav-dropdown-items">
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('legalisir') }}'><i class='nav-icon la la-print'></i> Legalisir</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('akta-lahir') }}'><i class='nav-icon la la-baby-carriage'></i> Akta Lahir</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('legalisirs') }}'><i class='nav-icon la la-print'></i> Legalisir</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('aktalahir') }}'><i class='nav-icon la la-baby-carriage'></i> Akta Lahir</a></li>
 
     </ul>
 </li>

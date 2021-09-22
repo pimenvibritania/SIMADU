@@ -42,7 +42,7 @@ class MintaTashdiqCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\MintaTashdiq::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/mintatashdiq');
-        CRUD::setEntityNameStrings('mintatashdiq', 'minta_tashdiqs');
+        CRUD::setEntityNameStrings('mintatashdiq', 'Permintaan Tashdiq');
         $this->crud->enableExportButtons();
 
     }

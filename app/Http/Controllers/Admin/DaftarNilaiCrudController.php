@@ -42,7 +42,7 @@ class DaftarNilaiCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\DaftarNilai::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/daftarnilai');
-        CRUD::setEntityNameStrings('daftarnilai', 'daftar_nilais');
+        CRUD::setEntityNameStrings('daftarnilai', 'Daftar Nilai');
         $this->crud->enableExportButtons();
 
     }

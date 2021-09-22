@@ -42,7 +42,7 @@ class KeringananBiayaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\KeringananBiaya::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/keringananbiaya');
-        CRUD::setEntityNameStrings('keringananbiaya', 'keringanan_biayas');
+        CRUD::setEntityNameStrings('keringananbiaya', 'Keringanan Biaya');
         $this->crud->enableExportButtons();
 
     }

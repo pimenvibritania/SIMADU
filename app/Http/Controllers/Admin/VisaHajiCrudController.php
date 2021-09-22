@@ -44,7 +44,7 @@ class VisaHajiCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\VisaHaji::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/visahaji');
-        CRUD::setEntityNameStrings('visa-haji', 'visa_hajis');
+        CRUD::setEntityNameStrings('visa-haji', 'Visa Haji');
         $this->crud->enableExportButtons();
     }
 

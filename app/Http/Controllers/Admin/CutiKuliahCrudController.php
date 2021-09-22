@@ -42,7 +42,7 @@ class CutiKuliahCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\CutiKuliah::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/cutikuliah');
-        CRUD::setEntityNameStrings('cutikuliah', 'cuti_kuliahs');
+        CRUD::setEntityNameStrings('cutikuliah', 'Cuti Kuliah');
         $this->crud->enableExportButtons();
 
     }

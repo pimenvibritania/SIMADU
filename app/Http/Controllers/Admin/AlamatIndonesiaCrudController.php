@@ -41,7 +41,7 @@ class AlamatIndonesiaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\AlamatIndonesia::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/alamatindonesia');
-        CRUD::setEntityNameStrings('alamat-indonesia', 'alamat_indonesias');
+        CRUD::setEntityNameStrings('alamat-indonesia', 'Keterangan Alamat Indonesia');
         $this->crud->enableExportButtons();
     }
 

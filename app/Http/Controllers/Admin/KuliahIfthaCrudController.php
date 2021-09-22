@@ -42,7 +42,7 @@ class KuliahIfthaCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\KuliahIftha::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/kuliahiftha');
-        CRUD::setEntityNameStrings('kuliahiftha', 'kuliah_ifthas');
+        CRUD::setEntityNameStrings('kuliahiftha', 'Masuk Kuliah Iftha');
         $this->crud->enableExportButtons();
 
     }

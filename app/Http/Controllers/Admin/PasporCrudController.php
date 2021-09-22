@@ -28,7 +28,7 @@ class PasporCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Paspor::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/paspor');
-        CRUD::setEntityNameStrings('paspor', 'paspors');
+        CRUD::setEntityNameStrings('paspor', 'Pembuatan Paspor');
         $this->crud->enableExportButtons();
 
     }
