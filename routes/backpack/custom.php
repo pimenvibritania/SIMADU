@@ -44,7 +44,6 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('permission', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
-    Route::crud('user', 'UserCrudController');
 
     Route::crud('biodata', 'BiodataCrudController');
 
