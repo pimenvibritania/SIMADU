@@ -30,8 +30,14 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'tki',
+            'name' => 'admin_mahasiswa',
             'guard_name' => 'web'
         ]);
+
+        Role::create([
+            'name' => 'admin_konsuler',
+            'guard_name' => 'web'
+         ]);
+
     }
 }

@@ -163,14 +163,11 @@ Route::group([
 Route::group(
     [
         'prefix' => config('backpack.base.route_prefix', 'admin'),
-        'middleware' => ['web', 'role:admin'],
+        'middleware' => ['web', 'role:admin|admin_konsuler|admin_mahasiswa'],
         'namespace'  => 'App\Http\Controllers\Admin'
 
     ],
     function () {
-        Route::crud('permission', 'PermissionCrudController');
-        Route::crud('role', 'RoleCrudController');
-        Route::crud('user', 'UserCrudController');
         Route::get('dashboard', 'AdminController@dashboard')->name('backpack.dashboard');
         Route::get('/', 'AdminController@redirect')->name('backpack');
         Route::get('edit-account-info', 'MyAccountController@getAccountInfoForm')->name('backpack.account.info');

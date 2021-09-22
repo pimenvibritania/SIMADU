@@ -5,7 +5,6 @@
 // --------------------------
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AktaLahirCrudController;
 use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
@@ -43,16 +42,39 @@ Route::group([
     'middleware' => ['web', 'role:admin'],
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
-//    Route::crud('contact', 'ContactCrudController');
+    Route::crud('permission', 'PermissionCrudController');
+    Route::crud('role', 'RoleCrudController');
+    Route::crud('user', 'UserCrudController');
 
     Route::crud('biodata', 'BiodataCrudController');
+
+    Route::crud('master-pnbp', 'MasterPnbpCrudController');
+    Route::post('master-pnbp/ajax', [MasterPnbpCrudController::class, 'ajax'])
+    ->name('pnbp_ajax');
+    Route::crud('pnbp', 'PnbpCrudController');
+    Route::crud('paspor', 'PasporCrudController');
+
+    Route::crud('fakultas', 'FakultasCrudController');
+    Route::crud('tandatangan', 'TandaTanganCrudController');
+
+    Route::crud('changableword', 'ChangableWordCrudController');
+    Route::get('changable-word/{id}', [ChangableWordCrudController::class, 'ajax'])
+    ->name('changable-ajax');
+    Route::get('changable-word-kb/{id}', [ChangableWordCrudController::class, 'kb']);
+
+
+});
+
+Route::group([
+     'middleware' => ['web', 'role:admin|admin_konsuler'],
+     'prefix'     => config('backpack.base.route_prefix', 'admin'),
+     'namespace'  => 'App\Http\Controllers\Admin',
+ ], function () {
 
     Route::crud('izintinggal', 'IzinTinggalCrudController');
     Route::post('izintinggal/{id}/approve', [IzinTinggalCrudController::class, 'approve']);
     Route::post('izintinggal/{id}/decline', [IzinTinggalCrudController::class, 'decline']);
     Route::get('izintinggal/{id}/print', [IzinTinggalCrudController::class, 'print']);
-
-    Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
 
     Route::crud('pengampunans', 'PengampunanCrudController');
     Route::post('pengampunans/{id}/approve', [PengampunanCrudController::class, 'approve']);
@@ -110,8 +132,16 @@ Route::group([
     Route::post('aktalahir/{id}/decline', [AktaLahirCrudController::class, 'decline']);
     Route::get('aktalahir/{id}/print', [AktaLahirCrudController::class, 'print']);
     Route::get('aktalahir/{id}/delete', [AktaLahirCrudController::class, 'delete']);
+});
 
+Route::group([
+     'middleware' => ['web', 'role:admin|admin_mahasiswa'],
+     'prefix'     => config('backpack.base.route_prefix', 'admin'),
+     'namespace'  => 'App\Http\Controllers\Admin',
+ ], function () {
     //Mahasiswa Routes
+    Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
+
     Route::crud('keteranganbelajar', 'KeteranganBelajarCrudController');
     Route::post('keteranganbelajar/{id}/approve', [KeteranganBelajarCrudController::class, 'approve']);
     Route::post('keteranganbelajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
@@ -196,23 +226,4 @@ Route::group([
     Route::post('izinlibur/{id}/approve', [IzinLiburCrudController::class, 'approve']);
     Route::post('izinlibur/{id}/decline', [IzinLiburCrudController::class, 'decline']);
     Route::get('izinlibur/{id}/print', [IzinLiburCrudController::class, 'print']);
-
-
-    //ADMIN TRANSACTION
-
-    Route::crud('master-pnbp', 'MasterPnbpCrudController');
-    Route::post('master-pnbp/ajax', [MasterPnbpCrudController::class, 'ajax'])
-    ->name('pnbp_ajax');
-    Route::crud('pnbp', 'PnbpCrudController');
-    Route::crud('paspor', 'PasporCrudController');
-
-    Route::crud('fakultas', 'FakultasCrudController');
-    Route::crud('tandatangan', 'TandaTanganCrudController');
-
-    Route::crud('changableword', 'ChangableWordCrudController');
-    Route::get('changable-word/{id}', [ChangableWordCrudController::class, 'ajax'])
-    ->name('changable-ajax');
-    Route::get('changable-word-kb/{id}', [ChangableWordCrudController::class, 'kb']);
-
-
-}); // this should be the absolute last line of this file
+});// this should be the absolute last line of this file

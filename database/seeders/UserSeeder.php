@@ -40,5 +40,23 @@ class UserSeeder extends Seeder
         ]);
 
         $mahasiswa->assignRole('mahasiswa');
+
+        $mahasiswa = User::create([
+              'name' => 'admin konsuler',
+              'email' => 'adminkonsuler@mail.com',
+              'password' => bcrypt('password'),
+              'status' => 'admin_konsuler'
+          ]);
+
+        $mahasiswa->assignRole('admin_konsuler');
+
+        $mahasiswa = User::create([
+              'name' => 'admin mahasiswa',
+              'email' => 'adminmahasiswa@mail.com',
+              'password' => bcrypt('password'),
+              'status' => 'admin_mahasiswa'
+          ]);
+
+        $mahasiswa->assignRole('admin_mahasiswa');
     }
 }

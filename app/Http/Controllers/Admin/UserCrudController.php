@@ -170,7 +170,13 @@ class UserCrudController extends CrudController
                 'name'  => 'status',
                 'label' => 'Status',
                 'type'  => 'select2_from_array',
-                'options'     => ['mahasiswa' => 'Mahasiswa', 'tki' => 'TKI'],
+                'options'     => [
+                    'admin' => 'Admin',
+                    'admin_konsuler' => 'Admin Konsuler',
+                    'admin_mahasiswa' => 'Admin Mahasiswa',
+                    'mahasiswa' => 'Mahasiswa',
+                    'tki' => 'TKI',
+                ],
                 'allows_null' => false,
             ],
             [

@@ -50,7 +50,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UnauthorizedException) {
             foreach ($guards as $guard) {
                 if (Auth::guard($guard)->check()) {
-                    if (auth()->user()->hasRole('admin')) {
+                    if (auth()->user()->hasRole('admin') ||
+                        auth()->user()->hasRole('admin_konsuler') ||
+                        auth()->user()->hasRole('admin_mahasiswa')) {
                         return redirect('admin/dashboard');
                     }
                     if (\auth()->user()->roles->first()->name == 'mahasiswa'){

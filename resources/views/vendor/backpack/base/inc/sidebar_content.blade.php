@@ -1,8 +1,7 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 
-<!-- Users, Roles, Permissions -->
-
+@if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('admin_konsuler'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-server"></i> Layanan WNI</a>
     <ul class="nav-dropdown-items">
@@ -18,6 +17,8 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganlahir') }}'><i class='nav-icon la la-baby'></i> Keterangan Lahir</a></li>
     </ul>
 </li>
+@endif
+@if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('admin_mahasiswa'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-graduation-cap"></i> Layanan Mahasiswa</a>
     <ul class="nav-dropdown-items">
@@ -41,6 +42,7 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-flag'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>
     </ul>
 </li>
+@endif
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-globe"></i> Layanan Umum</a>
     <ul class="nav-dropdown-items">
@@ -49,6 +51,7 @@
 
     </ul>
 </li>
+@if(auth()->user()->hasRole('admin'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-briefcase"></i> Admin Transactions</a>
     <ul class="nav-dropdown-items">
@@ -57,7 +60,6 @@
 
     </ul>
 </li>
-
 
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-hands-helping"></i> Master Data</a>
@@ -76,8 +78,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('biodata') }}'><i class='nav-icon la la-user-secret'></i> Biodata</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
-{{--        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>--}}
 
     </ul>
 </li>
-
+@endif
