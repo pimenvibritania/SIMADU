@@ -163,7 +163,7 @@ Route::group([
 Route::group(
     [
         'prefix' => config('backpack.base.route_prefix', 'admin'),
-        'middleware' => ['web', 'role:admin|admin_konsuler|admin_mahasiswa'],
+        'middleware' => ['web', 'role:admin|admin_konsuler|admin_mahasiswa|pimpinan'],
         'namespace'  => 'App\Http\Controllers\Admin'
 
     ],
@@ -173,8 +173,19 @@ Route::group(
         Route::get('edit-account-info', 'MyAccountController@getAccountInfoForm')->name('backpack.account.info');
         Route::post('edit-account-info', 'MyAccountController@postAccountInfoForm')->name('backpack.account.info.store');
         Route::post('change-password', 'MyAccountController@postChangePasswordForm')->name('backpack.account.password');
-        Route::crud('user', 'UserCrudController');
 
     }
 );
+Route::group(
+    [
+        'prefix' => config('backpack.base.route_prefix', 'admin'),
+        'middleware' => ['web', 'role:admin'],
+        'namespace'  => 'App\Http\Controllers\Admin'
+
+    ],
+    function () {
+        Route::crud('user', 'UserCrudController');
+    });
+
+
 

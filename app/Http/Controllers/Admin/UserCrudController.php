@@ -174,6 +174,7 @@ class UserCrudController extends CrudController
                     'admin' => 'Admin',
                     'admin_konsuler' => 'Admin Konsuler',
                     'admin_mahasiswa' => 'Admin Mahasiswa',
+                    'pimpinan' => 'Pimpinan',
                     'mahasiswa' => 'Mahasiswa',
                     'tki' => 'TKI',
                 ],

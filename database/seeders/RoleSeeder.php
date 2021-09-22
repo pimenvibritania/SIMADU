@@ -39,5 +39,9 @@ class RoleSeeder extends Seeder
             'guard_name' => 'web'
          ]);
 
+        Role::create([
+             'name' => 'pimpinan',
+             'guard_name' => 'web'
+         ]);
     }
 }

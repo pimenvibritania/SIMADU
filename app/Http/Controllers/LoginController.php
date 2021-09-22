@@ -101,7 +101,8 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             if(auth()->user()->hasRole('admin')||
                 auth()->user()->hasRole('admin_konsuler') ||
-                auth()->user()->hasRole('admin_mahasiswa')){
+                auth()->user()->hasRole('admin_mahasiswa') ||
+                auth()->user()->hasRole('pimpinan')){
                 return view('backpack::dashboard');
             }
             return view('pages.dashboard');

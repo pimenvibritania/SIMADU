@@ -52,7 +52,8 @@ class Handler extends ExceptionHandler
                 if (Auth::guard($guard)->check()) {
                     if (auth()->user()->hasRole('admin') ||
                         auth()->user()->hasRole('admin_konsuler') ||
-                        auth()->user()->hasRole('admin_mahasiswa')) {
+                        auth()->user()->hasRole('admin_mahasiswa')||
+                        auth()->user()->hasRole('pimpinan')) {
                         return redirect('admin/dashboard');
                     }
                     if (\auth()->user()->roles->first()->name == 'mahasiswa'){

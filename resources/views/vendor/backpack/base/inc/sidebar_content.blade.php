@@ -43,6 +43,7 @@
     </ul>
 </li>
 @endif
+@if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('admin_konsuler') || auth()->user()->hasRole('admin_mahasiswa'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-globe"></i> Layanan Umum</a>
     <ul class="nav-dropdown-items">
@@ -51,6 +52,7 @@
 
     </ul>
 </li>
+@endif
 @if(auth()->user()->hasRole('admin'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-briefcase"></i> Admin Transactions</a>
@@ -60,7 +62,6 @@
 
     </ul>
 </li>
-
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-hands-helping"></i> Master Data</a>
     <ul class="nav-dropdown-items">
