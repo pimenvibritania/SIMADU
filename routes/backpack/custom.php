@@ -70,35 +70,35 @@ Route::group([
     Route::get('alamatindonesia/{id}/print', [AlamatIndonesiaCrudController::class, 'print']);
 
 
-    Route::crud('masuk-mesir', 'MasukMesirCrudController');
-    Route::post('masuk-mesir/{id}/approve', [MasukMesirCrudController::class, 'approve']);
-    Route::post('masuk-mesir/{id}/decline', [MasukMesirCrudController::class, 'decline']);
-    Route::get('masuk-mesir/{id}/print', [MasukMesirCrudController::class, 'print']);
+    Route::crud('masukmesir', 'MasukMesirCrudController');
+    Route::post('masukmesir/{id}/approve', [MasukMesirCrudController::class, 'approve']);
+    Route::post('masukmesir/{id}/decline', [MasukMesirCrudController::class, 'decline']);
+    Route::get('masukmesir/{id}/print', [MasukMesirCrudController::class, 'print']);
 
-    Route::crud('visa-haji', 'VisaHajiCrudController');
-    Route::post('visa-haji/{id}/approve', [VisaHajiCrudController::class, 'approve']);
-    Route::post('visa-haji/{id}/decline', [VisaHajiCrudController::class, 'decline']);
-    Route::get('visa-haji/{id}/print', [VisaHajiCrudController::class, 'print']);
+    Route::crud('visahaji', 'VisaHajiCrudController');
+    Route::post('visahaji/{id}/approve', [VisaHajiCrudController::class, 'approve']);
+    Route::post('visahaji/{id}/decline', [VisaHajiCrudController::class, 'decline']);
+    Route::get('visahaji/{id}/print', [VisaHajiCrudController::class, 'print']);
 
-    Route::crud('visa-umroh', 'VisaUmrohCrudController');
-    Route::post('visa-umroh/{id}/approve', [VisaUmrohCrudController::class, 'approve']);
-    Route::post('visa-umroh/{id}/decline', [VisaUmrohCrudController::class, 'decline']);
-    Route::get('visa-umroh/{id}/print', [VisaUmrohCrudController::class, 'print']);
+    Route::crud('visaumroh', 'VisaUmrohCrudController');
+    Route::post('visaumroh/{id}/approve', [VisaUmrohCrudController::class, 'approve']);
+    Route::post('visaumroh/{id}/decline', [VisaUmrohCrudController::class, 'decline']);
+    Route::get('visaumroh/{id}/print', [VisaUmrohCrudController::class, 'print']);
 
-    Route::crud('tidak-keluar-negeri', 'TidakKeluarNegeriCrudController');
-    Route::post('tidak-keluar-negeri/{id}/approve', [TidakKeluarNegeriCrudController::class, 'approve']);
-    Route::post('tidak-keluar-negeri/{id}/decline', [TidakKeluarNegeriCrudController::class, 'decline']);
-    Route::get('tidak-keluar-negeri/{id}/print', [TidakKeluarNegeriCrudController::class, 'print']);
+    Route::crud('tidak-keluarnegeri', 'TidakKeluarNegeriCrudController');
+    Route::post('tidak-keluarnegeri/{id}/approve', [TidakKeluarNegeriCrudController::class, 'approve']);
+    Route::post('tidak-keluarnegeri/{id}/decline', [TidakKeluarNegeriCrudController::class, 'decline']);
+    Route::get('tidak-keluarnegeri/{id}/print', [TidakKeluarNegeriCrudController::class, 'print']);
 
-    Route::crud('kepentingan', 'KepentinganCrudController');
-    Route::post('kepentingan/{id}/approve', [KepentinganCrudController::class, 'approve']);
-    Route::post('kepentingan/{id}/decline', [KepentinganCrudController::class, 'decline']);
-    Route::get('kepentingan/{id}/print', [KepentinganCrudController::class, 'print']);
+    Route::crud('kepentingans', 'KepentinganCrudController');
+    Route::post('kepentingans/{id}/approve', [KepentinganCrudController::class, 'approve']);
+    Route::post('kepentingans/{id}/decline', [KepentinganCrudController::class, 'decline']);
+    Route::get('kepentingans/{id}/print', [KepentinganCrudController::class, 'print']);
 
-    Route::crud('keterangan-lahir', 'KeteranganLahirCrudController');
-    Route::post('keterangan-lahir/{id}/approve', [KeteranganLahirCrudController::class, 'approve']);
-    Route::post('keterangan-lahir/{id}/decline', [KeteranganLahirCrudController::class, 'decline']);
-    Route::get('keterangan-lahir/{id}/print', [KeteranganLahirCrudController::class, 'print']);
+    Route::crud('keteranganlahir', 'KeteranganLahirCrudController');
+    Route::post('keteranganlahir/{id}/approve', [KeteranganLahirCrudController::class, 'approve']);
+    Route::post('keteranganlahir/{id}/decline', [KeteranganLahirCrudController::class, 'decline']);
+    Route::get('keteranganlahir/{id}/print', [KeteranganLahirCrudController::class, 'print']);
 
     Route::crud('legalisirs', 'LegalisirCrudController');
     Route::post('legalisirs/{id}/approve', [LegalisirCrudController::class, 'approve']);
@@ -117,10 +117,10 @@ Route::group([
     Route::post('keteranganbelajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
     Route::get('keteranganbelajar/{id}/print', [KeteranganBelajarCrudController::class, 'print']);
 
-    Route::crud('pindah-kuliah-indonesia', 'PindahKuliahIndonesiaCrudController');
-    Route::post('pindah-kuliah-indonesia/{id}/approve', [PindahKuliahIndonesiaCrudController::class, 'approve']);
-    Route::post('pindah-kuliah-indonesia/{id}/decline', [PindahKuliahIndonesiaCrudController::class, 'decline']);
-    Route::get('pindah-kuliah-indonesia/{id}/print', [PindahKuliahIndonesiaCrudController::class, 'print']);
+    Route::crud('pindah-kuliahindonesia', 'PindahKuliahIndonesiaCrudController');
+    Route::post('pindah-kuliahindonesia/{id}/approve', [PindahKuliahIndonesiaCrudController::class, 'approve']);
+    Route::post('pindah-kuliahindonesia/{id}/decline', [PindahKuliahIndonesiaCrudController::class, 'decline']);
+    Route::get('pindah-kuliahindonesia/{id}/print', [PindahKuliahIndonesiaCrudController::class, 'print']);
 
     Route::crud('pindahkuliahluarnegeri', 'PindahKuliahLuarNegeriCrudController');
     Route::post('pindahkuliahluarnegeri/{id}/approve', [PindahKuliahLuarNegeriCrudController::class, 'approve']);

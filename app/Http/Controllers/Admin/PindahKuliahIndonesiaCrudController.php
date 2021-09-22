@@ -41,7 +41,7 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\Mahasiswa\PindahKuliahIndonesia::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/pindah-kuliah-indonesia');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/pindah-kuliahindonesia');
         CRUD::setEntityNameStrings('pindahkuliahindonesia', 'pindah_kuliah_indonesias');
         $this->crud->enableExportButtons();
 

@@ -15,7 +15,7 @@
                 <i style="margin-right: 10px" class="fa fa-clipboard"></i>
                 <span>Isi Biodata</span>
             </a>
-        @elseif(auth()->user()->biodata->riwayatPendidikan->isEmpty())
+        @elseif(auth()->user()->hasRole('mahasiswa') && auth()->user()->biodata->riwayatPendidikan->isEmpty())
             <p class="bio3">Silahkan lengkapi riwayat pendidikan terlebih dahulu!</p>
             <a href="{{\Illuminate\Support\Facades\URL::route('pendidikan.fill')}}" class="btn mybtn-md" >
                 <i style="margin-right: 10px" class="fa fa-clipboard"></i>

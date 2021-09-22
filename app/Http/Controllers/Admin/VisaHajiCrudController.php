@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VisaHajiRequest;
 use App\Models\VisaHaji;
+use App\Notifications\VisaHajiNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
@@ -13,7 +16,7 @@ use Prologue\Alerts\Facades\Alert;
 /**
  * Class VisaHajiCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class VisaHajiCrudController extends CrudController
 {
@@ -40,8 +43,9 @@ class VisaHajiCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(\App\Models\VisaHaji::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/visa-haji');
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/visahaji');
         CRUD::setEntityNameStrings('visa-haji', 'visa_hajis');
+        $this->crud->enableExportButtons();
     }
 
     /**
@@ -66,16 +70,30 @@ class VisaHajiCrudController extends CrudController
             'label' => 'Status'
         ], [
             'new' => 'New',
-            'approved' => 'Approved',
-            'declined' => 'Declined',
+            'ditolak' => 'Approved',
+            'disetujui' => 'Declined',
         ], function($value) { // if the filter is active
             $this->crud->addClause('where', 'status', $value);
         });
 
+        // daterange filter
+        $this->crud->addFilter([
+               'type'  => 'date_range',
+               'name'  => 'from_to',
+               'label' => 'Date range'
+           ],
+               false,
+            function ($value) { // if the filter is active, apply these constraints
+                $dates = json_decode($value);
+                $this->crud->addClause('where', 'created_at', '>=', $dates->from);
+                $this->crud->addClause('where', 'created_at', '<=', $dates->to . ' 23:59:59');
+            });
+
+
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('visa-haji/' . $entry->id . '/show');
+                    return backpack_url('visahaji/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -100,7 +118,7 @@ class VisaHajiCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -169,7 +187,7 @@ class VisaHajiCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download($filename . '.docx', '')
@@ -177,30 +195,30 @@ class VisaHajiCrudController extends CrudController
     }
 
     public function approve($id){
-        try {
-            request()->validate([
-                'tanda_tangan_id' => 'required',
-                'tgl_ambil' => 'required'
-            ]);
-            VisaHaji::find($id)->update([
-                'tanda_tangan_id' => request('tanda_tangan_id'),
-                'tgl_ambil'     => request('tgl_ambil'),
-                'status' => 'approved'
-            ]);
 
-            Alert::success('Permohonan Visa Haji telah di setujui')->flash();
-            return redirect('admin/visa-haji');
-
-        } catch (ValidationException $exception){
-            Alert::error($exception->errors())->flash();
-            return redirect('admin/visa-haji');
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
         }
+
+        $kb = VisaHaji::find($id);
+        $kb->update([
+            'tanda_tangan_id' => request('tanda_tangan_id'),
+            'tgl_ambil'     => request('tgl_ambil'),
+            'status' => 'approved'
+        ]);
+
+        Notification::send($kb->user, new VisaHajiNotification($kb));
+
+        Alert::success('Permohonan Visa Haji telah di setujui')->flash();
+        return redirect('admin/visahaji');
 
     }
 
     public function decline($id){
         VisaHaji::find($id)->update([
-            'status' => 'declined'
+            'status' => 'ditolak'
         ]);
     }
 }

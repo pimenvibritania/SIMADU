@@ -107,7 +107,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'surat',
-        'middleware' => ['web', 'role:tki'],
+        'middleware' => ['web', 'role:tki|mahasiswa'],
 
     ], function (){
 

@@ -9,15 +9,13 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="col mb-3 ">
-                <a href="{{route('surat.dashboard')}}" class="btn btn-danger text-left" >
-                    <i class="fa fa-arrow-left"></i>
-                    Kembali
-                </a>
-                <a href="{{route('visa-umroh.create')}}" class="btn mybtn text-right" >
-                    <i class="fa fa-plus-square"></i>
-                    Ajukan
-                </a>
+            <div class="row">
+                <div class="col">
+                    <a href="{{route('visa-umroh.create')}}" class="btn btn-info" >
+                        <i class="fa fa-plus-square"></i>
+                        Ajukan
+                    </a>
+                </div>
             </div>
         </div>
         <div class="panel-body">
@@ -28,14 +26,13 @@
                     <table id="example" class="table table-striped data-table table-hover dt-responsive display nowrap" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>No</th>
+                            <th width="10px">No</th>
                             <th>No Surat</th>
                             <th>No Permohonan</th>
                             <th>Jml Surat</th>
                             <th>Tgl Ambil</th>
                             <th>Diajukan</th>
                             <th>Status</th>
-                            <th width="100px">Action</th>
                         </tr>
                         </thead>
                     </table>
@@ -56,15 +53,13 @@
                 serverSide: true,
                 ajax: "{{ route('visa-umroh.index') }}",
                 columns: [
-                    {data: 'id', name: 'id'},
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     {data: 'no_surat', name: 'no_surat'},
                     {data: 'no_permohonan', name: 'no_permohonan'},
                     {data: 'jml_surat', name: 'jml_surat'},
                     {data: 'tgl_ambil', name: 'tgl_ambil'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'status', name: 'status'},
-                    // {data: 'email', name: 'email'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
 

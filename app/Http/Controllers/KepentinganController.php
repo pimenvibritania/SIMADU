@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Models\Kepentingan;
+use App\Models\User;
+use App\Notifications\KepentinganNotification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
 class KepentinganController extends Controller
@@ -32,7 +37,7 @@ class KepentinganController extends Controller
                                 class="btn btn-secondary">diajukan</a>
                                 ';
 
-                    } elseif ($izin->status == 'declined'){
+                    } elseif ($izin->status == 'ditolak'){
                         return '<a href="javascript:void(0)"
                                 style="cursor: not-allowed;"
                                class="btn  btn-danger">ditolak</a>
@@ -45,28 +50,11 @@ class KepentinganController extends Controller
                     }
 
                 })
-                ->addColumn('action', function($row){
-
-//                    $btn = '<a href="{{url()}}" class="edit btn btn-primary btn-sm">View</a>';
-
-                    return $this->getActionColumn($row);
-                })
-                ->rawColumns(['status','action'])
+                ->rawColumns(['status'])
                 ->make(true);
         }
 
         return view('pages.surat.kepentingan.index');
-    }
-
-    private function getActionColumn($data)
-    {
-        $showUrl = route('izin-tinggal.show', $data->id);
-        return "<a class='waves-effect btn mybtn' data-value='$data->id'
-                href='$showUrl'><i class='fa fa-eye'></i> Details</a>";
-//        $editUrl = route('admin.brands.edit', $data->id);
-//        return "<a class='waves-effect btn btn-success' data-value='$data->id' href='$showUrl'><i class='material-icons'>visibility</i>Details</a>
-//                        <a class='waves-effect btn btn-primary' data-value='$data->id' href='$editUrl'><i class='material-icons'>edit</i>Update</a>
-//                        <button class='waves-effect btn deepPink-bgcolor delete' data-value='$data->id' ><i class='material-icons'>delete</i>Delete</button>";
     }
 
     /**
@@ -87,8 +75,8 @@ class KepentinganController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Application|\Illuminate\Http\RedirectResponse|Response|\Illuminate\Routing\Redirector
+     * @param  Request  $request
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
     {
@@ -107,7 +95,7 @@ class KepentinganController extends Controller
             strtoupper(substr($name, 0, 1)) . '/' . backpack_user()->id ,
             3);
 
-        Kepentingan::create([
+        $mk= Kepentingan::create([
             'user_id' => backpack_user()->id,
             'no_permohonan' => $no_permohonan,
             'no_surat' => $request->no_surat,
@@ -116,6 +104,14 @@ class KepentinganController extends Controller
             'keperluan' => $request->keperluan,
             'status' => 'new'
         ]);
+
+        $admins = User::whereHas('roles', function ($query){
+            $query->where('id', 1);
+        })->get();
+
+        Notification::send($admins, new KepentinganNotification(
+            $mk->with('user')->where('id', $mk->id)->first()
+        ));
 
         return \redirect('surat/kepentingan')
             ->with('successMsg','Surat berkepentingan berhasil di ajukan');

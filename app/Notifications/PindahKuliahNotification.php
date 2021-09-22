@@ -58,7 +58,7 @@ class PindahKuliahNotification extends Notification
     public function toArray($notifiable)
     {
         $uri = $notifiable->roles->first()->name == 'admin' ?
-            'pindahkuliahindonesia.index' :
+            'pindah-kuliahindonesia.index' :
             'pindah-kuliah-indonesia.index';
 
         return [

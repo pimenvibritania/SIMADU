@@ -18,7 +18,7 @@
                 </a>
             </li>
 
-            @if(auth()->user()->biodata == null || auth()->user()->biodata->riwayatPendidikan->isEmpty())
+            @if(auth()->user()->biodata == null || (auth()->user()->hasRole('mahasiswa') && auth()->user()->biodata->riwayatPendidikan->isEmpty()))
                 <li class="nav-item">
                     <a class="nav-link {{
                     Request::is('biodata/create') ? 'active' : ''
@@ -33,7 +33,7 @@
 
                 {{--            TKI MENU--}}
 
-                @if(auth()->user()->roles->first()->name == 'tki')
+                @if(auth()->user()->hasRole('tki'))
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Layanan Konsuler</h6>
                     </li>
@@ -77,7 +77,67 @@
                             <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Indonesia</span>
                         </a>
                     </li>
-                @else
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/masuk-mesir') || Request::is('surat/masuk-mesir/create') ? 'active' : ''
+                     }} " href="{{url('surat/masuk-mesir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-hat-wizard"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Masuk Mesir</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/visa-haji') || Request::is('surat/visa-haji/create') ? 'active' : ''
+                     }} " href="{{url('surat/visa-haji')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Visa Haji</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/visa-umroh') || Request::is('surat/visa-umroh/create') ? 'active' : ''
+                     }} " href="{{url('surat/visa-umroh')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Visa Umroh</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/keterangan-lahir') || Request::is('surat/keterangan-lahir/create') ? 'active' : ''
+                     }} " href="{{url('surat/keterangan-lahir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-baby-carriage"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Keterangan Lahir</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/kepentingan') || Request::is('surat/kepentingan/create') ? 'active' : ''
+                     }} " href="{{url('surat/kepentingan')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat<br> Berkepentingan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/tidak-keluar-negeri') || Request::is('surat/tidak-keluar-negeri/create') ? 'active' : ''
+                     }} " href="{{url('surat/tidak-keluar-negeri')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Tidak ke-<br> Luar Negeri</span>
+                        </a>
+                    </li>
+                @elseif(auth()->user()->hasRole('mahasiswa'))
 
                     {{--                MAHASISWA MENU--}}
                     <li class="nav-item mt-3">
@@ -265,6 +325,111 @@
                                 <i class="fas fa-pray"></i>
                             </div>
                             <span class="nav-link-text ms-1">Pengajuan Tidak<br>Ikut Ujian (Tawaquf)</span>
+                        </a>
+                    </li>
+
+{{--                LAYANAN KONSULER--}}
+                    <li class="nav-item mt-3">
+                        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Layanan Konsuler</h6>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/izin-tinggal') || Request::is('surat/izin-tinggal/create') ? 'active' : ''
+                     }} " href="{{url('surat/izin-tinggal')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Izin Tinggal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/pengampunan') || Request::is('surat/pengampunan/create') ? 'active' : ''
+                    }} " href="{{url('surat/pengampunan')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-praying-hands"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Pengampunan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/alamat-mesir') || Request::is('surat/alamat-mesir/create') ? 'active' : ''
+                    }} " href="{{url('surat/alamat-mesir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Mesir</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/alamat-indonesia') || Request::is('surat/alamat-indonesia/create') ? 'active' : ''
+                    }} " href="{{url('surat/alamat-indonesia')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-address-book"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan SK<br>Alamat Indonesia</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/masuk-mesir') || Request::is('surat/masuk-mesir/create') ? 'active' : ''
+                     }} " href="{{url('surat/masuk-mesir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-hat-wizard"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Masuk Mesir</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/visa-haji') || Request::is('surat/visa-haji/create') ? 'active' : ''
+                     }} " href="{{url('surat/visa-haji')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Visa Haji</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/visa-umroh') || Request::is('surat/visa-umroh/create') ? 'active' : ''
+                     }} " href="{{url('surat/visa-umroh')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Pengajuan<br>Visa Umroh</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/keterangan-lahir') || Request::is('surat/keterangan-lahir/create') ? 'active' : ''
+                     }} " href="{{url('surat/keterangan-lahir')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-baby-carriage"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Keterangan Lahir</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/kepentingan') || Request::is('surat/kepentingan/create') ? 'active' : ''
+                     }} " href="{{url('surat/kepentingan')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Surat <br> Berkepentingan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{
+                    Request::is('surat/tidak-keluar-negeri') || Request::is('surat/tidak-keluar-negeri/create') ? 'active' : ''
+                     }} " href="{{url('surat/tidak-keluar-negeri')}}">
+                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Tidak ke-<br> Luar Negeri</span>
                         </a>
                     </li>
                 @endif

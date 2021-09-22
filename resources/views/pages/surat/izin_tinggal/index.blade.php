@@ -24,6 +24,7 @@
                     <table id="example" class="table table-striped data-table table-hover dt-responsive display nowrap" cellspacing="0">
                         <thead>
                         <tr>
+                            <th width="10px">No</th>
                             <th>No Surat</th>
                             <th>No Permohonan</th>
                             <th>Jml Surat</th>
@@ -50,6 +51,7 @@
                 serverSide: true,
                 ajax: "{{ route('izin-tinggal.index') }}",
                 columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     {data: 'no_surat', name: 'no_surat'},
                     {data: 'no_permohonan', name: 'no_permohonan'},
                     {data: 'jml_surat', name: 'jml_surat'},

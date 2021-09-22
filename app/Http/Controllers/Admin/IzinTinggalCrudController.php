@@ -6,6 +6,7 @@ use App\Http\Requests\IzinTinggalRequest;
 use App\Models\IzinTinggal;
 use App\Notifications\IzinTinggalNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -16,7 +17,7 @@ use Rawilk\Printing\Facades\Printing;
 /**
  * Class IzinTinggalCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class IzinTinggalCrudController extends CrudController
 {

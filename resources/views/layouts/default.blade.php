@@ -9,7 +9,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
     @include('includes.navbar')
     <div class=" py-4">
-        @if(auth()->user()->biodata == null || auth()->user()->biodata->riwayatPendidikan->isEmpty())
+        @if(auth()->user()->biodata == null || (auth()->user()->hasRole('mahasiswa') && auth()->user()->biodata->riwayatPendidikan->isEmpty()))
             @yield('biodata')
         @else
             @yield('content')

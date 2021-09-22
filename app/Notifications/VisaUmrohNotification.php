@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class IzinTinggalNotification extends Notification
+class VisaUmrohNotification extends Notification
 {
     use Queueable;
 
@@ -38,7 +38,7 @@ class IzinTinggalNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
@@ -57,8 +57,8 @@ class IzinTinggalNotification extends Notification
     public function toArray($notifiable)
     {
         $uri = $notifiable->roles->first()->name == 'admin' ?
-            'izintinggal.index' :
-            'izin-tinggal.index';
+            'visaumroh.index' :
+            'visa-umroh.index';
 
         return [
             'uri' => $uri,

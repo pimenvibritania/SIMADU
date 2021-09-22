@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Models\User;
 use App\Models\VisaHaji;
+use App\Notifications\VisaHajiNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
 class VisaHajiController extends Controller
@@ -29,7 +32,7 @@ class VisaHajiController extends Controller
                                 class="btn btn-secondary">diajukan</a>
                                 ';
 
-                    } elseif ($izin->status == 'declined'){
+                    } elseif ($izin->status == 'ditolak'){
                         return '<a href="javascript:void(0)"
                                 style="cursor: not-allowed;"
                                class="btn  btn-danger">ditolak</a>
@@ -42,30 +45,12 @@ class VisaHajiController extends Controller
                     }
 
                 })
-                ->addColumn('action', function($row){
-
-//                    $btn = '<a href="{{url()}}" class="edit btn btn-primary btn-sm">View</a>';
-
-                    return $this->getActionColumn($row);
-                })
-                ->rawColumns(['status','action'])
+                ->rawColumns(['status'])
                 ->make(true);
         }
 
         return view('pages.surat.visa-haji.index');
     }
-
-    private function getActionColumn($data)
-    {
-        $showUrl = route('izin-tinggal.show', $data->id);
-        return "<a class='waves-effect btn mybtn' data-value='$data->id'
-                href='$showUrl'><i class='fa fa-eye'></i> Details</a>";
-//        $editUrl = route('admin.brands.edit', $data->id);
-//        return "<a class='waves-effect btn btn-success' data-value='$data->id' href='$showUrl'><i class='material-icons'>visibility</i>Details</a>
-//                        <a class='waves-effect btn btn-primary' data-value='$data->id' href='$editUrl'><i class='material-icons'>edit</i>Update</a>
-//                        <button class='waves-effect btn deepPink-bgcolor delete' data-value='$data->id' ><i class='material-icons'>delete</i>Delete</button>";
-    }
-
 
     public function create(){
         $user = backpack_user()->biodata;
@@ -93,7 +78,7 @@ class VisaHajiController extends Controller
             strtoupper(substr($name, 0, 1)) . '/' . backpack_user()->id ,
             3);
 
-        VisaHaji::create([
+        $mk = VisaHaji::create([
             'user_id' => backpack_user()->id,
             'no_permohonan' => $no_permohonan,
             'no_surat' => $request->no_surat,
@@ -102,6 +87,14 @@ class VisaHajiController extends Controller
             'keperluan' => $request->keperluan,
             'status' => 'new'
         ]);
+
+        $admins = User::whereHas('roles', function ($query){
+            $query->where('id', 1);
+        })->get();
+
+        Notification::send($admins, new VisaHajiNotification(
+            $mk->with('user')->where('id', $mk->id)->first()
+        ));
 
         return \redirect('surat/visa-haji')
             ->with('successMsg','Visa Haji berhasil di ajukan');

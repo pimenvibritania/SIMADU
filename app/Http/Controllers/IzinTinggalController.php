@@ -9,8 +9,10 @@ use App\Notifications\IzinTinggalNotification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -79,8 +81,8 @@ class IzinTinggalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Application|\Illuminate\Http\RedirectResponse|Response|\Illuminate\Routing\Redirector
+     * @param  Request  $request
+     * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
     {
@@ -124,7 +126,7 @@ class IzinTinggalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Surat\IzinTinggal  $izinTinggal
+     * @param  IzinTinggal  $izinTinggal
      * @return Response
      */
     public function show(IzinTinggal $izinTinggal)
@@ -146,7 +148,7 @@ class IzinTinggalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \App\Models\Surat\IzinTinggal  $izinTinggal
      * @return Response
      */
