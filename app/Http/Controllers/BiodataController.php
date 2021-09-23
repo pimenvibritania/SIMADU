@@ -134,10 +134,9 @@ class BiodataController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return Application|Factory|View|Response
      */
-    public function show($id)
+    public function show()
     {
         if (is_null(auth()->user()->biodata))
             return redirect('dashboard');
@@ -150,24 +149,69 @@ class BiodataController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @return Application|Factory|View|Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        if (!is_null(auth()->user())){
+
+            $bio = auth()->user()->biodata;
+
+            return \view('pages.biodata_edit')
+                ->with(['bio' => $bio]);
+        }
+        return redirect('login');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
+     * @param  Request  $request
+     * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $bio = auth()->user()->biodata;
+
+        if ($request->file_img_ktp){
+            $ktpname = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_ktp->extension();
+
+            $request['img_ktp'] =  $ktpname;
+
+            $request->file_img_ktp->move(public_path('uploads/ktp'), $ktpname);
+        }
+
+        if ($request->file_img_profile){
+            $prname = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_profile->extension();
+
+            $request['img_profile'] =  $prname;
+
+            $request->file_img_profile->move(public_path('uploads/profile'), $prname);
+        }
+
+        if ($request->file_img_akte){
+            $img_akte = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_akte->extension();
+
+            $request['img_akte'] =  $img_akte;
+
+            $request->file_img_akte->move(public_path('uploads/akte'), $img_akte);
+        }
+
+        if ($request->file_img_paspor){
+            $img_paspor = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_paspor->extension();
+
+            $request['img_paspor'] =  $img_paspor;
+
+            $request->file_img_paspor->move(public_path('uploads/paspor'), $img_paspor);
+        }
+
+        $bio->update($request->all());
+
+        return redirect('biodata');
     }
 
     /**

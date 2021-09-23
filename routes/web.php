@@ -51,8 +51,13 @@ Route::group([
 
 });
 
-Route::resource('biodata', BiodataController::class)
-    ->except('index');
+//Route::resource('biodata', BiodataController::class)
+//    ->except(['index', 'edit', 'update']);
+Route::get('biodata/create', [BiodataController::class, 'create'])->name('biodata.create');
+Route::get('biodata/store', [BiodataController::class, 'store'])->name('biodata.store');
+Route::get('biodata', [BiodataController::class, 'show'])->name('biodata.show');
+Route::get('biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
+Route::post('biodata/update', [BiodataController::class, 'update'])->name('biodata.update');
 
 Route::group([
     'middleware' => ['web', 'role:user|mahasiswa']

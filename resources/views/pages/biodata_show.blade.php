@@ -16,7 +16,7 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{URL::asset('uploads/profile/' . $bio->img_profile)}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{URL::asset('uploads/profile/' . $bio->img_profile)}}" onerror="this.src='https://i.stack.imgur.com/l60Hf.png'" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -28,6 +28,12 @@
                             {{$bio->user->status == 'tki' ? 'Tenaga Kerja Indonesia' : 'Mahasiswa'}}
                         </p>
                     </div>
+                </div>
+                <div class="col-auto mt-3 ml-auto my-auto">
+                    <a class="btn btn-secondary" href="{{route('biodata.edit')}}">
+                        <i class="fas fa-pen-alt mr-3"></i>
+                        Edit
+                    </a>
                 </div>
             </div>
         </div>
@@ -206,7 +212,7 @@
                                                        cursor: pointer;
                                                        height: 200px;"
                                                 onclick="window.open(this.src, '_blank');"
-                                                src="{{URL::asset('uploads/profile/' . $bio->img_ktp)}}" alt="Image Asset" class="img-fluid shadow border-radius-xl">
+                                                src="{{URL::asset('uploads/ktp/' . $bio->img_ktp)}}" onerror="this.src='https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg'" alt="Image Asset" class="img-fluid shadow border-radius-xl">
                                         </a>
                                     </div>
                                     <div class="card-body px-1 pb-0 text-center">
@@ -229,7 +235,7 @@
                                                        cursor: pointer;
                                                        height: 200px;"
                                                 onclick="window.open(this.src, '_blank');"
-                                                src="{{URL::asset('uploads/profile/' . $bio->img_paspor)}}" alt="Image Asset" class="img-fluid shadow border-radius-xl">
+                                                src="{{URL::asset('uploads/paspor/' . $bio->img_paspor)}}" onerror="this.src='https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg'"  alt="Image Asset" class="img-fluid shadow border-radius-xl">
                                         </a>
                                     </div>
                                     <div class="card-body px-1 pb-0 text-center">
@@ -252,7 +258,7 @@
                                                        cursor: pointer;
                                                        height: 200px;"
                                                 onclick="window.open(this.src, '_blank');"
-                                                src="{{URL::asset('uploads/profile/' . $bio->img_akta)}}" alt="Image Asset" class="img-fluid shadow border-radius-xl">
+                                                src="{{URL::asset('uploads/akte/' . $bio->img_akte)}}" onerror="this.src='https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image-620x600.jpg'"  alt="Image Asset" class="img-fluid shadow border-radius-xl">
                                         </a>
                                     </div>
                                     <div class="card-body px-1 pb-0 text-center">
@@ -268,7 +274,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
