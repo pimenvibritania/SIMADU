@@ -29,7 +29,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <span class="form-label">Nama Indonesia</span>
-                                <input value="{{auth()->user()->getAuthIdentifierName()}}" class="form-control" readonly type="text">
+                                <input value="{{auth()->user()->name}}" class="form-control" readonly type="text">
                             </div>
                         </div>
 
