@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            AgamaSeeder::class
+            AgamaSeeder::class,
+            JenisPasporSeeder::class
         ]);
         $this->call(AIdTerritoryTableSeeder::class);
     }
