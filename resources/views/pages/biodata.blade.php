@@ -442,7 +442,6 @@
                                     <span class="form-label">Provinsi di Indonesia</span>
 
                                 <select id="prov_indo" class="form-control" name="provinsi_indo">
-                                    <option class="hidden"  selected disabled> -- Provinsi di Indonesia -- </option>
                                 </select>
 
                             </div>
@@ -455,7 +454,6 @@
                                     <span class="form-label">Kota di Indonesia</span>
 
                                 <select class="form-control" id="kota_indo" name="kota_indo" disabled>
-                                    <option class="hidden"  selected disabled> -- Kota / Kabupaten di Indonesia -- </option>
                                 </select>
                             </div>
                         </div>
@@ -466,7 +464,6 @@
                                 @endif
                                     <span class="form-label">Kecamatan di Indonesia</span>
                                 <select class="form-control" id="kec_indo" name="kecamatan_indo" disabled>
-                                    <option class="hidden"  selected disabled> -- Kecamatan di Indonesia -- </option>
                                 </select>
                             </div>
                         </div>
@@ -478,7 +475,6 @@
                                 @endif
                                     <span class="form-label">Desa di Indonesia</span>
                                 <select id="desa_indo" class="form-control" name="desa_indo" disabled>
-                                    <option class="hidden"  selected disabled> -- Desa di Indonesia -- </option>
                                 </select>
                             </div>
                         </div>
@@ -564,14 +560,13 @@
 <script >
     $(document).ready(function() {
         $.ajax({
-            // url: 'https://dev.farizdotid.com/api/daerahindonesia/provinsi',
             url: `{{route('wilayah.provinsi')}}` ,
             type: 'get',
             dataType: 'json',
             success: function(response) {
                let res = response.provinsi;
-               console.log(res);
-               let provinsi = res.map(function (data) {
+               let provinsi = "<option disabled selected>-- Pilih Provinsi--</option>"
+               provinsi += res.map(function (data) {
                     return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                 })
 
@@ -583,17 +578,15 @@
         $('#prov_indo').on('change', function () {
             let prov_id = $(this).children("option:selected").attr('id');
             $('#kota_indo').prop('disabled', false);
-            console.log(prov_id)
 
             $.ajax({
-                // url: `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${prov_id}`,
                 url: `{{url('wilayah/kota')}}/${prov_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
                     let res = response.kota;
-                    console.log(res);
-                    let kota = res.map(function (data) {
+                    let kota = "<option disabled selected>-- Pilih Kota/Kabupaten--</option>"
+                    kota += res.map(function (data) {
                         return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
 
@@ -605,23 +598,23 @@
 
                 }
             })
+            $('#kec_indo').empty();
+            $('#desa_indo').empty();
 
         })
 
         $('#kota_indo').on('change', function (){
             let kota_id = $(this).children("option:selected").attr('id');
             $('#kec_indo').prop('disabled', false);
-            console.log(kota_id)
 
             $.ajax({
-                // url: `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${kota_id}`,
                 url: `{{url('wilayah/kecamatan')}}/${kota_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
                     let res = response.kecamatan;
-                    console.log(res);
-                    let kecamatan = res.map(function (data) {
+                    let kecamatan = "<option disabled selected>-- Pilih Kecamatan--</option>"
+                    kecamatan += res.map(function (data) {
                         return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
                     $('#kec_indo')
@@ -630,23 +623,23 @@
                         .end()
                         .append(kecamatan)
                 }
-            })
+            });
+            $('#desa_indo').empty();
+
         })
 
         $('#kec_indo').on('change', function (){
             let kec_id = $(this).children("option:selected").attr('id');
             $('#desa_indo').prop('disabled', false);
-            console.log(kec_id)
 
             $.ajax({
-                // url: `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${kec_id}`,
                 url: `{{url('wilayah/desa')}}/${kec_id}`,
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
                     let res = response.desa;
-                    console.log(res);
-                    let desa = res.map(function (data) {
+                    let desa = "<option disabled selected>-- Pilih Desa --</option>"
+                    desa += res.map(function (data) {
                         return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
                     })
 
