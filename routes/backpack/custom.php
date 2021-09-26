@@ -54,6 +54,9 @@ Route::group([
     Route::crud('paspor', 'PasporCrudController');
 
     Route::crud('fakultas', 'FakultasCrudController');
+    Route::crud('agama', 'AgamaCrudController');
+    Route::crud('jenis-paspor', 'JenisPasporCrudController');
+
     Route::crud('tandatangan', 'TandaTanganCrudController');
 
     Route::crud('changableword', 'ChangableWordCrudController');

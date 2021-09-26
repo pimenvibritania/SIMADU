@@ -14,54 +14,73 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@mail.com',
-            'password' => bcrypt('password'),
-            'status' => 'admin'
-        ]);
+        $admin = User::firstOrCreate(
+            [
+                'email' => 'admin@mail.com',
+            ],
+            [
+                'name' => 'admin',
+                'password' => bcrypt('password'),
+                'status' => 'admin'
+            ]
+        );
 
         $admin->assignRole('admin');
 
-        $tki = User::create([
+        $tki = User::firstOrCreate(
+            [
+                'email' => 'tki@mail.com',
+            ],
+            [
             'name' => 'tki',
-            'email' => 'tki@mail.com',
             'password' => bcrypt('password'),
             'status' => 'tki'
         ]);
 
         $tki->assignRole('tki');
 
-        $mahasiswa = User::create([
+        $mahasiswa = User::firstOrCreate(
+            [
+                'email' => 'mahasiswa@mail.com',
+            ],
+            [
             'name' => 'mahasiswa',
-            'email' => 'mahasiswa@mail.com',
             'password' => bcrypt('password'),
             'status' => 'mahasiswa'
         ]);
 
         $mahasiswa->assignRole('mahasiswa');
 
-        $adm_kons = User::create([
+        $adm_kons = User::firstOrCreate(
+            [
+                'email' => 'adminkonsuler@mail.com',
+            ],
+            [
               'name' => 'admin konsuler',
-              'email' => 'adminkonsuler@mail.com',
               'password' => bcrypt('password'),
               'status' => 'admin_konsuler'
           ]);
 
         $adm_kons->assignRole('admin_konsuler');
 
-        $adm_mah = User::create([
+        $adm_mah = User::firstOrCreate(
+            [
+                'email' => 'adminmahasiswa@mail.com',
+            ],
+            [
               'name' => 'admin mahasiswa',
-              'email' => 'adminmahasiswa@mail.com',
               'password' => bcrypt('password'),
               'status' => 'admin_mahasiswa'
           ]);
 
         $adm_mah->assignRole('admin_mahasiswa');
 
-        $pim = User::create([
+        $pim = User::firstOrCreate(
+            [
+                'email' => 'pimpinan@mail.com',
+            ],
+            [
             'name' => 'pimpinan',
-            'email' => 'pimpinan@mail.com',
             'password' => bcrypt('password'),
             'status' => 'pimpinan'
         ]);

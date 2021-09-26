@@ -68,6 +68,8 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-signature'></i> Penanda Tangan</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('master-pnbp') }}'><i class='nav-icon la la-archive'></i> Master PNBP</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fakultas') }}'><i class='nav-icon la la-building-o'></i> Fakultas</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('agama') }}'><i class='nav-icon la la-moon-o'></i> Agama</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('jenis-paspor') }}'><i class='nav-icon la la-id-card'></i> Jenis Paspor</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('changableword') }}'><i class='nav-icon la la-pen-square'></i> Changable Words</a></li>
 
     </ul>

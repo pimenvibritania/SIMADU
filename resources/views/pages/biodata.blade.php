@@ -26,6 +26,13 @@
                       enctype="multipart/form-data">
                     @csrf
                     <div class="row p-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span class="form-label">Nama Indonesia</span>
+                                <input value="{{auth()->user()->getAuthIdentifierName()}}" class="form-control" readonly type="text">
+                            </div>
+                        </div>
+
                         <div class="col-md-10">
                             <div class="form-group">
                                 @if ($errors->has('nama'))
@@ -67,21 +74,14 @@
                                     <span class="text-danger">{{ $errors->first('agama') }}</span>
                                 @endif
                                     <span class="form-label">Agama</span>
-
                                     <select name="agama" class="form-control" required>
-                                    <option value="islam"
-                                            @if(old('agama') == "islam") selected="selected" @endif>
-                                        Islam
-                                    </option>
-                                    <option value="kristen"
-                                            @if(old('agama') == "kristen") selected="selected" @endif>
-                                        Kristen
-                                    </option>
-                                    <option value="budha"
-                                            @if(old('agama') == "budha") selected="selected" @endif>
-                                        Budha
-                                    </option>
-                                </select>
+                                        @foreach($agama as $value)
+                                            <option value="{{$value->nama}}"
+                                                    @if(old('agama') == "{{$value->nama}}") selected="selected" @endif>
+                                                {{$value->nama}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 <span class="select-arrow"></span>
                             </div>
                         </div>
@@ -186,20 +186,14 @@
                                     <span class="text-danger">{{ $errors->first('jenis_paspor') }}</span>
                                 @endif
                                     <span class="form-label">Jenis Paspor</span>
-                                <select name="jenis_paspor" class="form-control" required>
-                                    <option value="satu"
-                                            @if(old('kelamin') == "laki") selected="selected" @endif>
-                                        Satu
-                                    </option>
-                                    <option value="dua"
-                                            @if(old('kelamin') == "laki") selected="selected" @endif>
-                                        Dua
-                                    </option>
-                                    <option value="tiga"
-                                            @if(old('kelamin') == "laki") selected="selected" @endif>
-                                        Tiga
-                                    </option>
-                                </select>
+                                    <select name="jenis_paspor" class="form-control" required>
+                                        @foreach($jenisPaspor as $value)
+                                            <option value="{{$value->nama}}"
+                                                    @if(old('jenis_paspor') == "{{$value->nama}}") selected="selected" @endif>
+                                                {{$value->nama}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 <span class="select-arrow"></span>
                             </div>
                         </div>
@@ -229,7 +223,7 @@
                                 @if ($errors->has('berlaku_paspor_from'))
                                     <span class="text-danger">{{ $errors->first('berlaku_paspor_from') }}</span>
                                 @endif
-                                <span class="form-label">Tanggal Berlaku Paspor Dari-</span>
+                                <span class="form-label">Berlaku Paspor Dari-</span>
                                 <input value="{{old('berlaku_paspor_from')}}" name="berlaku_paspor_from" class="form-control" type="date" required>
                             </div>
                         </div>
@@ -238,7 +232,7 @@
                                 @if ($errors->has('berlaku_paspor_to'))
                                     <span class="text-danger">{{ $errors->first('berlaku_paspor_to') }}</span>
                                 @endif
-                                <span class="form-label">Tanggal Berlaku Paspor Sampai-</span>
+                                <span class="form-label">Berlaku Paspor Sampai-</span>
                                 <input value="{{old('berlaku_paspor_to')}}" name="berlaku_paspor_to" class="form-control" type="date" required>
                             </div>
                         </div>

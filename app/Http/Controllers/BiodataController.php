@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agama;
 use App\Models\Biodata;
+use App\Models\JenisPaspor;
 use App\Models\PendidikanMesir;
 use App\Models\RiwayatPendidikan;
 use Illuminate\Contracts\Foundation\Application;
@@ -33,9 +35,12 @@ class BiodataController extends Controller
      */
     public function create()
     {
+        $agama = Agama::all();
+        $jenisPaspor = JenisPaspor::all();
+
         if (!is_null(auth()->user())){
             if (is_null(auth()->user()->biodata)){
-                return view('pages.biodata');
+                return view('pages.biodata', compact(['agama', 'jenisPaspor']));
 
             }
             return redirect('dashboard');
