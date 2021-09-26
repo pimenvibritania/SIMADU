@@ -158,12 +158,14 @@ class BiodataController extends Controller
      */
     public function edit()
     {
+        $agama = Agama::all();
+        $jenisPaspor = JenisPaspor::all();
+
         if (!is_null(auth()->user())){
 
             $bio = auth()->user()->biodata;
 
-            return \view('pages.biodata_edit')
-                ->with(['bio' => $bio]);
+            return \view('pages.biodata_edit', compact(['agama', 'jenisPaspor', 'bio']));
         }
         return redirect('login');
     }
