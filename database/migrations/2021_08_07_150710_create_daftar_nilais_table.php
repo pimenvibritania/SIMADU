@@ -17,6 +17,7 @@ class CreateDaftarNilaisTable extends Migration
 
         Schema::create('daftar_nilais', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Daftar Nilai');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

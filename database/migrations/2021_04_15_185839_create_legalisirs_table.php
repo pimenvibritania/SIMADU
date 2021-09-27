@@ -20,6 +20,7 @@ class CreateLegalisirsTable extends Migration
             $table->string('img_docs');
             $table->string('no_permohonan');
             $table->string('keperluan')->nullable();
+            $table->string('jenis_pelayanan')->default('Legalisir');
             $table->string('status')->default('new');
             $table->integer('jml_surat');
             $table->date('tgl_ambil')->nullable();

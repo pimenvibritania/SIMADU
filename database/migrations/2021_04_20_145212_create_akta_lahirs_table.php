@@ -15,6 +15,7 @@ class CreateAktaLahirsTable extends Migration
     {
         Schema::create('akta_lahirs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Akta Lahir');
             $table->foreignId('user_id')->constrained('users');
             $table->string('no_surat');
             $table->string('no_permohonan');

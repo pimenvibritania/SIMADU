@@ -1,14 +1,5 @@
 @extends('layouts.default')
 
-@php
-    $notification = \Illuminate\Support\Facades\DB::table('notifications')
-        ->where('notifiable_id', backpack_user()->id);
-    $notif = $notification->whereYear('created_at', '=', now()->format('Y'))
-        ->whereMonth('created_at', '=', now()->format('m'))->get();
-    $allNotif = $notification->get();
-    $total_notif = count($notif);
-@endphp
-
 @section('content')
     <div class="container-fluid">
         <div aria-label="breadcrumb">
@@ -19,15 +10,6 @@
             <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </div>
         <div class="row mt-4">
-            @php
-                $setuju= 0;
-                $tolak =0;
-                foreach ($allNotif as $all){
-                    json_decode($all->data)->data->status == 'disetujui'
-                    ? $setuju++
-                    : $tolak++;
-                }
-            @endphp
             <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -36,7 +18,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Diajukan</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        {{count($allNotif)}}
+                                        {{count($allTask)}}
                                     </h5>
                                 </div>
                             </div>
@@ -57,7 +39,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Disetujui</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        {{$setuju}}
+                                        {{count($approvedTask)}}
                                     </h5>
                                 </div>
                             </div>
@@ -78,7 +60,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Ditolak</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        {{$tolak}}
+                                        {{count($declinedTask)}}
                                     </h5>
                                 </div>
                             </div>
@@ -102,7 +84,7 @@
                                 <h6>Projects</h6>
                                 <p class="text-sm mb-0">
                                     <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                    <span class="font-weight-bold ms-1">Total {{$total_notif}} pengajuan</span> pada bulan ini.
+                                    <span class="font-weight-bold ms-1">Total {{count($monthlyTask)}} pengajuan</span> pada bulan ini.
                                 </p>
                             </div>
                         </div>
@@ -119,6 +101,7 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Pengambilan</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Penanda Tangan</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Pelayanan</th>
 
                                 </tr>
                                 </thead>
@@ -126,37 +109,30 @@
                                 @php
                                     $index = 1;
                                 @endphp
-                                @foreach($notif as $not)
-                                    @php
-                                        $dateAmbil = date_create(json_decode($not->data)->data->tgl_ambil);
-                                        $dateAjukan = date_create(json_decode($not->data)->data->created_at);
-                                        if (json_decode($not->data)->data->tanda_tangan_id != null){
-                                            $ttd = \App\Models\TandaTangan::find(json_decode($not->data)->data->tanda_tangan_id);
-                                            $ttdName = $ttd->nama;
-                                        } else {
-                                            $ttdName = '-';
-                                        }
-                                    @endphp
+                                @foreach($monthlyTask as $task)
                                     <tr>
                                         <td class="text-sm text-center" style="width: 20px">
                                             <span class="text-sm font-weight-bold">  {{$index++}} </span>
                                         </td>
                                         <td class="text-sm" >
-                                            <a href="{{route(json_decode($not->data)->uri)}}">
-                                                <span class="text-sm font-weight-bold"> {{json_decode($not->data)->data->no_surat}}</span>
+                                            <a href="{{url('/surat')}}/{{strtolower(preg_replace('/\s+/', '-', $task->jenis_pelayanan))}}">
+                                                <span class="text-sm font-weight-bold"><b> {{$task->no_surat}}</b></span>
                                             </a>
                                         </td>
                                         <td class="text-sm text-center" >
-                                            <span class="text-sm font-weight-bold"> {{$dateAjukan->format('d, M Y')}}</span>
+                                            <span class="text-sm font-weight-bold"> {{$task->created_at->format('d, M Y')}}</span>
                                         </td>
                                         <td class="text-sm text-center" >
-                                            <span class="text-sm font-weight-bold">  {{$dateAmbil->format('d, M Y')}} </span>
+                                            <span class="text-sm font-weight-bold">  {{$task->tgl_ambil ?? '-'}} </span>
                                         </td>
                                         <td class="text-sm text-center" >
-                                            <span class="text-sm font-weight-bold">  {{json_decode($not->data)->data->status}} </span>
+                                            <span class="text-sm font-weight-bold">  {{$task->status == 'new' ? 'diajukan' : $task->status}} </span>
                                         </td>
                                         <td class="text-sm text-center" >
-                                            <span class="text-sm font-weight-bold">  {{$ttdName}} </span>
+                                            <span class="text-sm font-weight-bold">  {{$task->tandaTangan?->nama ?? '-'}} </span>
+                                        </td>
+                                        <td class="text-sm text-center" >
+                                            <span class="text-sm font-weight-bold">  {{$task->jenis_pelayanan}} </span>
                                         </td>
 
                                     </tr>

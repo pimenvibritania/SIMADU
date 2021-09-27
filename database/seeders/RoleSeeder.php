@@ -30,6 +30,11 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::firstOrCreate([
+            'name' => 'tki',
+            'guard_name' => 'web'
+        ]);
+
+        Role::firstOrCreate([
             'name' => 'admin_mahasiswa',
             'guard_name' => 'web'
         ]);

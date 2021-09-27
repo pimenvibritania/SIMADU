@@ -17,6 +17,7 @@ class CreatePindahKuliahLuarNegerisTable extends Migration
 
         Schema::create('pindah_kuliah_luar_negeris', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Pindah Kuliah Luar Negeri');
             $table->foreignId('user_id')->constrained('users')
                 ->onDelete('cascade');
             $table->string('type')->default('mahasiswa');

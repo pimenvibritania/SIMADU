@@ -17,6 +17,7 @@ class CreateKeringananBiayasTable extends Migration
 
         Schema::create('keringanan_biayas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Keringanan Biaya');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

@@ -17,6 +17,7 @@ class CreateMasukMahadsTable extends Migration
 
         Schema::create('masuk_mahads', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Masuk Mahad');
             $table->foreignId('user_id')->constrained();
             $table->string('jenjang');
             $table->string('type');

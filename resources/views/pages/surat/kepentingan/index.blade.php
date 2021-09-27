@@ -9,12 +9,8 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="col mb-3 ">
-                <a href="{{route('surat.dashboard')}}" class="btn btn-danger text-left" >
-                    <i class="fa fa-arrow-left"></i>
-                    Kembali
-                </a>
-                <a href="{{route('kepentingan.create')}}" class="btn mybtn text-right" >
+            <div class="col">
+                <a href="{{route('kepentingan.create')}}" class="btn btn-info" >
                     <i class="fa fa-plus-square"></i>
                     Ajukan
                 </a>

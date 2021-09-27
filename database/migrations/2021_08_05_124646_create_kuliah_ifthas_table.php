@@ -17,6 +17,7 @@ class CreateKuliahIfthasTable extends Migration
 
         Schema::create('kuliah_ifthas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Kuliah Iftha');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('fakultas_id')->constrained('fakultas');
             $table->string('type');

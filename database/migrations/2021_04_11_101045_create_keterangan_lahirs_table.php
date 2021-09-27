@@ -20,6 +20,7 @@ class CreateKeteranganLahirsTable extends Migration
             $table->string('no_surat');
             $table->string('tujuan')->nullable();
             $table->string('keperluan')->nullable();
+            $table->string('jenis_pelayanan')->default('Keterangan Lahir');
             $table->foreignId('tanda_tangan_id')->nullable()->constrained('tanda_tangans');
             $table->string('status')->default('new');
             $table->integer('jml_surat');

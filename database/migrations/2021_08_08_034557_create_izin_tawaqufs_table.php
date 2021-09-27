@@ -17,6 +17,7 @@ class CreateIzinTawaqufsTable extends Migration
 
         Schema::create('izin_tawaqufs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Izin Tawaquf');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

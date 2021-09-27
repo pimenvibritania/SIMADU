@@ -21,6 +21,7 @@ class CreateTidakKeluarNegerisTable extends Migration
             $table->string('tujuan')->nullable();
             $table->string('tempat_tujuan')->nullable();
             $table->string('keperluan')->nullable();
+            $table->string('jenis_pelayanan')->default('Tidak Keluar Negeri');
             $table->foreignId('tanda_tangan_id')->nullable()->constrained('tanda_tangans');
             $table->string('status')->default('new');
             $table->integer('jml_surat');

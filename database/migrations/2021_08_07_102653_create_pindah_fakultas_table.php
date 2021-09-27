@@ -17,6 +17,7 @@ class CreatePindahFakultasTable extends Migration
 
         Schema::create('pindah_fakultas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Pindah Fakultas');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

@@ -17,6 +17,7 @@ class CreateKeteranganBelajarsTable extends Migration
 
         Schema::create('keterangan_belajars', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Keterangan Belajar');
             $table->foreignId('user_id')->constrained('users')
                 ->onDelete('cascade');
             $table->string('type')->default('mahasiswa');

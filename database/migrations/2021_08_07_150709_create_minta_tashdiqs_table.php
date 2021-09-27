@@ -17,6 +17,7 @@ class CreateMintaTashdiqsTable extends Migration
 
         Schema::create('minta_tashdiqs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Minta Tashdiq');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

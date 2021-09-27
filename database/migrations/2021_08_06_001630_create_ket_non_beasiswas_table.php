@@ -17,6 +17,7 @@ class CreateKetNonBeasiswasTable extends Migration
 
         Schema::create('ket_non_beasiswas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Ket Non Beasiswa');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

@@ -17,6 +17,7 @@ class CreateCabutBerkasTable extends Migration
 
         Schema::create('cabut_berkas', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Cabut Berkas');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

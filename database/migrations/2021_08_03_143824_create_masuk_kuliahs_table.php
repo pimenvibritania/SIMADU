@@ -17,6 +17,7 @@ class CreateMasukKuliahsTable extends Migration
 
         Schema::create('masuk_kuliahs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Daftar Kuliah');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('fakultas_id')->constrained('fakultas');
             $table->string('type');

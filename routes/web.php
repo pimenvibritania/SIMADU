@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IzinTinggalController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
@@ -54,7 +55,7 @@ Route::group([
 //Route::resource('biodata', BiodataController::class)
 //    ->except(['index', 'edit', 'update']);
 Route::get('biodata/create', [BiodataController::class, 'create'])->name('biodata.create');
-Route::get('biodata/store', [BiodataController::class, 'store'])->name('biodata.store');
+Route::post('biodata/store', [BiodataController::class, 'store'])->name('biodata.store');
 Route::get('biodata', [BiodataController::class, 'show'])->name('biodata.show');
 Route::get('biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
 Route::post('biodata/update', [BiodataController::class, 'update'])->name('biodata.update');
@@ -102,13 +103,11 @@ Route::group([
     'namespace' => 'App\Http\Controllers'
 ], function (){
 
-    Route::get('/dashboard', function (){
-        return view('pages.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('surat/dashboard', function (){
-       return view('pages.surat.dashboard');
-    })->name('surat.dashboard');
+//    Route::get('surat/dashboard', function (){
+//       return view('pages.surat.dashboard');
+//    })->name('surat.dashboard');
 
     Route::group([
         'prefix' => 'surat',

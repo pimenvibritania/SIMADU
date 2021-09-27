@@ -18,6 +18,7 @@ class CreateMasukMesirsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('no_permohonan');
             $table->string('no_surat');
+            $table->string('jenis_pelayanan')->default('Masuk Mesir');
             $table->string('tujuan')->nullable();
             $table->string('keperluan')->nullable();
             $table->foreignId('tanda_tangan_id')->nullable()->constrained('tanda_tangans');

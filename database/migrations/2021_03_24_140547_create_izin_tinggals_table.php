@@ -20,6 +20,7 @@ class CreateIzinTinggalsTable extends Migration
             $table->foreignId('user_id')->constrained('users')
                 ->onDelete('cascade');
             $table->string('type')->default('surat');
+            $table->string('jenis_pelayanan')->default('Izin Tinggal');
             $table->string('no_permohonan');
             $table->string('no_surat');
             $table->string('tujuan');

@@ -17,6 +17,7 @@ class CreateIzinLibursTable extends Migration
 
         Schema::create('izin_liburs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Izin Libur');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');

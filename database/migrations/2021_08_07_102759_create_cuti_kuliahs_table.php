@@ -17,6 +17,7 @@ class CreateCutiKuliahsTable extends Migration
 
         Schema::create('cuti_kuliahs', function (Blueprint $table) {
             $table->id();
+            $table->string('jenis_pelayanan')->default('Cuti Kuliah');
             $table->foreignId('user_id')->constrained();
             $table->string('type');
             $table->string('no_permohonan');
