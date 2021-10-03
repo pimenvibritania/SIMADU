@@ -84,6 +84,7 @@ class AktaLahirController extends Controller
             'anak_ke'=> 'required',
             'jenis_kelahiran'=> 'required',
 
+            'tempat_kelahiran' => 'required',
             'tgl_surat_rs'=> 'required',
             'nama_rs'=> 'required',
             'alamat_rs'=> 'required',

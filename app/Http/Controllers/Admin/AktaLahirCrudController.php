@@ -40,6 +40,22 @@ class AktaLahirCrudController extends CrudController
         update as traitUpdate;
     }
 
+    public function store()
+    {
+        $this->crud->setOperationSetting('saveAllInputsExcept', ['my_input_name', '_token', '_method', 'http_referrer', 'current_tab', 'save_action']);
+
+        $this->crud->addField(['type' => 'hidden', 'name' => 'no_permohonan']);
+
+        $this->crud->getRequest()->request->add([
+            'no_permohonan'=> Helper::generateId(AktaLahir::class,
+                'no_permohonan',
+                strtoupper(substr(request('nama_bayi'), 0, 1)) . '/' . request('user_id') ,
+                3 )
+        ]);
+
+        return $this->traitStore();
+    }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -62,7 +78,6 @@ class AktaLahirCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -146,33 +161,308 @@ class AktaLahirCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        $agama = \App\Models\Agama::all();
+
         CRUD::setValidation(AktaLahirRequest::class);
 
-        CRUD::field('id');
-        CRUD::field('user_id');
-        CRUD::field('no_surat');
-        CRUD::field('no_permohonan');
-        CRUD::field('nama');
+        CRUD::field('user_id')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(AktaLahir::class, 'no_surat', 'U/AL', 4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_bayi');
         CRUD::field('tempat_lahir');
-        CRUD::field('tgl_lahir');
-        CRUD::field('nama_ayah');
-        CRUD::field('nama_ibu');
-        CRUD::field('img_sk_dokter');
-        CRUD::field('img_paspor_ayah');
-        CRUD::field('img_paspor_ibu');
-        CRUD::field('img_izin_tinggal_ayah');
-        CRUD::field('img_izin_tinggal_ibu');
-        CRUD::field('alasan_ditolak');
-        CRUD::field('status');
-        CRUD::field('tgl_ambil');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        CRUD::field('tgl_lahir')
+            ->type('datetime_picker')
+            ->label('Waktu Lahir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('jenis_kelamin')
+            ->type('select2_from_array')
+            ->options([
+                'laki-laki' => 'Laki-laki',
+                'perempuan' => 'Perempuan',
+                'lainnya'   => 'Lainnya'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
-         */
+        CRUD::field('berat_kg')
+            ->type('number')
+            ->label('Berat Bayi')
+            ->attributes([
+                'step' => 'any'
+            ])
+            ->prefix('KG')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('berat_ons')
+            ->type('number')
+            ->label('Berat Bayi')
+            ->attributes([
+                'step' => 'any'
+            ])
+            ->prefix('ONS')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('panjang')
+            ->type('number')
+            ->label('Panjang Bayi')
+            ->attributes([
+                'step' => 'any'
+            ])
+            ->prefix('CM')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('kelahiran_ke')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+        CRUD::field('anak_ke')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+        CRUD::field('jenis_kelahiran')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+
+        CRUD::field('tempat_kelahiran')
+            ->label('Tempat Kelahiran')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+
+        CRUD::field('tgl_surat_rs')
+            ->type('date_picker')
+            ->label('Tanggal Surat Rumah Sakit')
+            ->date_picker_options([
+                'todayBtn' => 'linked',
+                'format'   => 'dd-mm-yyyy'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('nama_rs')
+            ->label('Nama Rumah Sakit');
+
+        CRUD::field('alamat_rs')
+            ->type('textarea')
+            ->label('Alamat Rumah Sakit');
+
+        CRUD::field('no_bukti')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('tgl_bukti')
+            ->type('date_picker')
+            ->label('Tanggal Bukti')
+            ->date_picker_options([
+                'todayBtn' => 'linked',
+                'format'   => 'dd-mm-yyyy'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('penerbit');
+
+        CRUD::field('nama_ibu');
+        CRUD::field('no_paspor_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('tgl_lahir_ibu')
+            ->type('date_picker')
+            ->label('Tanggal Lahir Ibu')
+            ->date_picker_options([
+                'todayBtn' => 'linked',
+                'format'   => 'dd-mm-yyyy'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('umur_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+
+
+        CRUD::field('agama_ibu')
+            ->type('select2_from_array')
+            ->options(
+                (function() use ($agama){
+                    $listAgama = [];
+                    foreach ($agama as $key => $value){
+                        $listAgama[$value->nama] = $value->nama;
+                    }
+                    return $listAgama;
+                })()
+            )
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('pekerjaan_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('alamat_indo_ibu')
+            ->type('textarea')
+            ->label('Alamat Ibu di Indonesia');
+        CRUD::field('alamat_mesir_ibu')
+            ->type('textarea')
+            ->label('Alamat Ibu di Mesir');
+        CRUD::field('tlp_ibu_indo')
+            ->label('Nomor Telepon Ibu di Indonesia')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tlp_ibu_mesir')
+            ->label('Nomor Telepon Ibu di Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kewarganegaraan_ibu');
+
+        CRUD::field('nama_ayah');
+        CRUD::field('no_paspor_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('tgl_lahir_ayah')
+            ->type('date_picker')
+            ->label('Tanggal Lahir Ayah')
+            ->date_picker_options([
+                'todayBtn' => 'linked',
+                'format'   => 'dd-mm-yyyy'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('umur_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+
+        CRUD::field('agama_ayah')
+            ->type('select2_from_array')
+            ->options(
+                (function() use ($agama){
+                    $listAgama = [];
+                    foreach ($agama as $key => $value){
+                        $listAgama[$value->nama] = $value->nama;
+                    }
+                    return $listAgama;
+                })()
+            )
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('pekerjaan_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('alamat_indo_ayah')
+            ->type('textarea')
+            ->label('Alamat Ayah di Indonesia');
+        CRUD::field('alamat_mesir_ayah')
+            ->type('textarea')
+            ->label('Alamat Ayah di Mesir');
+        CRUD::field('tlp_ayah_indo')
+            ->label('Nomor Telepon Ayah di Indonesia')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tlp_ayah_mesir')
+            ->label('Nomor Telepon Ayah di Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kewarganegaraan_ayah');
+
+        CRUD::field('tgl_kawin')
+            ->type('date_picker')
+            ->label('Tanggal Kawin')
+            ->date_picker_options([
+                'todayBtn' => 'linked',
+                'format'   => 'dd-mm-yyyy'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('no_akta_kawin')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('instansi_kawin');
+
+        CRUD::field('nik_pelapor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('hubungan')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_pelapor');
+
+        CRUD::field('nik_saksi_1')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_saksi_1')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('nik_saksi_2')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_saksi_2')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('img_sk_dokter')
+            ->label('Upload Surat Keterangan Dokter')
+            ->type('image')
+            ->crop(true);
+        CRUD::field('img_paspor_ayah')
+            ->label('Upload Foto Paspor Ayah')
+            ->type('image')
+            ->crop(true);
+        CRUD::field('img_paspor_ibu')
+            ->label('Upload Foto Paspor Ibu')
+            ->type('image')
+            ->crop(true);
+        CRUD::field('img_izin_tinggal_ayah')
+            ->label('Upload Foto Izin Tinggal Ayah')
+            ->type('image')
+            ->crop(true);
+        CRUD::field('img_izin_tinggal_ibu')
+            ->label('Upload Foto Izin Tinggal Ibu')
+            ->type('image')
+            ->crop(true);
     }
 
     /**
