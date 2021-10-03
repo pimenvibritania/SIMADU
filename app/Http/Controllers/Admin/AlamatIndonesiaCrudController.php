@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\AlamatIndonesiaRequest;
 use App\Models\AlamatIndonesia;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
@@ -12,7 +15,7 @@ use Prologue\Alerts\Facades\Alert;
 /**
  * Class AlamatIndonesiaCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class AlamatIndonesiaCrudController extends CrudController
 {
@@ -53,7 +56,6 @@ class AlamatIndonesiaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -141,6 +143,50 @@ class AlamatIndonesiaCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(AlamatIndonesiaRequest::class);
+
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                AlamatIndonesia::class,
+                'no_surat',
+                'K/AI',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                AlamatIndonesia::class,
+                'no_permohonan',
+                strtoupper(substr(
+                   backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->label('User')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
+
+
 
 
         /**

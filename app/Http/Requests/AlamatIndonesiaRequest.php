@@ -26,7 +26,12 @@ class AlamatIndonesiaRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:alamat_indonesias',
+            'no_permohonan' => 'unique:alamat_indonesias'
+
         ];
     }
 
