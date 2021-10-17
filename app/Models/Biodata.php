@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
+use App\Helpers\UploadImageHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Biodata extends Model
 {
@@ -15,56 +20,7 @@ class Biodata extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'is_active',
-        'user_id',
-        'img_profile',
-        'img_ktp',
-        'img_akte',
-        'img_paspor',
-        'img_ijazah',
-        'no_induk',
-        'nama',
-        'kelamin',
-        'agama',
-        'pernikahan',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'tinggi_badan',
-        'jenis_vipa_1',
-        'no_paspor',
-        'jenis_paspor',
-        'keluar_paspor',
-        'berlaku_paspor_from',
-        'berlaku_paspor_to',
-        'tiba_mesir',
-        'tanggal_lapor',
-        'dikeluarkan_oleh',
-        'pendidikan_akhir',
-        'pekerjaan',
-        'tujuan_mesir',
-        'nama_pasangan',
-        'nama_ayah',
-        'nama_ibu',
-        'alamat_ayah',
-        'alamat_ibu',
-        'pekerjaan_ayah',
-        'pekerjaan_ibu',
-        'no_ayah',
-        'no_ibu',
-        'catatan',
-        'alamat_mesir',
-        'kota_mesir',
-        'provinsi_mesir',
-        'no_mesir',
-        'alamat_indo',
-        'kecamatan_indo',
-        'desa_indo',
-        'kota_indo',
-        'provinsi_indo',
-        'pos_indo',
-        'no_indo',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be cast to native types.
@@ -95,4 +51,84 @@ class Biodata extends Model
     public function pendidikanMesir(){
         return $this->hasMany(PendidikanMesir::class);
     }
+
+    public function setImgProfileAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_profile',
+            'public/uploads/biodata/img_profile'
+        );
+    }
+
+    public function setImgKtpAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_ktp',
+            'public/uploads/biodata/img_ktp'
+        );
+    }
+
+    public function setImgAkteAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_akte',
+            'public/uploads/biodata/img_akte'
+        );
+    }
+
+    public function setImgPasporAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_paspor',
+            'public/uploads/biodata/img_paspor'
+        );
+    }
+
+    public function setImgIjazahAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_ijazah',
+            'public/uploads/biodata/img_ijazah'
+        );
+    }
+
+
+    private function setImagesAttributes($value, $attribute_name, $destination_path)
+    {
+        $disk = Helper::disk();
+
+        if ($value==null) {
+            Storage::disk($disk)->delete($this->{$attribute_name});
+
+            $this->attributes[$attribute_name] = null;
+        }
+
+        if (Str::startsWith($value, 'data:image'))
+        {
+            $filename = $this->user->email . '_' . time() . '.jpg';
+
+            $this->publishImage($value, $destination_path, $disk, $filename, $attribute_name);
+        }
+        else
+        {
+            return $this->attributes[$attribute_name] = $value;
+        }
+    }
+
+    private function publishImage($value, $destination_path, $disk, $filename, $attribute_name)
+    {
+        $image = Image::make($value)->encode('jpg', 90);
+
+        Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());
+
+        Storage::disk($disk)->delete($this->{$attribute_name});
+
+        $this->attributes[$attribute_name] = $filename;
+    }
+
 }

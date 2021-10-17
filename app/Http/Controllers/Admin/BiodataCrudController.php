@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BiodataRequest;
+use App\Models\Agama;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -19,6 +20,17 @@ class BiodataCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+        store as traitStore;
+    }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
+        destroy as traitDestroy;
+    }
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
+    }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -31,6 +43,14 @@ class BiodataCrudController extends CrudController
         CRUD::setEntityNameStrings('biodata', 'Biodata');
     }
 
+    public function store()
+    {
+//        dd(request()->all());
+        $response = $this->traitStore();
+
+        return $response;
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      *
@@ -39,51 +59,14 @@ class BiodataCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('is_active');
-        CRUD::column('user_id');
-        CRUD::column('img_profile');
-        CRUD::column('img_ktp');
         CRUD::column('no_induk');
         CRUD::column('nama');
+        CRUD::column('img_profile')
+            ->type('image')
+            ->prefix('uploads/biodata/img_profile/');
         CRUD::column('kelamin');
-        CRUD::column('agama');
-        CRUD::column('pernikahan');
-        CRUD::column('tempat_lahir');
         CRUD::column('tanggal_lahir');
-        CRUD::column('tinggi_badan');
-        CRUD::column('jenis_vipa_1');
         CRUD::column('no_paspor');
-        CRUD::column('jenis_paspor');
-        CRUD::column('keluar_paspor');
-        CRUD::column('berlaku_paspor_from');
-        CRUD::column('berlaku_paspor_to');
-        CRUD::column('tiba_mesir');
-        CRUD::column('tanggal_lapor');
-        CRUD::column('izin_tinggal');
-        CRUD::column('pendidikan_akhir');
-        CRUD::column('pekerjaan_indo');
-        CRUD::column('tujuan_mesir');
-        CRUD::column('nama_pasangan');
-        CRUD::column('nama_ayah');
-        CRUD::column('nama_ibu');
-        CRUD::column('alamat_ayah');
-        CRUD::column('alamat_ibu');
-        CRUD::column('pekerjaan_ayah');
-        CRUD::column('pekerjaan_ibu');
-        CRUD::column('no_ayah');
-        CRUD::column('no_ibu');
-        CRUD::column('catatan');
-        CRUD::column('alamat_mesir');
-        CRUD::column('kota_mesir');
-        CRUD::column('provinsi_mesir');
-        CRUD::column('no_mesir');
-        CRUD::column('alamat_indo');
-        CRUD::column('kecamatan_indo');
-        CRUD::column('desa_indo');
-        CRUD::column('kota_indo');
-        CRUD::column('provinsi_indo');
-        CRUD::column('pos_indo');
-        CRUD::column('no_indo');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -103,51 +86,290 @@ class BiodataCrudController extends CrudController
         CRUD::setValidation(BiodataRequest::class);
 
         CRUD::field('is_active');
-        CRUD::field('user_id');
-        CRUD::field('img_profile');
-        CRUD::field('img_ktp');
-        CRUD::field('no_induk');
-        CRUD::field('nama');
-        CRUD::field('kelamin');
-        CRUD::field('agama');
-        CRUD::field('pernikahan');
-        CRUD::field('tempat_lahir');
-        CRUD::field('tanggal_lahir');
-        CRUD::field('tinggi_badan');
-        CRUD::field('jenis_vipa_1');
-        CRUD::field('no_paspor');
-        CRUD::field('jenis_paspor');
-        CRUD::field('keluar_paspor');
-        CRUD::field('berlaku_paspor_from');
-        CRUD::field('berlaku_paspor_to');
-        CRUD::field('tiba_mesir');
-        CRUD::field('tanggal_lapor');
-        CRUD::field('izin_tinggal');
-        CRUD::field('pendidikan_akhir');
-        CRUD::field('pekerjaan_indo');
-        CRUD::field('tujuan_mesir');
-        CRUD::field('nama_pasangan');
-        CRUD::field('nama_ayah');
-        CRUD::field('nama_ibu');
-        CRUD::field('alamat_ayah');
-        CRUD::field('alamat_ibu');
-        CRUD::field('pekerjaan_ayah');
-        CRUD::field('pekerjaan_ibu');
-        CRUD::field('no_ayah');
-        CRUD::field('no_ibu');
-        CRUD::field('catatan');
-        CRUD::field('alamat_mesir');
-        CRUD::field('kota_mesir');
-        CRUD::field('provinsi_mesir');
-        CRUD::field('no_mesir');
-        CRUD::field('alamat_indo');
-        CRUD::field('kecamatan_indo');
-        CRUD::field('desa_indo');
-        CRUD::field('kota_indo');
-        CRUD::field('provinsi_indo');
-        CRUD::field('pos_indo');
-        CRUD::field('no_indo');
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->doesntHave('biodata')->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_induk')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama')->label('Nama Arab');
 
+        CRUD::field('img_profile')
+            ->label('Foto Profil')
+            ->type('image')
+            ->prefix('uploads/biodata/img_profile/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_ktp')
+            ->label("Foto KTP")
+            ->type('image')
+            ->prefix('uploads/biodata/img_ktp/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_akte')
+            ->label("Foto Akta Lahir")
+            ->type('image')
+            ->prefix('uploads/biodata/img_akte/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_paspor')
+            ->label("Foto Paspor")
+            ->type('image')
+            ->prefix('uploads/biodata/img_paspor/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_ijazah')
+            ->label("Foto Ijazah")
+            ->type('image')
+            ->prefix('uploads/biodata/img_ijazah/')
+            ->wrapper([
+                'class' => 'form-group col-md-12'
+            ]);
+
+        CRUD::field('kelamin')
+            ->type('select2_from_array')
+            ->options([
+                'lakilaki'   => 'Laki-laki',
+                'perempuan'    => "Perempuan",
+                'lainnya'   => "Lainnya"
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('agama')
+            ->type('select2_from_array')
+            ->options(
+                (function() {
+                    $agama = Agama::all();
+                    $listAgama = [];
+                    foreach ($agama as $value) {
+                        array_push($listAgama, $value->nama);
+                    }
+
+                    return $listAgama;
+                })()
+            )
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+
+        CRUD::field('pernikahan')
+            ->type('select2_from_array')
+            ->options([
+                'menikah'   => 'Menikah',
+                'lajang'    => "Lajang",
+                'cerai'     => "Cerai",
+                'lainnya'   => "Lainnya"
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tempat_lahir')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tanggal_lahir')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tinggi_badan')
+            ->type('number')
+            ->suffix('CM')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('jenis_vipa_1')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('jenis_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('keluar_paspor')
+            ->label("Tanggal keluar paspor")
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('berlaku_paspor_from')
+            ->label('Berlaku paspor sejak')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('berlaku_paspor_to')
+            ->label('Berlaku paspor sampai')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('dikeluarkan_oleh')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tiba_mesir')
+            ->label('Tanggal tiba di Mesir')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tanggal_lapor')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pendidikan_akhir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_indo')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tujuan_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_pasangan')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_ayah')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_ibu')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('catatan')
+            ->type('textarea');
+
+        CRUD::field('provinsi_indo')
+            ->label('Provinsi di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'prov_indo'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('kota_indo')
+            ->label('Kota di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'kota_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('kecamatan_indo')
+            ->label('Kecamatan di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'kec_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('desa_indo')
+            ->label('Desa di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'desa_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('alamat_indo')
+            ->type('textarea');
+
+        CRUD::field('pos_indo')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_indo')
+            ->label('No telepon Indonesia')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('provinsi_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kota_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_mesir')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_mesir')
+            ->label('No telepon Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -163,6 +385,289 @@ class BiodataCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
-    }
+        CRUD::field('is_active');
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->doesntHave('biodata')->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_induk')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama')->label('Nama Arab');
+
+        CRUD::field('img_profile')
+            ->label('Foto Profil')
+            ->type('image')
+            ->prefix('uploads/biodata/img_profile/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_ktp')
+            ->label("Foto KTP")
+            ->type('image')
+            ->prefix('uploads/biodata/img_ktp/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_akte')
+            ->label("Foto Akta Lahir")
+            ->type('image')
+            ->prefix('uploads/biodata/img_akte/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_paspor')
+            ->label("Foto Paspor")
+            ->type('image')
+            ->prefix('uploads/biodata/img_paspor/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('img_ijazah')
+            ->label("Foto Ijazah")
+            ->type('image')
+            ->prefix('uploads/biodata/img_ijazah/')
+            ->wrapper([
+                'class' => 'form-group col-md-12'
+            ]);
+
+        CRUD::field('kelamin')
+            ->type('select2_from_array')
+            ->options([
+                'lakilaki'   => 'Laki-laki',
+                'perempuan'    => "Perempuan",
+                'lainnya'   => "Lainnya"
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('agama')
+            ->type('select2_from_array')
+            ->options(
+                (function() {
+                    $agama = Agama::all();
+                    $listAgama = [];
+                    foreach ($agama as $value) {
+                        array_push($listAgama, $value->nama);
+                    }
+
+                    return $listAgama;
+                })()
+            )
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+
+        CRUD::field('pernikahan')
+            ->type('select2_from_array')
+            ->options([
+                'menikah'   => 'Menikah',
+                'lajang'    => "Lajang",
+                'cerai'     => "Cerai",
+                'lainnya'   => "Lainnya"
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tempat_lahir')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tanggal_lahir')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tinggi_badan')
+            ->type('number')
+            ->suffix('CM')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('jenis_vipa_1')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('jenis_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('keluar_paspor')
+            ->label("Tanggal keluar paspor")
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('berlaku_paspor_from')
+            ->label('Berlaku paspor sejak')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('berlaku_paspor_to')
+            ->label('Berlaku paspor sampai')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('dikeluarkan_oleh')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tiba_mesir')
+            ->label('Tanggal tiba di Mesir')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tanggal_lapor')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pendidikan_akhir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_indo')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tujuan_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_pasangan')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_ayah')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_ibu')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('pekerjaan_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_ayah')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_ibu')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('catatan')
+            ->type('textarea');
+
+        CRUD::field('provinsi_indo')
+            ->label('Provinsi di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'prov_indo'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('kota_indo')
+            ->label('Kota di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'kota_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('kecamatan_indo')
+            ->label('Kecamatan di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'kec_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('desa_indo')
+            ->label('Desa di Indonesia')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'desa_indo',
+                'disabled'  => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('alamat_indo')
+            ->type('textarea');
+
+        CRUD::field('pos_indo')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_indo')
+            ->label('No telepon Indonesia')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('provinsi_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kota_mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('alamat_mesir')
+            ->type('textarea')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('no_mesir')
+            ->label('No telepon Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);    }
 }

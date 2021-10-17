@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WilayahController extends Controller
 {
@@ -36,6 +37,22 @@ class WilayahController extends Controller
             ->get();
 
         return response()->json(['desa' => $desa]);
+    }
+
+    public function mesirProv()
+    {
+        $mesirProv =  DB::table('mesir_prov')->get();
+
+        return response()->json(['prov_mesir' => $mesirProv]);
+    }
+
+    public function mesirCity($id)
+    {
+        $mesirCity = DB::table('mesir_city')
+            ->where('mesir_prov_id', $id)
+            ->get();
+
+        return response()->json(['kota_mesir' => $mesirCity]);
     }
 
 }

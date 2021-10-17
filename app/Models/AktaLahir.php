@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -12,11 +13,6 @@ class AktaLahir extends Model
 {
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
-
-    private function disk()
-    {
-        return config('backpack.base.root_disk_name');
-    }
 
     protected $guarded = ['id'];
 
@@ -98,7 +94,7 @@ class AktaLahir extends Model
 
     private function setImagesAttributes($value, $attribute_name, $destination_path)
     {
-        $disk = $this->disk();
+        $disk = Helper::disk();
 
         if ($value==null) {
             Storage::disk($disk)->delete($this->{$attribute_name});

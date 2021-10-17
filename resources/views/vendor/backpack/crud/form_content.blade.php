@@ -83,6 +83,108 @@
       @endif
 {{--        END PNBP TRANSACTION--}}
 
+{{--        START BIODATA--}}
+        @if($crud->entity_name == 'biodata')
+            <script>
+                $(document).ready(function() {
+                    $.ajax({
+                        url: `{{route('wilayah.provinsi')}}` ,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(response) {
+                            let res = response.provinsi;
+                            let provinsi = "<option disabled selected>-- Pilih Provinsi--</option>"
+                            provinsi += res.map(function (data) {
+                                return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
+                            })
+
+                            $('#prov_indo').append(provinsi)
+
+                        }
+                    })
+
+                    $('#prov_indo').on('change', function () {
+                        let prov_id = $(this).children("option:selected").attr('id');
+                        $('#kota_indo').prop('disabled', false);
+
+                        $.ajax({
+                            url: `{{url('wilayah/kota')}}/${prov_id}`,
+                            type: 'get',
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.kota;
+                                let kota = "<option disabled selected>-- Pilih Kota/Kabupaten--</option>"
+                                kota += res.map(function (data) {
+                                    return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
+                                })
+
+                                $('#kota_indo')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(kota)
+
+                            }
+                        })
+                        $('#kec_indo').empty();
+                        $('#desa_indo').empty();
+
+                    })
+
+                    $('#kota_indo').on('change', function (){
+                        let kota_id = $(this).children("option:selected").attr('id');
+                        $('#kec_indo').prop('disabled', false);
+
+                        $.ajax({
+                            url: `{{url('wilayah/kecamatan')}}/${kota_id}`,
+                            type: 'get',
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.kecamatan;
+                                let kecamatan = "<option disabled selected>-- Pilih Kecamatan--</option>"
+                                kecamatan += res.map(function (data) {
+                                    return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
+                                })
+                                $('#kec_indo')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(kecamatan)
+                            }
+                        });
+                        $('#desa_indo').empty();
+
+                    })
+
+                    $('#kec_indo').on('change', function (){
+                        let kec_id = $(this).children("option:selected").attr('id');
+                        $('#desa_indo').prop('disabled', false);
+
+                        $.ajax({
+                            url: `{{url('wilayah/desa')}}/${kec_id}`,
+                            type: 'get',
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.desa;
+                                let desa = "<option disabled selected>-- Pilih Desa --</option>"
+                                desa += res.map(function (data) {
+                                    return `<option id="${data.KODE_WILAYAH}" value="${data.NAMA}">${data.NAMA}</option>`
+                                })
+
+                                $('#desa_indo')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(desa)
+
+                            }
+                        })
+                    })
+
+                });
+            </script>
+        @endif
+        {{--END BIODATA--}}
 
     </div>
   </div>

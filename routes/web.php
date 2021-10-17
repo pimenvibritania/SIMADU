@@ -50,6 +50,14 @@ Route::group([
         [WilayahController::class, 'desa'])
         ->name('wilayah.desa');
 
+    Route::get('mesir_prov',
+        [WilayahController::class, 'mesirProv'])
+        ->name('wilayah.mesir_prov');
+
+    Route::get('mesir_city/{id}',
+        [WilayahController::class, 'mesirCity'])
+        ->name('wilayah.mesir_city');
+
 });
 
 //Route::resource('biodata', BiodataController::class)

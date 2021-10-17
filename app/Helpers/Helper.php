@@ -296,6 +296,11 @@ class Helper
 
     }
 
+    public static function disk()
+    {
+        return config('backpack.base.root_disk_name');
+    }
+
     private function penyebut($nilai) {
         $nilai = abs($nilai);
         $huruf = array("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");

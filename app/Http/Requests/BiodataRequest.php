@@ -26,7 +26,47 @@ class BiodataRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id'   => 'unique:biodatas',
+            'nama' => 'required',
+            'kelamin' => 'required',
+            'agama'=> 'required',
+            'pernikahan'=> 'required',
+            'tempat_lahir'=> 'required',
+            'tanggal_lahir'=> 'required',
+            'tinggi_badan'=> 'required',
+            'jenis_vipa_1'=> 'required',
+            'no_paspor'=> 'required',
+            'jenis_paspor'=> 'required',
+            'keluar_paspor'=> 'required',
+            'berlaku_paspor_from'=> 'required',
+            'berlaku_paspor_to'=> 'required',
+            'tiba_mesir'=> 'required',
+            'tanggal_lapor'=> 'required',
+            'dikeluarkan_oleh'=> 'required',
+            'tujuan_mesir'=> 'required',
+            'nama_ayah'=> 'required',
+            'nama_ibu'=> 'required',
+            'alamat_ayah'=> 'required',
+            'alamat_ibu'=> 'required',
+            'pekerjaan_ayah'=> 'required',
+            'pekerjaan_ibu'=>'required',
+            'no_ayah'=> 'required',
+            'no_ibu'=> 'required',
+            'alamat_mesir'=> 'required',
+            'kota_mesir'=> 'required',
+            'provinsi_mesir'=> 'required',
+            'no_mesir'=> 'required',
+            'alamat_indo'=> 'required',
+            'kecamatan_indo'=> 'required',
+            'desa_indo'=> 'required',
+            'kota_indo'=> 'required',
+            'provinsi_indo'=> 'required',
+            'pos_indo'=> 'required',
+            'no_indo'=> 'required',
+            'img_ktp' => 'required',
+            'img_profile' => 'required',
+            'img_akte' => 'required',
+            'img_paspor' => 'required',
         ];
     }
 
@@ -38,7 +78,7 @@ class BiodataRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+
         ];
     }
 
