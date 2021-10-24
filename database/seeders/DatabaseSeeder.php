@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             JenisPasporSeeder::class
         ]);
         $this->call(AIdTerritoryTableSeeder::class);
-        $this->call(MesirProvTableSeeder::class);
-        $this->call(MesirCityTableSeeder::class);
+        $this->call(EgyptGovernoratesTableSeeder::class);
+        $this->call(EgyptCitiesTableSeeder::class);
     }
 }

@@ -26,8 +26,8 @@ class FakultasRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
-            'kampus' => 'required'
+            'name_en' => 'required',
+            'name_ar' => 'required'
         ];
     }
 

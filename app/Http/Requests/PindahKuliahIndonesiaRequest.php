@@ -26,7 +26,12 @@ class PindahKuliahIndonesiaRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:pindah_kuliah_indonesias',
+            'no_permohonan' => 'unique:pindah_kuliah_indonesias'
         ];
     }
 

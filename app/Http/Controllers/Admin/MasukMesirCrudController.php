@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\MasukMesirRequest;
 use App\Models\AlamatMesir;
 use App\Models\MasukMesir;
@@ -56,7 +57,6 @@ class MasukMesirCrudController extends CrudController
     protected function setupListOperation()
     {
 
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -145,19 +145,50 @@ class MasukMesirCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(MasukMesirRequest::class);
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                MasukMesir::class,
+                'no_surat',
+                'K/MM',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
-        CRUD::field('id');
-        CRUD::field('user_id');
-        CRUD::field('no_permohonan');
-        CRUD::field('no_surat');
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                MasukMesir::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
+            ->label('User')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
         CRUD::field('tujuan');
-        CRUD::field('keperluan');
-        CRUD::field('tanda_tangan_id');
-        CRUD::field('status');
-        CRUD::field('jml_surat');
-        CRUD::field('tgl_ambil');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        CRUD::field('keperluan')
+            ->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

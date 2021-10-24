@@ -67,6 +67,7 @@ class IzinTawaqufController extends Controller
     {
 
         $request->validate([
+            'user_id' => 'required',
             'tujuan' => 'required',
             'jml_surat'    => 'required',
             'keperluan' => 'required',

@@ -77,6 +77,7 @@ class KuliahIfthaController extends Controller
     {
 
         $request->validate([
+            'user_id' => 'required',
             'fakultas_id' => 'required',
             'tujuan' => 'required',
             'jml_surat'    => 'required',

@@ -19,14 +19,14 @@ class CreateMasukMahadsTable extends Migration
             $table->id();
             $table->string('jenis_pelayanan')->default('Masuk Mahad');
             $table->foreignId('user_id')->constrained();
-            $table->string('jenjang');
-            $table->string('type');
+            $table->foreignId('jenjang_id')
+                ->constrained('jenjangs');
             $table->string('no_permohonan');
             $table->string('no_surat');
             $table->string('tujuan');
             $table->string('keperluan');
             $table->foreignId('tanda_tangan_id')->nullable()->constrained();
-            $table->string('status');
+            $table->string('status')->default('new');
             $table->integer('jml_surat');
             $table->date('tgl_ambil')->nullable();
             $table->timestamps();

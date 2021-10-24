@@ -18,7 +18,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Diajukan</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        {{count($allTask)}}
+                                        {{$allTask->count()}}
                                     </h5>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Surat Yang Disetujui</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        {{count($approvedTask)}}
+                                        {{$approvedTask->count()}}
                                     </h5>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                 <h6>Projects</h6>
                                 <p class="text-sm mb-0">
                                     <i class="fa fa-check text-info" aria-hidden="true"></i>
-                                    <span class="font-weight-bold ms-1">Total {{count($monthlyTask)}} pengajuan</span> pada bulan ini.
+                                    <span class="font-weight-bold ms-1">Total {{$monthlyTask->count()}} pengajuan</span> pada bulan ini.
                                 </p>
                             </div>
                         </div>

@@ -39,11 +39,8 @@ class FakultasCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('nama');
-        CRUD::column('kampus');
-        CRUD::column('keterangan');
-        CRUD::column('status');
-
+        CRUD::column('name_ar')->label('Nama Arab');
+        CRUD::column('name_en')->label('Nama Latin');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -62,10 +59,8 @@ class FakultasCrudController extends CrudController
     {
         CRUD::setValidation(FakultasRequest::class);
 
-        CRUD::field('nama')->label('Jurusan');
-        CRUD::field('kampus');
-        CRUD::field('keterangan');
-        CRUD::field('status');
+        CRUD::field('name_ar')->label('Nama Arab');
+        CRUD::field('name_en')->label('Nama Latin');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

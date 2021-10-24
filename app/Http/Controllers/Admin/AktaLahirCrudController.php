@@ -166,6 +166,9 @@ class AktaLahirCrudController extends CrudController
         CRUD::setValidation(AktaLahirRequest::class);
 
         CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);

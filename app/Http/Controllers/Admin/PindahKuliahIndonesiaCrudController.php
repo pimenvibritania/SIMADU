@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\PindahKuliahIndonesiaRequest;
 use App\Models\Mahasiswa\PindahKuliahIndonesia;
 use App\Notifications\PindahKuliahNotification;
@@ -55,7 +56,6 @@ class PindahKuliahIndonesiaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -144,8 +144,50 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     {
         CRUD::setValidation(PindahKuliahIndonesiaRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                PindahKuliahIndonesia::class,
+                'no_surat',
+                'M/KI',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                PindahKuliahIndonesia::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
+            ->label('User')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

@@ -7,6 +7,11 @@ use App\Http\Requests\AlamatIndonesiaRequest;
 use App\Models\AlamatIndonesia;
 use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -19,19 +24,19 @@ use Prologue\Alerts\Facades\Alert;
  */
 class AlamatIndonesiaCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use ListOperation;
+    use CreateOperation;
+    use UpdateOperation;
+    use DeleteOperation;
+    use ShowOperation;
 
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+    use CreateOperation {
         store as traitStore;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
+    use DeleteOperation {
         destroy as traitDestroy;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+    use UpdateOperation {
         update as traitUpdate;
     }
 
@@ -42,7 +47,7 @@ class AlamatIndonesiaCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\AlamatIndonesia::class);
+        CRUD::setModel(AlamatIndonesia::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/alamatindonesia');
         CRUD::setEntityNameStrings('alamat-indonesia', 'Keterangan Alamat Indonesia');
         $this->crud->enableExportButtons();
@@ -173,6 +178,9 @@ class AlamatIndonesiaCrudController extends CrudController
 
         CRUD::field('user_id')
             ->label('User')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
             ->wrapper([
                 'class' => 'form-group col-md-8'
             ]);

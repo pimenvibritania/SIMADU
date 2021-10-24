@@ -105,7 +105,7 @@ class LoginController extends Controller
                 auth()->user()->hasRole('pimpinan')){
                 return view('backpack::dashboard');
             }
-            return view('pages.dashboard');
+            return redirect()->action([DashboardController::class, 'index']);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

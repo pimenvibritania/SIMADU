@@ -26,7 +26,7 @@ class CreateCabutBerkasTable extends Migration
             $table->string('tujuan');
             $table->string('keperluan');
             $table->foreignId('tanda_tangan_id')->nullable()->constrained();
-            $table->string('status');
+            $table->string('status')->default('new');
             $table->integer('jml_surat');
             $table->date('tgl_ambil')->nullable();
             $table->timestamps();

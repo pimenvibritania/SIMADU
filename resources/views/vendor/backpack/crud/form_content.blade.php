@@ -181,6 +181,48 @@
                         })
                     })
 
+                    $.ajax({
+                        url: `{{route('wilayah.mesir_prov')}}` ,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(response) {
+                            let res = response.prov_mesir;
+                            let provinsi = "<option disabled selected>-- Pilih Provinsi--</option>"
+                            provinsi += res.map(function (data) {
+                                return `<option gov-id="${data.id}" value="${data.name_en}">${data.name_en} - ${data.name_ar}</option>`
+                            })
+
+                            $('#prov_mesir').append(provinsi)
+
+                        }
+                    })
+
+                    $('#prov_mesir').on('change', function (){
+                        let prov_id = $(this).children("option:selected").attr('gov-id');
+                        $('#kota_mesir').prop('disabled', false);
+
+                        $.ajax({
+                            url: `{{url('wilayah/mesir_city')}}/${prov_id}`,
+                            type: 'get',
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.kota_mesir;
+                                let kota = "<option disabled selected>-- Pilih Kota --</option>"
+                                kota += res.map(function (data) {
+                                    return `<option value="${data.name_en}">${data.name_en} - ${data.name_ar}</option>`
+                                })
+
+                                $('#kota_mesir')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(kota)
+
+                            }
+                        })
+                    })
+
+
                 });
             </script>
         @endif

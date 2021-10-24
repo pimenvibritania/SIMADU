@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMesirProvTable extends Migration
+class CreateEgyptCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateMesirProvTable extends Migration
      */
     public function up()
     {
-        Schema::create('mesir_prov', function (Blueprint $table) {
+        Schema::create('egypt_cities', function (Blueprint $table) {
             $table->id();
-            $table->string('prov_name');
+            $table->foreignId('egypt_governorate_id')
+                ->constrained('egypt_governorates')
+                ->onDelete('CASCADE');
+            $table->string('name_ar');
+            $table->string('name_en');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateMesirProvTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mesir_prov');
+        Schema::dropIfExists('egypt_cities');
     }
 }

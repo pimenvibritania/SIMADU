@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\TidakKeluarNegeriRequest;
 use App\Models\TidakKeluarNegeri;
 use App\Notifications\TidakKeluarNegeriNotification;
@@ -56,7 +57,6 @@ class TidakKeluarNegeriCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -147,6 +147,50 @@ class TidakKeluarNegeriCrudController extends CrudController
     {
         CRUD::setValidation(TidakKeluarNegeriRequest::class);
 
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                TidakKeluarNegeri::class,
+                'no_surat',
+                'K/TKN',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                TidakKeluarNegeri::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
+            ->label('User')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

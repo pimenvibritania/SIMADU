@@ -26,7 +26,12 @@ class VisaHajiRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:visa_hajis',
+            'no_permohonan' => 'unique:visa_hajis'
         ];
     }
 

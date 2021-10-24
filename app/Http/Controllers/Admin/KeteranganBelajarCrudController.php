@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\KeteranganBelajarRequest;
 use App\Models\Mahasiswa\KeteranganBelajar;
 use App\Models\User;
@@ -56,7 +57,6 @@ class KeteranganBelajarCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -91,7 +91,7 @@ class KeteranganBelajarCrudController extends CrudController
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('keterangan-belajar/' . $entry->id . '/show');
+                    return backpack_url('keteranganbelajar/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -146,8 +146,50 @@ class KeteranganBelajarCrudController extends CrudController
     {
         CRUD::setValidation(KeteranganBelajarRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                KeteranganBelajar::class,
+                'no_surat',
+                'M/KB',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                KeteranganBelajar::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->label('User')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

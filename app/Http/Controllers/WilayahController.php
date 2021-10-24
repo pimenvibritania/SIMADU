@@ -41,15 +41,15 @@ class WilayahController extends Controller
 
     public function mesirProv()
     {
-        $mesirProv =  DB::table('mesir_prov')->get();
+        $mesirProv =  DB::table('egypt_governorates')->get();
 
         return response()->json(['prov_mesir' => $mesirProv]);
     }
 
     public function mesirCity($id)
     {
-        $mesirCity = DB::table('mesir_city')
-            ->where('mesir_prov_id', $id)
+        $mesirCity = DB::table('egypt_cities')
+            ->where('egypt_governorate_id', $id)
             ->get();
 
         return response()->json(['kota_mesir' => $mesirCity]);

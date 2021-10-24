@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\IzinTinggalRequest;
 use App\Models\IzinTinggal;
 use App\Notifications\IzinTinggalNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Notification;
@@ -21,19 +28,19 @@ use Rawilk\Printing\Facades\Printing;
  */
 class IzinTinggalCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+    use ListOperation;
+    use CreateOperation;
+    use UpdateOperation;
+    use DeleteOperation;
+    use ShowOperation;
+    use BulkDeleteOperation;
+    use CreateOperation {
         store as traitStore;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
+    use DeleteOperation {
         destroy as traitDestroy;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+    use UpdateOperation {
         update as traitUpdate;
     }
 
@@ -44,7 +51,7 @@ class IzinTinggalCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\IzinTinggal::class);
+        CRUD::setModel(IzinTinggal::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/izintinggal');
         CRUD::setEntityNameStrings('izin-tinggal', 'Izin Tinggal');
         $this->crud->enableExportButtons();
@@ -58,7 +65,6 @@ class IzinTinggalCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -143,7 +149,50 @@ class IzinTinggalCrudController extends CrudController
     {
         CRUD::setValidation(IzinTinggalRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                IzinTinggal::class,
+                'no_surat',
+                'K/IT',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                IzinTinggal::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')->get();
+            })
+            ->label('User')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
 
     }
 
