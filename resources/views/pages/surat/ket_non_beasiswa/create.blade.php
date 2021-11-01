@@ -95,7 +95,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Tahun ajaran</span>
-                                    <input name="thn_ajaran" class="form-control" type="number" min="1">
+                                    <input name="thn_ajaran" class="form-control" type="number" min="1900" max="3000" step="1">
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -120,7 +120,7 @@
 
     <script type="text/javascript">
         $('.date').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy'
         });
     </script>
 @endsection

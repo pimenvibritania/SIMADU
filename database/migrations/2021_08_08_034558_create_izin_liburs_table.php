@@ -19,7 +19,7 @@ class CreateIzinLibursTable extends Migration
             $table->id();
             $table->string('jenis_pelayanan')->default('Izin Libur');
             $table->foreignId('user_id')->constrained();
-            $table->string('type');
+            $table->string('type')->default('mahasiswa');
             $table->string('no_permohonan');
             $table->string('no_surat');
             $table->integer('thn_ajaran');

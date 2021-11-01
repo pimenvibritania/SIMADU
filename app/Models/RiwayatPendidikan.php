@@ -41,4 +41,9 @@ class RiwayatPendidikan extends Model
     {
         return $this->belongsTo(\App\Models\Biodata::class);
     }
+
+    public function getUserName()
+    {
+        return $this->biodata->user->name;
+    }
 }

@@ -178,11 +178,14 @@ class AlamatIndonesiaCrudController extends CrudController
 
         CRUD::field('user_id')
             ->label('User')
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
             ->options(function ($query) {
-                return $query->whereHas('biodata')->get();
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
             })
             ->wrapper([
-                'class' => 'form-group col-md-8'
+                'class' => 'form-group col-md-4'
             ]);
         CRUD::field('jml_surat')
             ->label('Jumlah Surat')

@@ -228,6 +228,91 @@
         @endif
         {{--END BIODATA--}}
 
+{{--        START MASUK KULIAH--}}
+        @if($crud->entity_name == 'masukkuliah' || 'kuliahiftha')
+            <script>
+                $(document).ready(function() {
+                    $.ajax({
+                        url: `{{route('jenjang.all')}}` ,
+                        type: 'get',
+                        dataType: 'json',
+                        success: function(response) {
+                            let res = response.jenjang;
+                            let jenjang = "<option disabled selected>-- Pilih Jenjang--</option>"
+                            jenjang += res.map(function (data) {
+                                return `<option id="${data.id}" value="${data.id}">${data.name_en}</option>`
+                            })
+
+                            $('#jenjang_attr').append(jenjang)
+
+
+                        }
+                    })
+
+                    $('#jenjang_attr').on('change', function () {
+                        let jenjangID = $(this).children("option:selected").attr('id');
+                        $('#fakultas_attr').prop('disabled', false)
+
+                        $.ajax({
+                            url: `{{route('fakultas.all')}}`,
+                            type: 'get',
+                            data: {},
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.fakultas;
+                                let fakultas = "<option disabled selected>-- Pilih Fakultas--</option>"
+                                fakultas += res.map(function (data) {
+                                    return `<option id="${data.id}" value="${data.id}">${data.name_en}</option>`
+                                })
+                                $('#fakultas_attr')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(fakultas)
+                            }
+
+                        });
+
+                        $("#jenjang_attr").attr("jenjangID", jenjangID );
+
+                        $('#jurusan_attr').empty();
+
+                    })
+
+                    $('#fakultas_attr').on('change', function (){
+                        let fakID = $(this).children("option:selected").attr('id');
+                        $('#jurusan_attr').prop('disabled', false);
+                        let jenjangID = $("#jenjang_attr").attr("jenjangID")
+                        $.ajax({
+                            url: `{{route('jurusan.all')}}`,
+                            type: 'post',
+                            data: {
+                                'fakultas'  : fakID,
+                                'jenjang'   : jenjangID
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                let res = response.jurusan;
+                                let jurusan = "<option disabled selected>-- Pilih Jurusan--</option>"
+                                jurusan += res.map(function (data) {
+                                    return `<option id="${data.id}" value="${data.id}">${data.name_en}</option>`
+                                })
+                                console.log(jurusan)
+
+                                $('#jurusan_attr')
+                                    .find('option')
+                                    .remove()
+                                    .end()
+                                    .append(jurusan)
+                            }
+                        });
+                    })
+                });
+            </script>
+        @endif
+{{--        END MASUK KULIAH--}}
+
+
     </div>
   </div>
 @endif

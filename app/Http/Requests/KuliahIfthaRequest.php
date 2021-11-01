@@ -26,7 +26,16 @@ class KuliahIfthaRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'institute_id' => 'required',
+            'fakultas_id' => 'required',
+            'jurusan_id' => 'required',
+            'jenjang_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:kuliah_ifthas',
+            'no_permohonan' => 'unique:kuliah_ifthas'
         ];
     }
 

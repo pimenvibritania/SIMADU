@@ -26,7 +26,16 @@ class MasukKuliahRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'institute_id' => 'required',
+            'fakultas_id' => 'required',
+            'jurusan_id' => 'required',
+            'jenjang_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:masuk_kuliahs',
+            'no_permohonan' => 'unique:masuk_kuliahs'
         ];
     }
 
@@ -38,7 +47,7 @@ class MasukKuliahRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+
         ];
     }
 

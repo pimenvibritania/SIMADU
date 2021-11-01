@@ -27,7 +27,7 @@ class CreateMasukKuliahsTable extends Migration
                 ->constrained('fakultas');
             $table->foreignId('jurusan_id')
                 ->constrained('jurusans');
-            $table->string('type');
+            $table->string('type')->default('mahasiswa');
             $table->string('no_permohonan');
             $table->string('no_surat');
             $table->string('tujuan');

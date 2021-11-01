@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\KuliahIfthaRequest;
 use App\Models\Mahasiswa\KuliahIftha;
 use App\Notifications\KuliahIfthaNotification;
@@ -55,7 +56,6 @@ class KuliahIfthaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -99,8 +99,17 @@ class KuliahIfthaCrudController extends CrudController
         CRUD::column('user')->type('relationship')
             ->label('name');
 
+        CRUD::column('institute_id')->type('relationship')
+            ->label('institute');
+
         CRUD::column('fakultas_id')->type('relationship')
             ->label('fakultas');
+
+        CRUD::column('jenjang_id')->type('relationship')
+            ->label('jenjang');
+
+        CRUD::column('jurusan_id')->type('relationship')
+            ->label('jurusan');
 
         CRUD::column('created_at')
             ->type('date')
@@ -142,8 +151,87 @@ class KuliahIfthaCrudController extends CrudController
     {
         CRUD::setValidation(KuliahIfthaRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                KuliahIftha::class,
+                'no_surat',
+                'M/KI',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                KuliahIftha::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->label('User')
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('institute_id')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('jenjang_id')
+            ->type('select_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'jenjang_attr',
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('fakultas_id')
+            ->type('select_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'fakultas_attr',
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('jurusan_id')
+            ->type('select_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'jurusan_attr',
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

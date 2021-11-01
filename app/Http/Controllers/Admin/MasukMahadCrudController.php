@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\MasukMahadRequest;
 use App\Models\Mahasiswa\MasukMahad;
 use App\Notifications\MasukMahadNotification;
@@ -56,7 +57,6 @@ class MasukMahadCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -99,7 +99,8 @@ class MasukMahadCrudController extends CrudController
         CRUD::column('user')->type('relationship')
             ->label('name');
 
-        CRUD::column('jenjang');
+        CRUD::column('jenjang_id')->type('relationship')
+            ->label('jenjang');
 
         CRUD::column('created_at')
             ->type('date')
@@ -141,8 +142,61 @@ class MasukMahadCrudController extends CrudController
     {
         CRUD::setValidation(MasukMahadRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                MasukMahad::class,
+                'no_surat',
+                'M/MM',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                MasukMahad::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->label('User')
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('jenjang_id')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+        CRUD::field('keperluan')
+            ->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

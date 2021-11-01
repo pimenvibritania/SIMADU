@@ -26,7 +26,13 @@ class MintaTashdiqRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'thn_ajaran' => 'required',
+            'no_surat' => 'unique:minta_tashdiqs',
+            'no_permohonan' => 'unique:minta_tashdiqs'
         ];
     }
 

@@ -26,7 +26,12 @@ class RiwayatPendidikanRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'biodata_id' => 'required',
+            'rp_jenjang' => 'required',
+            'rp_instansi' => 'required',
+            'rp_tempat' => 'required',
+            'rp_masuk' => 'required',
+            'rp_keluar' => 'required',
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\LegalisirRequest;
 use App\Models\Legalisir;
 use App\Notifications\LegalisirNotification;
@@ -55,7 +56,6 @@ class LegalisirCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -99,6 +99,10 @@ class LegalisirCrudController extends CrudController
         CRUD::column('user')->type('relationship')
             ->label('name');
 
+        CRUD::column('img_profile')
+            ->type('image')
+            ->prefix('uploads/legalisirs/img_docs/');
+
         CRUD::column('created_at')
             ->type('date')
             ->label('diajukan');
@@ -139,6 +143,55 @@ class LegalisirCrudController extends CrudController
     {
         CRUD::setValidation(LegalisirRequest::class);
 
+        CRUD::field('user_id')
+            ->label('User')
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-5'
+            ]);
+
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                Legalisir::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-5'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+
+        CRUD::field('nama')
+            ->label('Nama Dokumen')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);
+
+        CRUD::field('img_docs')
+            ->label("Scan Dokumen")
+            ->type('upload')
+            ->upload(true)
+            ->hint('Pastikan file berbentuk PDF')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+
+        CRUD::field('keperluan')
+            ->type('textarea');
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

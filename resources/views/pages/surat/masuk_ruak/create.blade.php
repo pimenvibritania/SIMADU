@@ -97,7 +97,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <span class="form-label">Tahun Ajaran</span>
-                                    <input name="thn_ajaran" class="form-control" type="number" min="1">
+                                    <input name="thn_ajaran" class="form-control" type="number" min="1900" step="1" max="3000">
                                 </div>
                             </div>
 

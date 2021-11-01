@@ -26,7 +26,13 @@ class MasukMahadRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'jenjang_id' => 'required',
+            'tujuan' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'no_surat' => 'unique:masuk_mahads',
+            'no_permohonan' => 'unique:masuk_mahads'
         ];
     }
 
@@ -38,7 +44,7 @@ class MasukMahadRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+
         ];
     }
 

@@ -34,7 +34,8 @@
                         </div>
                         <a target="_blank"
                            class="btn btn-primary"
-                           href="{{asset('uploads/legalisir/'.$entry->img_docs)}}">
+
+                           href="{{$entry->img_docs}}">
                             <i class="la la-eye"></i>
                             Lihat dokumen
                         </a>

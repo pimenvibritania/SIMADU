@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\PengampunanCrudController;
 use App\Http\Controllers\Admin\PindahFakultasCrudController;
 use App\Http\Controllers\Admin\PindahKuliahIndonesiaCrudController;
 use App\Http\Controllers\Admin\PindahKuliahLuarNegeriCrudController;
+use App\Http\Controllers\Admin\RiwayatPendidikanCrudController;
 use App\Http\Controllers\Admin\TidakKeluarNegeriCrudController;
 use App\Http\Controllers\Admin\VisaHajiCrudController;
 use App\Http\Controllers\Admin\VisaUmrohCrudController;
@@ -46,6 +47,7 @@ Route::group([
     Route::crud('role', 'RoleCrudController');
 
     Route::crud('biodata', 'BiodataCrudController');
+    Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
 
     Route::crud('master-pnbp', 'MasterPnbpCrudController');
     Route::post('master-pnbp/ajax', [MasterPnbpCrudController::class, 'ajax'])
@@ -66,6 +68,12 @@ Route::group([
     Route::get('changable-word/{id}', [ChangableWordCrudController::class, 'ajax'])
     ->name('changable-ajax');
     Route::get('changable-word-kb/{id}', [ChangableWordCrudController::class, 'kb']);
+
+    Route::group([
+        'prefix' => 'ajax'
+    ], function () {
+        Route::get('rprelation',[RiwayatPendidikanCrudController::class, 'ajax'] ) ;
+});
 
 
 });

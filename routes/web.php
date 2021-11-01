@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IzinTinggalController;
+use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,17 @@ Route::group([
         ->name('wilayah.mesir_city');
 
 });
+Route::group([
+    'prefix' => 'jenjang'
+], function () {
+    Route::get('/', [JurusanController::class, 'jenjang'])
+        ->name('jenjang.all');
+    Route::get('fakultas', [JurusanController::class, 'fakultas'])
+        ->name('fakultas.all');
+    Route::post('jurusan', [JurusanController::class, 'jurusan'])
+        ->name('jurusan.all');
+});
+
 
 //Route::resource('biodata', BiodataController::class)
 //    ->except(['index', 'edit', 'update']);

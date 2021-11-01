@@ -3,6 +3,7 @@
 namespace App\Models\Mahasiswa;
 
 use App\Models\ChangableWord;
+use App\Models\Jenjang;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,19 +17,8 @@ class MasukMahad extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-        'jenjang',
-        'type',
-        'no_permohonan',
-        'no_surat',
-        'tujuan',
-        'keperluan',
-        'tanda_tangan_id',
-        'status',
-        'jml_surat',
-        'tgl_ambil',
-    ];
+    protected $guarded = ['id'];
+
 
     /**
      * The attributes that should be cast to native types.
@@ -46,6 +36,11 @@ class MasukMahad extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function jenjang()
+    {
+        return $this->belongsTo(Jenjang::class);
     }
 
     public function tandaTangan()

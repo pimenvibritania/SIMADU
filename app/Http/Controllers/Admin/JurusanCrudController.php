@@ -40,7 +40,7 @@ class JurusanCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Jurusan::class);
+        CRUD::setModel(\App\Models\Jurusan::clss);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/jurusan');
         CRUD::setEntityNameStrings('jurusan', 'Master Jurusan');
         $this->crud->enableExportButtons();

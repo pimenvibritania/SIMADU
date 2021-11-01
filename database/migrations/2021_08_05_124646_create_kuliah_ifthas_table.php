@@ -26,7 +26,8 @@ class CreateKuliahIfthasTable extends Migration
             $table->foreignId('fakultas_id')
                 ->constrained('fakultas');
             $table->foreignId('jurusan_id')
-                ->constrained('jurusans');            $table->string('type');
+                ->constrained('jurusans');
+            $table->string('type')->default('mahasiswa');
             $table->string('no_permohonan');
             $table->string('no_surat');
             $table->string('tujuan');

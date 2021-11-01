@@ -26,7 +26,12 @@ class LegalisirRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'user_id' => 'required',
+            'nama' => 'required',
+            'jml_surat'    => 'required',
+            'keperluan' => 'required',
+            'img_docs' => 'required|mimetypes:application/pdf',
+            'no_permohonan' => 'unique:legalisirs'
         ];
     }
 

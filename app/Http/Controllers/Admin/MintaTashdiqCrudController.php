@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Requests\MintaTashdiqRequest;
 use App\Models\Mahasiswa\MintaTashdiq;
 use App\Notifications\MintaTashdiqNotification;
@@ -55,7 +56,6 @@ class MintaTashdiqCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->removeButton('create');
         $this->crud->removeButton('delete');
         $this->crud->removeButton('update');
         $this->crud->removeButton('show');
@@ -147,8 +147,63 @@ class MintaTashdiqCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(MintaTashdiqRequest::class);
-        CRUD::setFromDb(); // fields
+        CRUD::field('no_surat')
+            ->default(Helper::generateId(
+                MintaTashdiq::class,
+                'no_surat',
+                'M/MT',
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
 
+        CRUD::field('no_permohonan')
+            ->default(Helper::generateId(
+                MintaTashdiq::class,
+                'no_permohonan',
+                strtoupper(substr(
+                    backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
+                4 ))
+            ->attributes([
+                'readonly' => 'readonly'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('user_id')
+            ->label('User')
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
+            ->options(function ($query) {
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
+            })
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('jml_surat')
+            ->label('Jumlah Surat')
+            ->type('number')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('thn_ajaran')
+            ->type('number')
+            ->attributes([
+                'step'    => 'any',
+                'min'     => 1900,
+                'max'     => 3000
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('tujuan');
+        CRUD::field('keperluan')
+            ->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
