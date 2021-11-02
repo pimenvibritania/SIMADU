@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Mahasiswa\Fakultas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,13 +16,11 @@ class PendidikanMesir extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'biodata_id',
-        'pm_jenjang',
-        'pm_instansi',
-        'pm_tempat',
-        'pm_masuk',
-        'pm_keluar',
+
+    protected $guarded =['id'];
+
+    protected $casts = [
+        'tgl_lapor' => 'datetime'
     ];
 
     /**
@@ -29,16 +28,38 @@ class PendidikanMesir extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'id' => 'integer',
-        'biodata_id' => 'integer',
-        'pm_masuk' => 'date',
-        'pm_keluar' => 'date',
-    ];
 
-
-    public function biodata()
+    public function user()
     {
-        return $this->belongsTo(\App\Models\Biodata::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function jenjang()
+    {
+        return $this->belongsTo(Jenjang::class);
+    }
+
+    public function institute()
+    {
+        return $this->belongsTo(Institute::class);
+    }
+
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
+
+    function masterLevel()
+    {
+        return $this->belongsTo(MasterLevel::class);
+    }
+
+    public function setDatetimeAttribute($value) {
+        $this->attributes['tgl_lapor'] = \Carbon\Carbon::parse($value);
     }
 }

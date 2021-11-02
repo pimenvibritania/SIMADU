@@ -48,6 +48,7 @@ Route::group([
 
     Route::crud('biodata', 'BiodataCrudController');
     Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
+    Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
 
     Route::crud('master-pnbp', 'MasterPnbpCrudController');
     Route::post('master-pnbp/ajax', [MasterPnbpCrudController::class, 'ajax'])
@@ -57,6 +58,7 @@ Route::group([
 
     Route::crud('institutes', 'InstituteCrudController');
     Route::crud('jenjang', 'JenjangCrudController');
+    Route::crud('level', 'LevelCrudController');
     Route::crud('fakultas', 'FakultasCrudController');
     Route::crud('jurusan', 'JurusanCrudController');
     Route::crud('agama', 'AgamaCrudController');

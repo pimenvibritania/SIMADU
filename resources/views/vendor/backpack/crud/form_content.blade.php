@@ -229,7 +229,7 @@
         {{--END BIODATA--}}
 
 {{--        START MASUK KULIAH--}}
-        @if($crud->entity_name == 'masukkuliah' || 'kuliahiftha')
+        @if($crud->entity_name == 'masukkuliah' || 'kuliahiftha' || 'pendidikanmesir')
             <script>
                 $(document).ready(function() {
                     $.ajax({

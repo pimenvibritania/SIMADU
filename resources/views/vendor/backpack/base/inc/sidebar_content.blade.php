@@ -67,13 +67,14 @@
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-signature'></i> Penanda Tangan</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('master-pnbp') }}'><i class='nav-icon la la-archive'></i> Master PNBP</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('level') }}'><i class='nav-icon la la-level-up'></i> TIngkat</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('institutes') }}'><i class='nav-icon la la-building'></i> Institute</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('fakultas') }}'><i class='nav-icon la la-building-o'></i> Fakultas</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('jenjang') }}'><i class='nav-icon la la-level-up'></i> Jenjang</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('jurusan') }}'><i class='nav-icon la la-school'></i> Jurusan</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('agama') }}'><i class='nav-icon la la-moon-o'></i> Agama</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('jenis-paspor') }}'><i class='nav-icon la la-id-card'></i> Jenis Paspor</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('changableword') }}'><i class='nav-icon la la-pen-square'></i> Changable Words</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('changableword') }}'><i class='nav-icon la la-pen-square'></i> Template Surat</a></li>
 
     </ul>
 
@@ -84,6 +85,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('biodata') }}'><i class='nav-icon la la-user-secret'></i> Biodata</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('riwayatpendidikan') }}'><i class='nav-icon la la-graduation-cap'></i> Riwayat Pendidikan</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pendidikanmesir') }}'><i class='nav-icon la la-graduation-cap'></i> Pendidikan di Mesir</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
 
     </ul>

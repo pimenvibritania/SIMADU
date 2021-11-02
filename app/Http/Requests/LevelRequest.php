@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PendidikanMesirRequest extends FormRequest
+class LevelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,18 +26,7 @@ class PendidikanMesirRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'thn_ajaran_1' => 'required',
-            'thn_ajaran_2' => 'required',
-            'thn_ajaran' => 'required',
-            'tgl_lapor' => 'required',
-            'jenjang_id' => 'required',
-            'institute_id' => 'required',
-            'fakultas_id' => 'required',
-            'jurusan_id' => 'required',
-            'master_level_id' => 'required',
-            'ket_naik' => 'required',
-            'nilai' => 'required',
+            'tingkat' => 'required',
         ];
     }
 
