@@ -18,11 +18,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AgamaSeeder::class,
             JenisPasporSeeder::class,
-            JenjangSeeder::class
+            JenjangSeeder::class,
+            AIdTerritoryTableSeeder::class,
+            EgyptGovernoratesTableSeeder::class,
+            InstitutesTableSeeder::class
         ]);
-        $this->call(AIdTerritoryTableSeeder::class);
-        $this->call(EgyptGovernoratesTableSeeder::class);
-        $this->call(EgyptCitiesTableSeeder::class);
-        $this->call(InstitutesTableSeeder::class);
     }
 }
