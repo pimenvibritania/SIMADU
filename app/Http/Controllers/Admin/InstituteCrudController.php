@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\JurusanRequest;
+use App\Http\Requests\InstituteRequest;
 use App\Models\Mahasiswa\MasukKuliah;
 use App\Notifications\MasukKuliahNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -69,7 +69,7 @@ class InstituteCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(JurusanRequest::class);
+        CRUD::setValidation(InstituteRequest::class);
 
         CRUD::field('name_ar')->label('Nama Arab');
         CRUD::field('name_en')->label('Nama Latin');
