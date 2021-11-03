@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BiodataRequest;
 use App\Models\Agama;
+use App\Models\JenisPaspor;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -45,10 +46,42 @@ class BiodataCrudController extends CrudController
 
     public function store()
     {
-//        dd(request()->all());
         $response = $this->traitStore();
 
         return $response;
+    }
+
+    public function update()
+    {
+        $http = preg_split('/:\/\//',url('/'));
+        $regexURi = $http[0] . ":\/\/" . $http[1] . "\/uploads\/biodata\/";
+
+        $ktp = request('img_ktp');
+        $profile = request('img_profile');
+        $akta = request('img_akte');
+        $paspor = request('img_paspor');
+        $ijazah = request('img_ijazah');
+
+
+        $replacedKtp  = preg_replace("/".$regexURi . "img_ktp\//", '', $ktp);
+        $replacedProfile  = preg_replace("/".$regexURi . "img_profile\//", '', $profile);
+        $replacedAkte  = preg_replace("/".$regexURi . "img_akte\//", '', $akta);
+        $replacedPaspor  = preg_replace("/".$regexURi . "img_paspor\//", '', $paspor);
+        $replacedIjazah  = preg_replace("/".$regexURi . "img_ijazah\//", '', $ijazah);
+
+        $this->crud->getRequest()->request->remove('img_ktp');
+        $this->crud->getRequest()->request->remove('img_profile');
+        $this->crud->getRequest()->request->remove('img_akte');
+        $this->crud->getRequest()->request->remove('img_paspor');
+        $this->crud->getRequest()->request->remove('img_ijazah');
+
+        $this->crud->getRequest()->request->add(['img_ktp'=> $replacedKtp]);
+        $this->crud->getRequest()->request->add(['img_profile'=> $replacedProfile]);
+        $this->crud->getRequest()->request->add(['img_akte'=> $replacedAkte]);
+        $this->crud->getRequest()->request->add(['img_paspor'=> $replacedPaspor]);
+        $this->crud->getRequest()->request->add(['img_ijazah'=> $replacedIjazah]);
+
+        return $this->traitUpdate();
     }
 
     /**
@@ -198,6 +231,18 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('jenis_paspor')
+            ->type('select_from_array')
+            ->allow_null(false)
+            ->options((function() {
+                $jenisPaspor = JenisPaspor::all()->toArray();
+
+                $res = [];
+                foreach ($jenisPaspor as $key => $value ) {
+                    $res[$value['nama']] = $value['nama'];
+                }
+
+                return $res;
+            })())
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -511,6 +556,18 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('jenis_paspor')
+            ->type('select_from_array')
+            ->allow_null(false)
+            ->options((function() {
+                $jenisPaspor = JenisPaspor::all()->toArray();
+
+                $res = [];
+                foreach ($jenisPaspor as $key => $value ) {
+                    $res[$value['nama']] = $value['nama'];
+                }
+
+                return $res;
+            })())
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
