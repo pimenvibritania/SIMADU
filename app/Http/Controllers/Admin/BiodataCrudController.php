@@ -733,6 +733,13 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('kota_mesir')
+            ->type('select2_from_array')
+            ->options([])
+            ->allows_null(false)
+            ->attributes([
+                'id'    => 'kota_mesir',
+                'disabled'  => 'disabled'
+            ])
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);

@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\KuliahIfthaCrudController;
 use App\Http\Controllers\Admin\LegalisirCrudController;
 use App\Http\Controllers\Admin\MasterPnbpCrudController;
 use App\Http\Controllers\Admin\JurusanCrudController;
+use App\Http\Controllers\Admin\MasukKuliahCrudController;
 use App\Http\Controllers\Admin\MasukMahadCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
 use App\Http\Controllers\Admin\MasukRuakCrudController;
@@ -173,9 +174,9 @@ Route::group([
     Route::get('pindahkuliahluarnegeri/{id}/print', [PindahKuliahLuarNegeriCrudController::class, 'print']);
 
     Route::crud('masukkuliah', 'MasukKuliahCrudController');
-    Route::post('masukkuliah/{id}/approve', [JurusanCrudController::class, 'approve']);
-    Route::post('masukkuliah/{id}/decline', [JurusanCrudController::class, 'decline']);
-    Route::get('masukkuliah/{id}/print', [JurusanCrudController::class, 'print']);
+    Route::post('masukkuliah/{id}/approve', [MasukKuliahCrudController::class, 'approve']);
+    Route::post('masukkuliah/{id}/decline', [MasukKuliahCrudController::class, 'decline']);
+    Route::get('masukkuliah/{id}/print', [MasukKuliahCrudController::class, 'print']);
 
     Route::crud('kuliahiftha', 'KuliahIfthaCrudController');
     Route::post('kuliahiftha/{id}/approve', [KuliahIfthaCrudController::class, 'approve']);

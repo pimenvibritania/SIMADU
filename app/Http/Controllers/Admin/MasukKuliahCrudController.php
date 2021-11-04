@@ -297,6 +297,7 @@ class MasukKuliahCrudController extends CrudController
             'nama_arab' => $izin->user->biodata->nama,
             'no_paspor' => $izin->user->biodata->no_paspor,
             'tujuan' => $tujuan->deskripsi,
+            'fakultas' => $izin->fakultas->name_ar,
             'thn_ajaran' => $t_ajaran_1 . "/" . $t_ajaran_2,
             'tgl_verif' => now()->format('d M Y'),
             'ttd_nama' => $izin->tandaTangan->nama,

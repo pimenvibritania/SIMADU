@@ -29,7 +29,7 @@ class ChangableWordCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\ChangableWord::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/changableword');
-        CRUD::setEntityNameStrings('changableword', 'changable_words');
+        CRUD::setEntityNameStrings('Template Surat', 'changable_words');
     }
 
     /**
@@ -64,6 +64,12 @@ class ChangableWordCrudController extends CrudController
 
         CRUD::field('judul')
             ->hint('* Contoh : "Masuk Kuliah - Tujuan"');
+        CRUD::field('type')
+            ->type('select2_from_array')
+            ->options([
+                'tujuan' => 'Tujuan',
+                'keterangan' => 'Keterangan'
+            ]);
         CRUD::field('deskripsi')
             ->label('Deskripsi Keterangan')
             ->hint('
@@ -71,12 +77,7 @@ class ChangableWordCrudController extends CrudController
                 <br>
                 * Contoh Type Keterangan: "يرغب في الالتحاق بالدراسات العليا............ا"
                 ');
-        CRUD::field('type')
-            ->type('select2_from_array')
-            ->options([
-                'tujuan' => 'Tujuan',
-                'keterangan' => 'Keterangan'
-            ]);
+
         CRUD::field('is_active');
 
         /**

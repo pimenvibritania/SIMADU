@@ -29,7 +29,7 @@ class LevelCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\MasterLevel::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/level');
-        CRUD::setEntityNameStrings('levek', 'Master Level');
+        CRUD::setEntityNameStrings('level', 'Master Level');
         $this->crud->enableExportButtons();
 
     }

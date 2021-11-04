@@ -263,11 +263,6 @@
                             @if($crud->entity_name == 'masukmahad')
 
                                 <div class="form-group mt-3">
-                                    <label for="jenjang" class="col-form-label">Jenjang</label>
-                                    <input readonly type="text" class="form-control" id="jenjang" value="{{$entry->jenjang}}">
-                                </div>
-
-                                <div class="form-group mt-3">
                                     <label for="changable-word-2" class="col-form-label">Keterangan</label>
                                     <select class="form-control" id="changable-word-2" name="changable-word-id-2">
                                         @if(!$ganti->isEmpty())

@@ -115,7 +115,7 @@ class PindahKuliahIndonesiaCrudController extends CrudController
                 'class' => function ($crud, $column, $entry, $related_key) {
                     if ($entry->status == 'new'){
                         return 'btn btn-success text-white';
-                    } elseif($entry->status == 'approved'){
+                    } elseif($entry->status == 'disetujui'){
                         return 'btn btn-primary text-white';
                     } else {
                         return 'btn btn-danger text-white';
@@ -210,13 +210,6 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     }
 
     public function print($id){
-
-        if ((\request('tanda_tangan_id') == null) ||
-            (\request('tgl_ambil') == null)){
-            Alert::error('Semua field harus diisi')->flash();
-            return redirect()->back();
-        }
-
         $izin = PindahKuliahIndonesia::find($id);
         $template = new TemplateProcessor('word-template/M-pindah-kuliah-indonesia.docx');
         $template->setValues([
@@ -248,17 +241,25 @@ class PindahKuliahIndonesiaCrudController extends CrudController
     }
 
     public function approve($id){
+
+        if ((\request('tanda_tangan_id') == null) ||
+            (\request('tgl_ambil') == null)){
+            Alert::error('Semua field harus diisi')->flash();
+            return redirect()->back();
+        }
+
         $pk = PindahKuliahIndonesia::find($id);
         $pk->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'disetujui'
         ]);
+
         Notification::send($pk->user,
             new PindahKuliahNotification($pk));
 
         Alert::success('Surat izin telah di setujui')->flash();
-        return redirect('admin/pindah-kuliah-indonesia');
+        return redirect('admin/pindah-kuliahindonesia');
     }
 
     public function decline($id){

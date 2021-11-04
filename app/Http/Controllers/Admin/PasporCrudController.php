@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LevelRequest;
+use App\Http\Requests\PasporRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -75,7 +76,7 @@ class PasporCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(LevelRequest::class);
+        CRUD::setValidation(PasporRequest::class);
 
         CRUD::field('nama')->label('Nama Pemohon');
         CRUD::field('tgl_terbit')->label("Tanggal Terbit Paspor ");
