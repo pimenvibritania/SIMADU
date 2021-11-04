@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\BiodataRequest;
 use App\Models\Agama;
 use App\Models\JenisPaspor;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -752,5 +753,13 @@ class BiodataCrudController extends CrudController
             ->label('No telepon Mesir')
             ->wrapper([
                 'class' => 'form-group col-md-6'
-            ]);    }
+            ]);
+    }
+
+    public function ajax()
+    {
+        $user = User::find(request('userID'));
+
+        return $user->email;
+    }
 }

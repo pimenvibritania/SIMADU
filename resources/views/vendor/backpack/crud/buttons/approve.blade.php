@@ -499,11 +499,19 @@
 @endif
 
 @if($entry->status == 'disetujui')
-    <a href="{{url($crud->route . '/' . $entry->getKey() . '/print')}}" class="btn btn-primary" style="width: 200px">
-        <i class="la la-download "></i>
-        Download
-    </a>
-
+    @if($crud->entity_name == 'legalisir')
+        <a target="_blank"
+           class="btn btn-primary"
+           href="{{asset($entry->img_docs)}}">
+            <i class="la la-eye"></i>
+            Lihat dokumen
+        </a>
+    @else
+        <a href="{{url($crud->route . '/' . $entry->getKey() . '/print')}}" class="btn btn-primary" style="width: 200px">
+            <i class="la la-download "></i>
+            Download
+        </a>
+    @endif
 @endif
 @if($entry->status == 'ditolak')
     <a href="{{url($crud->route . '/' . $entry->getKey() . '/delete')}}"

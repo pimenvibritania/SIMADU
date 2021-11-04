@@ -312,6 +312,43 @@
         @endif
 {{--        END MASUK KULIAH--}}
 
+        <script>
+            $(function () {
+                let userID = ($("#userID").val());
+                $.ajax({
+                    url: "{{route('emailAjax')}}",
+                    type:"POST",
+                    data:{
+                        userID:userID,
+                        // _token: _token
+                    },
+                    success:function(response){
+                        if(response) {
+                            $('input[id=emailUser]').val(response);
+                        }
+                    },
+                });
+
+                $("#userID").change(function () {
+                    let userID = $(this).val();
+
+                    $.ajax({
+                        url: "{{route('emailAjax')}}",
+                        type:"POST",
+                        data:{
+                            userID:userID,
+                            // _token: _token
+                        },
+                        success:function(response){
+                            if(response) {
+                                $('input[id=emailUser]').val(response);
+                            }
+                        },
+                    });
+
+                });
+            });
+        </script>
 
     </div>
   </div>

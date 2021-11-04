@@ -178,12 +178,23 @@ class IzinTinggalCrudController extends CrudController
 
         CRUD::field('user_id')
             ->label('User')
+            ->attributes([
+                'id'    => 'userID',
+            ])
             ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
             ->options(function ($query) {
                 return $query->whereHas('biodata')
                     ->whereHas('biodata.riwayatPendidikan')
                     ->get();
             })
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('email')
+            ->attributes([
+                'id'    => 'emailUser',
+                'disabled' => 'disabled'
+            ])
             ->wrapper([
                 'class' => 'form-group col-md-4'
             ]);

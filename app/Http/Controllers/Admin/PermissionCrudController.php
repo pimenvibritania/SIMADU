@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\PermissionManager\app\Http\Requests\PermissionStoreCrudRequest as StoreRequest;
-use Backpack\PermissionManager\app\Http\Requests\PermissionUpdateCrudRequest as UpdateRequest;
+use App\Http\Requests\PermissionStoreCrudRequest as StoreRequest;
+use App\Http\Requests\PermissionUpdateCrudRequest as UpdateRequest;
 
 // VALIDATION
 

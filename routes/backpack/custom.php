@@ -8,6 +8,7 @@
 use App\Http\Controllers\Admin\AktaLahirCrudController;
 use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
+use App\Http\Controllers\Admin\BiodataCrudController;
 use App\Http\Controllers\Admin\CabutBerkasCrudController;
 use App\Http\Controllers\Admin\ChangableWordCrudController;
 use App\Http\Controllers\Admin\CutiKuliahCrudController;
@@ -75,7 +76,8 @@ Route::group([
     Route::group([
         'prefix' => 'ajax'
     ], function () {
-        Route::get('rprelation',[RiwayatPendidikanCrudController::class, 'ajax'] ) ;
+        Route::get('rprelation',[RiwayatPendidikanCrudController::class, 'ajax']) ;
+        Route::post('user-email', [BiodataCrudController::class, 'ajax'])->name('emailAjax');
 });
 
 

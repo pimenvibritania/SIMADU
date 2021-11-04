@@ -26,7 +26,11 @@ class PnbpRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'nama_pemohon' => 'required',
+            'tanggal' => 'required',
+            'master_pnbp_id' => 'required',
+            'kode_pnbp' => 'required',
+            'biaya' => 'required',
         ];
     }
 

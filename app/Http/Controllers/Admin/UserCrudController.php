@@ -2,9 +2,9 @@
 
 namespace app\Http\Controllers\Admin;
 
+use App\Http\Requests\UserStoreCrudRequest;
+use App\Http\Requests\UserUpdateCrudRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
-use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserCrudController extends CrudController
@@ -86,13 +86,13 @@ class UserCrudController extends CrudController
     public function setupCreateOperation()
     {
         $this->addUserFields();
-        $this->crud->setValidation(StoreRequest::class);
+        $this->crud->setValidation(UserStoreCrudRequest::class);
     }
 
     public function setupUpdateOperation()
     {
         $this->addUserFields();
-        $this->crud->setValidation(UpdateRequest::class);
+        $this->crud->setValidation(UserUpdateCrudRequest::class);
     }
 
     /**

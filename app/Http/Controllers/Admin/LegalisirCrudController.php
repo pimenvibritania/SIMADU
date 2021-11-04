@@ -145,6 +145,9 @@ class LegalisirCrudController extends CrudController
 
         CRUD::field('user_id')
             ->label('User')
+            ->attributes([
+                'id'    => 'userID',
+            ])
             ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
             ->options(function ($query) {
                 return $query->whereHas('biodata')
@@ -152,7 +155,15 @@ class LegalisirCrudController extends CrudController
                     ->get();
             })
             ->wrapper([
-                'class' => 'form-group col-md-5'
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('email')
+            ->attributes([
+                'id'    => 'emailUser',
+                'disabled' => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
             ]);
 
         CRUD::field('no_permohonan')

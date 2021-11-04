@@ -166,11 +166,26 @@ class AktaLahirCrudController extends CrudController
         CRUD::setValidation(AktaLahirRequest::class);
 
         CRUD::field('user_id')
+            ->label('User')
+            ->attributes([
+                'id'    => 'userID',
+            ])
+            ->hint('Pastikan biodata & riwayat pendidikan telah terisi')
             ->options(function ($query) {
-                return $query->whereHas('biodata')->get();
+                return $query->whereHas('biodata')
+                    ->whereHas('biodata.riwayatPendidikan')
+                    ->get();
             })
             ->wrapper([
-                'class' => 'form-group col-md-6'
+                'class' => 'form-group col-md-4'
+            ]);
+        CRUD::field('email')
+            ->attributes([
+                'id'    => 'emailUser',
+                'disabled' => 'disabled'
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
             ]);
         CRUD::field('no_surat')
             ->default(Helper::generateId(AktaLahir::class, 'no_surat', 'U/AL', 4 ))
