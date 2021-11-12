@@ -10,10 +10,6 @@ class TandaTangan extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    protected $fillable = [
-        'nama',
-        'jabatan',
-        'nip'
-    ];
+    protected $guarded =['id'];
 
 }

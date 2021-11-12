@@ -244,7 +244,7 @@ class PindahKuliahIndonesiaCrudController extends CrudController
         $template->saveAs($filename . '.docx' );
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download($filename . '.docx', '')

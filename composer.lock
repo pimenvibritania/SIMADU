@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pimenvibritania/CRUD.git",
-                "reference": "38232d0bb8565149d69f07536ba22d5c4679a3c3"
+                "reference": "c441a7c4f665a653248e321b23d9d52bb3f770d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pimenvibritania/CRUD/zipball/38232d0bb8565149d69f07536ba22d5c4679a3c3",
-                "reference": "38232d0bb8565149d69f07536ba22d5c4679a3c3",
+                "url": "https://api.github.com/repos/pimenvibritania/CRUD/zipball/c441a7c4f665a653248e321b23d9d52bb3f770d1",
+                "reference": "c441a7c4f665a653248e321b23d9d52bb3f770d1",
                 "shasum": ""
             },
             "require": {
@@ -170,7 +170,7 @@
             "support": {
                 "source": "https://github.com/pimenvibritania/CRUD/tree/pimen"
             },
-            "time": "2021-11-04T19:08:56+00:00"
+            "time": "2021-11-12T14:41:51+00:00"
         },
         {
             "name": "backpack/permissionmanager",
@@ -194,7 +194,6 @@
                 "phpunit/phpunit": "^9.0||^7.0",
                 "scrutinizer/ocular": "~1.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -10452,5 +10451,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "1.1.0"
 }

@@ -168,7 +168,7 @@ class CustomLetterCrudController extends CrudController
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'changable_word_id' => request('changable_word_id'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
         Alert::success('Surat izin telah di setujui')->flash();
         return redirect('admin/custom-letter');

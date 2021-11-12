@@ -1,5 +1,5 @@
 @php
-    $ttd = \App\Models\TandaTangan::all() ?? null;
+    $ttd = \App\Models\TandaTangan::where('is_active', true)->get() ?? null;
     $ganti = \App\Models\ChangableWord::all() ?? null;
     $ganti_tujuan = $ganti->where('type', 'tujuan');
     $ganti_keterangan = $ganti->where('type', 'keterangan');

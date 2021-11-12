@@ -225,7 +225,7 @@ class LegalisirCrudController extends CrudController
         $izin = Legalisir::find($id);
 
         $izin->update([
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         return response()->download('uploads/legalisir/'. $izin->img_docs);

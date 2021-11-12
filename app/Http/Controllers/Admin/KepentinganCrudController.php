@@ -263,7 +263,7 @@ class KepentinganCrudController extends CrudController
         $kb->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
-            'status' => 'approved'
+            'status' => 'disetujui'
         ]);
 
         Notification::send($kb->user, new KepentinganNotification($kb));

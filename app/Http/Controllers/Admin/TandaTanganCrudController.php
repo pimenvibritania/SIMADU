@@ -40,8 +40,11 @@ class TandaTanganCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('nama');
+        CRUD::column('nama_ar')
+            ->label('Nama Arab');
         CRUD::column('jabatan');
         CRUD::column('nip');
+        CRUD::column('is_active');
 
         CRUD::column('created_at');
         CRUD::column('updated_at');
@@ -64,9 +67,10 @@ class TandaTanganCrudController extends CrudController
         CRUD::setValidation(TandaTanganRequest::class);
 
         CRUD::field('nama');
+        CRUD::field('nama_ar');
         CRUD::field('jabatan');
         CRUD::field('nip');
-
+        CRUD::field('is_active');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
