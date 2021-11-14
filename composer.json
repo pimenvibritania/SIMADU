@@ -12,6 +12,7 @@
         "backpack/crud": "dev-pimen",
         "backpack/permissionmanager": "dev-master",
         "barryvdh/laravel-dompdf": "^0.9.0",
+        "consoletvs/charts": "6.*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -26,6 +27,7 @@
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
+        "backpack/generators": "dev-pimen",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^4.4",
@@ -66,6 +68,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/pimenvibritania/PermissionManager"
+        },
+        {
+            "type": "vcs",
+            "url" : "https://github.com/pimenvibritania/Generators"
         }
     ],
     "minimum-stability": "dev",

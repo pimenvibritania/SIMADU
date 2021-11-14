@@ -113,13 +113,13 @@ class PnbpCrudController extends CrudController
         CRUD::field('nama_pemohon');
         CRUD::field('tanggal');
         CRUD::field('master_pnbp_id')
-            ->label('Kode PNBP')
+            ->label('Jenis PNBP')
             ->type('select2')
             ->entity('masterPnbp')
             ->model(MasterPnbp::class)
-            ->attribute('kode')
+            ->attribute('jenis')
             ->wrapper([
-                'id' => 'kodePnbp',
+                'id' => 'jenisPnbp',
             ]);
 //        CRUD::field('kode_pnbp');
 //        CRUD::field('biaya');

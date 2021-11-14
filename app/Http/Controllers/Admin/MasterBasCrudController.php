@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MasterBasRequest;
-use App\Http\Requests\MasterPnbpRequest;
-use App\Models\MasterBas;
 use App\Models\MasterPnbp;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class MasterPnbpCrudController
+ * Class MasterBasCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
-class MasterPnbpCrudController extends CrudController
+class MasterBasCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,9 +28,9 @@ class MasterPnbpCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\MasterPnbp::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/master-pnbp');
-        CRUD::setEntityNameStrings('master-pnbp', 'Master PNBP');
+        CRUD::setModel(\App\Models\MasterBas::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/master-bas');
+        CRUD::setEntityNameStrings('master-bas', 'Master BAS');
     }
 
     /**
@@ -43,11 +42,7 @@ class MasterPnbpCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('kode');
-        CRUD::column('master_bas_id');
-
-        CRUD::column('is_active');
-        CRUD::column('jenis');
-        CRUD::column('biaya')->prefix("$");
+        CRUD::column('akuntansi');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -64,20 +59,10 @@ class MasterPnbpCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MasterPnbpRequest::class);
+        CRUD::setValidation(MasterBasRequest::class);
 
         CRUD::field('kode');
-        CRUD::field('master_bas_id')
-            ->type('select')
-            ->entity('masterBas')
-            ->model(MasterBas::class)
-            ->attribute('akuntansi');
-
-        CRUD::field('is_active');
-        CRUD::field('jenis');
-        CRUD::field('biaya')
-            ->type("number")
-            ->prefix("$");
+        CRUD::field('akuntansi');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -95,15 +80,5 @@ class MasterPnbpCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-    public function ajax(){
-        $jenis = request('jenis');
-        $res = MasterPnbp::where('jenis', $jenis)->first();
-        return response()->json([
-            'kode' => $res->kode,
-            'jenis' => $res->jenis,
-            'biaya' => $res->biaya
-        ]);
     }
 }

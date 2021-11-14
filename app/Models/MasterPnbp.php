@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MasterPnbp extends Model
 {
@@ -15,12 +16,7 @@ class MasterPnbp extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'kode',
-        'is_active',
-        'jenis',
-        'biaya',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be cast to native types.
@@ -31,4 +27,9 @@ class MasterPnbp extends Model
         'id' => 'integer',
         'is_active' => 'boolean',
     ];
+
+    public function masterBas(): BelongsTo
+    {
+        return $this->belongsTo(MasterBas::class);
+    }
 }

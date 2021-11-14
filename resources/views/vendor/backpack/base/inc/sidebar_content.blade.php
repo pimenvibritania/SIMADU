@@ -65,6 +65,7 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-hands-helping"></i> Master Data</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('tandatangan') }}'><i class='nav-icon la la-signature'></i> Penanda Tangan</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('master-bas') }}'><i class='nav-icon la la-archive'></i> Master BAS</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('master-pnbp') }}'><i class='nav-icon la la-archive'></i> Master PNBP</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('level') }}'><i class='nav-icon la la-level-up'></i> TIngkat</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('institutes') }}'><i class='nav-icon la la-building'></i> Institute</a></li>

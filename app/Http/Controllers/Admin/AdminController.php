@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Redirector;
 
 class AdminController extends Controller
 {
@@ -20,7 +26,7 @@ class AdminController extends Controller
     /**
      * Show the admin dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function dashboard()
     {
@@ -36,7 +42,7 @@ class AdminController extends Controller
     /**
      * Redirect to the dashboard.
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return Redirector|RedirectResponse
      */
     public function redirect()
     {

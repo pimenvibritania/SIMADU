@@ -24,8 +24,9 @@ use App\Http\Controllers\Admin\KeteranganLahirCrudController;
 use App\Http\Controllers\Admin\KetNonBeasiswaCrudController;
 use App\Http\Controllers\Admin\KuliahIfthaCrudController;
 use App\Http\Controllers\Admin\LegalisirCrudController;
-use App\Http\Controllers\Admin\MasterPnbpCrudController;
+use App\Http\Controllers\Admin\MasterBasCrudController;
 use App\Http\Controllers\Admin\JurusanCrudController;
+use App\Http\Controllers\Admin\MasterPnbpCrudController;
 use App\Http\Controllers\Admin\MasukKuliahCrudController;
 use App\Http\Controllers\Admin\MasukMahadCrudController;
 use App\Http\Controllers\Admin\MasukMesirCrudController;
@@ -52,6 +53,7 @@ Route::group([
     Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
     Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
 
+    Route::crud('master-bas', 'MasterBasCrudController');
     Route::crud('master-pnbp', 'MasterPnbpCrudController');
     Route::post('master-pnbp/ajax', [MasterPnbpCrudController::class, 'ajax'])
     ->name('pnbp_ajax');
@@ -244,4 +246,6 @@ Route::group([
     Route::post('izinlibur/{id}/approve', [IzinLiburCrudController::class, 'approve']);
     Route::post('izinlibur/{id}/decline', [IzinLiburCrudController::class, 'decline']);
     Route::get('izinlibur/{id}/print', [IzinLiburCrudController::class, 'print']);
+    Route::get('charts/weekly-users', 'Charts\WeeklyUsersChartController@response')->name('charts.weekly-users.index');
+    Route::get('charts/test-chart', 'Charts\TestChartChartController@response')->name('charts.test-chart.index');
 });// this should be the absolute last line of this file

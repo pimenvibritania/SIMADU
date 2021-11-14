@@ -15,7 +15,7 @@
 
 {{--        START PNBP TRANSACTION--}}
       @if($crud->entity_name == 'pnbp')
-        <div class="form-group col-sm-4" element="div">
+        <div class="form-group col-sm-8" element="div">
             <label>Biaya</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -24,27 +24,25 @@
                 <input type="text" readonly name="biaya" value="" class="form-control">
             </div>
         </div>
-        <div class="form-group col-sm-8" element="div">
-            <label>Jenis Pnbp</label>
-            <input type="text" readonly name="jenis_pnbp" value="" class="form-control">
+        <div class="form-group col-sm-4" element="div">
+            <label>Kode Pnbp</label>
+            <input type="text" readonly name="kode_pnbp" value="" class="form-control">
         </div>
-        <input type="hidden" name="kode_pnbp" value="" class="form-control">
+        <input type="hidden" name="jenis_pnbp" value="" class="form-control">
 
             <script>
 
             $(function () {
-                let initKode = ($("#kodePnbp").find("option").text());
+                let initJenis = ($("#jenisPnbp").find("option").text());
                 $.ajax({
                     url: "{{route('pnbp_ajax')}}",
                     type:"POST",
                     data:{
-                        kode:initKode,
+                        jenis:initJenis,
                         // _token: _token
                     },
                     success:function(response){
-                        // console.log(response);
                         if(response) {
-                            // $('.success').text(response.success);
                             $('input[name=jenis_pnbp]').val(response.jenis);
                             $('input[name=biaya]').val(response.biaya);
                             $('input[name=kode_pnbp]').val(response.kode);
@@ -53,7 +51,7 @@
                     },
                 });
 
-                $("#kodePnbp").change(function () {
+                $("#jenisPnbp").change(function () {
                     let kode = $(this).find("option:selected").text();
                     // let _token   = $('meta[name="csrf-token"]').attr('content');
                     // alert("Selected Text: " + kode);
@@ -61,7 +59,7 @@
                         url: "{{route('pnbp_ajax')}}",
                         type:"POST",
                         data:{
-                            kode:kode,
+                            jenis:kode,
                             // _token: _token
                         },
                         success:function(response){
@@ -229,7 +227,10 @@
         {{--END BIODATA--}}
 
 {{--        START MASUK KULIAH--}}
-        @if($crud->entity_name == 'masukkuliah' || 'kuliahiftha' || 'pendidikanmesir')
+        @if(
+        $crud->entity_name == 'masukkuliah' ||
+        $crud->entity_name == 'kuliahiftha' ||
+        $crud->entity_name == 'pendidikanmesir')
             <script>
                 $(document).ready(function() {
                     $.ajax({
@@ -310,28 +311,12 @@
                 });
             </script>
         @endif
-{{--        END MASUK KULIAH--}}
+{{--       END MASUK KULIAH--}}
 
         <script>
-            $(function () {
-                let userID = ($("#userID").val());
-                $.ajax({
-                    url: "{{route('emailAjax')}}",
-                    type:"POST",
-                    data:{
-                        userID:userID,
-                        // _token: _token
-                    },
-                    success:function(response){
-                        if(response) {
-                            $('input[id=emailUser]').val(response);
-                        }
-                    },
-                });
-
-                $("#userID").change(function () {
-                    let userID = $(this).val();
-
+            if ($("#userID").length != 0) {
+                $(function () {
+                    let userID = ($("#userID").val());
                     $.ajax({
                         url: "{{route('emailAjax')}}",
                         type:"POST",
@@ -346,8 +331,27 @@
                         },
                     });
 
+                    $("#userID").change(function () {
+                        let userID = $(this).val();
+
+                        $.ajax({
+                            url: "{{route('emailAjax')}}",
+                            type:"POST",
+                            data:{
+                                userID:userID,
+                                // _token: _token
+                            },
+                            success:function(response){
+                                if(response) {
+                                    $('input[id=emailUser]').val(response);
+                                }
+                            },
+                        });
+
+                    });
                 });
-            });
+
+            }
         </script>
 
     </div>
