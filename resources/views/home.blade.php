@@ -55,17 +55,6 @@
                 </div>
             </div>
 
-{{--            <!-- Slide 3 -->--}}
-{{--            <div class="carousel-item">--}}
-{{--                <div class="carousel-container">--}}
-{{--                    <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>--}}
-{{--                    <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>--}}
-{{--                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--z--}}
-
         </div>
 
 
@@ -95,26 +84,29 @@
 
             <div class="section-title" data-aos="zoom-out">
                 <h2>About</h2>
-                <p>Who we are</p>
+                <p>TENTANG APLIKASI</p>
             </div>
 
             <div class="row content" data-aos="fade-up">
                 <div class="col-lg-6">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        Portal Sistem Pelayanan Terpadu (SIMADU) online merupakan sistem yang memfasilitasi pelayanan
+                        kekonsuleran dan Kantor Atase Pendidikan dan kebudayaan KBRI Cairo yang berada di wilayar Mesir
+                        melalui fitur lapor diri.
+
                     </p>
-                    <ul>
-                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-                    </ul>
+{{--                    <ul>--}}
+{{--                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>--}}
+{{--                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>--}}
+{{--                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>--}}
+{{--                    </ul>--}}
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0">
                     <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum.
+                        Memudahkan WNI untuk mengajukan layanan baik secara online,
+                        maupun booking online untuk datang langsung ke perwakilan, keseluruhan WNI di Luar Negeri akan
+                        terdata secara detail, sehingga dapat memaksimalkan pelayanan dan pelindungan dari Perwakilan
+                        Indonesia di Mesir.
                     </p>
                     <a href="#" class="btn-learn-more">Learn More</a>
                 </div>

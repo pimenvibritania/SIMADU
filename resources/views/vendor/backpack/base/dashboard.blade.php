@@ -5,7 +5,7 @@
         [
             'type'        => 'jumbotron',
             'heading'     => trans('backpack::base.welcome'),
-            'content'     => 'as',
+            'content'     => 'Assalamualaikum wr wb',
             'button_link' => backpack_url('logout'),
             'button_text' => trans('backpack::base.logout'),
         ]
