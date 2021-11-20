@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BiodataRequest;
 use App\Models\Agama;
+use App\Models\Institute;
 use App\Models\JenisPaspor;
+use App\Models\Mahasiswa\Fakultas;
+use App\Models\MasterLevel;
 use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -47,9 +50,15 @@ class BiodataCrudController extends CrudController
 
     public function store()
     {
-        $response = $this->traitStore();
+        $this->crud->addField(['type' => 'hidden', 'name' => 'verified_date']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'verified_by']);
 
-        return $response;
+        $this->crud->getRequest()->request->add([
+            'verified_date'=> date('Y-m-d H:i:s'),
+            'verified_by' => backpack_user()->name
+        ]);
+
+        return $this->traitStore();
     }
 
     public function update()
@@ -62,7 +71,6 @@ class BiodataCrudController extends CrudController
         $akta = request('img_akte');
         $paspor = request('img_paspor');
         $ijazah = request('img_ijazah');
-
 
         $replacedKtp  = preg_replace("/".$regexURi . "img_ktp\//", '', $ktp);
         $replacedProfile  = preg_replace("/".$regexURi . "img_profile\//", '', $profile);
@@ -93,7 +101,8 @@ class BiodataCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('no_induk');
+        $this->crud->addClause('where', 'verified_date', '!=', 'NULL');
+        CRUD::column('noreg');
         CRUD::column('nama');
         CRUD::column('img_profile')
             ->type('image')
@@ -120,17 +129,36 @@ class BiodataCrudController extends CrudController
         CRUD::setValidation(BiodataRequest::class);
 
         CRUD::field('is_active');
+
         CRUD::field('user_id')
+            ->type('select')
             ->options(function ($query) {
                 return $query->doesntHave('biodata')->get();
             })
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
-        CRUD::field('no_induk')
+
+        CRUD::field('noreg')
+            ->label("Nomor Registrasi")
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
+
+        CRUD::field('nip')
+            ->label("Nomor Induk Pelajar (NIP)")
+            ->default("-")
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('niw')
+            ->label("Nomor Induk WNI - non Pelajar (NIW)")
+            ->default("-")
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
         CRUD::field('nama')->label('Nama Arab');
 
         CRUD::field('img_profile')
@@ -426,6 +454,93 @@ class BiodataCrudController extends CrudController
             ]);
         CRUD::field('no_mesir')
             ->label('No telepon Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('nama_mediator')
+            ->label('Nama Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mediator')
+            ->label('No Kontak Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('nama_mitra_mediator')
+            ->label('Nama Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mitra_mediator')
+            ->label('No Kontak Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('thn_masuk_s1')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s1')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_masuk_s2')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s2')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_masuk_s3')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s3')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('institute_id')
+            ->type('select2')
+            ->entity('institute')
+            ->model(Institute::class)
+            ->attribute('name_en')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('fakultas_id')
+            ->type('select2')
+            ->entity('fakultas')
+            ->model(Fakultas::class)
+            ->attribute('name_en')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('master_level_id')
+            ->label('Tingkat')
+            ->type('select2')
+            ->entity('tingkat')
+            ->model(MasterLevel::class)
+            ->attribute('tingkat')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('jenjang_id')
+            ->type('select2')
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -446,13 +561,15 @@ class BiodataCrudController extends CrudController
     {
         CRUD::field('is_active');
         CRUD::field('user_id')
+            ->type('select')
             ->options(function ($query) {
                 return $query->doesntHave('biodata')->get();
             })
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
-        CRUD::field('no_induk')
+        CRUD::field('noreg')
+            ->label('Nomor Registrasi')
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -751,6 +868,112 @@ class BiodataCrudController extends CrudController
             ]);
         CRUD::field('no_mesir')
             ->label('No telepon Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('nama_mediator')
+            ->label('Nama Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mediator')
+            ->label('No Kontak Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_mitra_mediator')
+            ->label('Nama Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mitra_mediator')
+            ->label('No Kontak Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('nama_mediator')
+            ->label('Nama Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mediator')
+            ->label('No Kontak Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('nama_mitra_mediator')
+            ->label('Nama Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('kontak_mitra_mediator')
+            ->label('No Kontak Mitra Mediator')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('thn_masuk_s1')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s1')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_masuk_s2')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s2')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_masuk_s3')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('thn_lulus_s3')
+            ->type('date')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+        CRUD::field('institute_id')
+            ->type('select2')
+            ->entity('institute')
+            ->model(Institute::class)
+            ->attribute('name_en')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('fakultas_id')
+            ->type('select2')
+            ->entity('fakultas')
+            ->model(Fakultas::class)
+            ->attribute('name_en')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('master_level_id')
+            ->label('Tingkat')
+            ->type('select2')
+            ->entity('tingkat')
+            ->model(MasterLevel::class)
+            ->attribute('tingkat')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('jenjang_id')
+            ->type('select2')
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);

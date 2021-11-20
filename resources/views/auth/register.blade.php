@@ -73,8 +73,9 @@
                                 <select  class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}"
                                          name="status" id="status">
                                     <option disabled>status</option>
-                                    <option value="mahasiswa">Mahasiswa</option>
+                                    <option value="pelajar">Pelajar</option>
                                     <option value="tki">TKI</option>
+                                    <option value="wni lainnya">WNI Lainnya</option>
                                 </select>
 
                                 @if ($errors->has('status'))

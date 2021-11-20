@@ -21,6 +21,8 @@
                 <i style="margin-right: 10px" class="fa fa-clipboard"></i>
                 <span>Isi Riwayat Pendidikan</span>
             </a>
+        @elseif(auth()->user()->biodata->verified_date == null)
+            <p class="bio3">Akun mu belum diverifikasi, silahkan hubungi Admin</p>
         @endif
 
 

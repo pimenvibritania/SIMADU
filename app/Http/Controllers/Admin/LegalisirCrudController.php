@@ -7,6 +7,7 @@ use App\Http\Requests\LegalisirRequest;
 use App\Models\Legalisir;
 use App\Notifications\LegalisirNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Notification;
 use Prologue\Alerts\Facades\Alert;
@@ -14,7 +15,7 @@ use Prologue\Alerts\Facades\Alert;
 /**
  * Class LegalisirCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class LegalisirCrudController extends CrudController
 {
@@ -183,7 +184,7 @@ class LegalisirCrudController extends CrudController
             ->label('Jumlah Surat')
             ->type('number')
             ->wrapper([
-                'class' => 'form-group col-md-2'
+                'class' => 'form-group col-md-3'
             ]);
 
         CRUD::field('nama')
@@ -237,6 +238,7 @@ class LegalisirCrudController extends CrudController
             return redirect()->back();
         }
         $kb = Legalisir::find($id);
+
         $kb->update([
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'disetujui'

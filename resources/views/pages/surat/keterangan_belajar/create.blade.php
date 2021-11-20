@@ -65,7 +65,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">Nama</span>
-                                        <input name="nama" class="form-control" readonly type="text" value="{{$user->nama}}">
+                                        <input name="nama" class="form-control" readonly type="text" value="{{$user->name}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

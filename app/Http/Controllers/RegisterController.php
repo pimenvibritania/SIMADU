@@ -121,7 +121,7 @@ class RegisterController extends Controller
         $this->guard()->login($user);
         backpack_user()->assignRole('user');
 
-        $request->status == 'mahasiswa' ? backpack_user()->assignRole('mahasiswa')
+        $request->status == 'pelajar' ? backpack_user()->assignRole('mahasiswa')
             : backpack_user()->assignRole('tki');
 
         return redirect('biodata/create');

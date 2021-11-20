@@ -6,7 +6,7 @@
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
 use App\Http\Controllers\Admin\AktaLahirCrudController;
-use App\Http\Controllers\Admin\AlamatIndonesiaCrudController;
+use App\Http\Controllers\Admin\NewUserCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\BiodataCrudController;
 use App\Http\Controllers\Admin\CabutBerkasCrudController;
@@ -50,6 +50,9 @@ Route::group([
     Route::crud('role', 'RoleCrudController');
 
     Route::crud('biodata', 'BiodataCrudController');
+    Route::crud('new-users', 'NewUserCrudController');
+    Route::post('new-users/{id}/approve', [NewUserCrudController::class, 'approve']);
+    Route::post('new-users/{id}/decline', [NewUserCrudController::class, 'decline']);
     Route::crud('riwayatpendidikan', 'RiwayatPendidikanCrudController');
     Route::crud('pendidikanmesir', 'PendidikanMesirCrudController');
 
@@ -107,9 +110,9 @@ Route::group([
     Route::get('alamatmesir/{id}/print', [AlamatMesirCrudController::class, 'print']);
 
     Route::crud('alamatindonesia', 'AlamatIndonesiaCrudController');
-    Route::post('alamatindonesia/{id}/approve', [AlamatIndonesiaCrudController::class, 'approve']);
-    Route::post('alamatindonesia/{id}/decline', [AlamatIndonesiaCrudController::class, 'decline']);
-    Route::get('alamatindonesia/{id}/print', [AlamatIndonesiaCrudController::class, 'print']);
+    Route::post('alamatindonesia/{id}/approve', [NewUserCrudController::class, 'approve']);
+    Route::post('alamatindonesia/{id}/decline', [NewUserCrudController::class, 'decline']);
+    Route::get('alamatindonesia/{id}/print', [NewUserCrudController::class, 'print']);
 
 
     Route::crud('masukmesir', 'MasukMesirCrudController');

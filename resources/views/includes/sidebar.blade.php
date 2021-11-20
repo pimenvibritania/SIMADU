@@ -18,7 +18,11 @@
                 </a>
             </li>
 
-            @if(auth()->user()->biodata == null || (auth()->user()->hasRole('mahasiswa') && auth()->user()->biodata->riwayatPendidikan->isEmpty()))
+            @if(
+                auth()->user()->biodata == null ||
+                (auth()->user()->hasRole('mahasiswa') && auth()->user()->biodata->riwayatPendidikan->isEmpty()) ||
+                auth()->user()->biodata->verified_date == null
+                )
                 <li class="nav-item">
                     <a class="nav-link {{
                     Request::is('biodata/create') ? 'active' : ''

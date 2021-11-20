@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use App\Rules\NIPAdmin;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BiodataRequest extends FormRequest
@@ -27,13 +28,15 @@ class BiodataRequest extends FormRequest
     {
         return [
             'user_id'   => 'unique:biodatas',
+            'nip' => 'required',
+            'niw' => 'required',
             'nama' => 'required',
             'kelamin' => 'required',
             'agama'=> 'required',
             'pernikahan'=> 'required',
             'tempat_lahir'=> 'required',
             'tanggal_lahir'=> 'required',
-            'tinggi_badan'=> 'required',
+//            'tinggi_badan'=> 'required',
             'jenis_vipa_1'=> 'required',
             'no_paspor'=> 'required',
             'jenis_paspor'=> 'required',
@@ -67,6 +70,14 @@ class BiodataRequest extends FormRequest
             'img_profile' => 'required',
             'img_akte' => 'required',
             'img_paspor' => 'required',
+            'nama_mediator' => 'required',
+            'kontak_mediator' => 'required',
+            'nama_mitra_mediator' => 'required',
+            'kontak_mitra_mediator' => 'required',
+            'institute_id' => 'required',
+            'fakultas_id' => 'required',
+            'master_level_id' => 'required',
+            'jenjang_id' => 'required',
         ];
     }
 

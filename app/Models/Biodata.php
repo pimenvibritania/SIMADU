@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Helper;
 use App\Helpers\UploadImageHelper;
+use App\Models\Mahasiswa\Fakultas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -31,11 +32,18 @@ class Biodata extends Model
         'id' => 'integer',
         'is_active' => 'boolean',
         'user_id' => 'integer',
+        'verified_date' => 'datetime',
         'tanggal_lahir' => 'date',
         'berlaku_paspor_from' => 'date',
         'berlaku_paspor_to' => 'date',
         'tiba_mesir' => 'date',
         'tanggal_lapor' => 'date',
+        'thn_masuk_s1' => 'date',
+        'thn_masuk_s2' => 'date',
+        'thn_masuk_s3' => 'date',
+        'thn_lulus_s1' => 'date',
+        'thn_lulus_s2' => 'date',
+        'thn_lulus_s3' => 'date',
     ];
 
 
@@ -50,6 +58,26 @@ class Biodata extends Model
 
     public function pendidikanMesir(){
         return $this->hasMany(PendidikanMesir::class);
+    }
+
+    public function institute()
+    {
+        return $this->belongsTo(Institute::class);
+    }
+
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    public function tingkat()
+    {
+        return $this->belongsTo(MasterLevel::class);
+    }
+
+    public function jenjang()
+    {
+        return $this->belongsTo(Jenjang::class);
     }
 
     public function setImgProfileAttribute($value)

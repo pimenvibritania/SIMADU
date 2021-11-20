@@ -32,6 +32,48 @@
                                     <input value="{{auth()->user()->name}}" class="form-control" readonly type="text">
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span class="form-label">No Registrasi</span>
+                                    <input value="{{$noreg}}" class="form-control" readonly type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @if ($errors->has('nip'))
+                                        <span class="text-danger">{{ $errors->first('nip') }}</span>
+                                    @endif
+                                    <span class="form-label">Nomor Induk Pelajar (NIP)
+                                        @if(auth()->user()->status == 'pelajar')
+                                            <span style="color: red">*</span>
+                                        @endif
+                                    </span>
+                                    <input name="nip" value="{{old('nip')}}" class="form-control"
+                                        @if(auth()->user()->status == 'pelajar')
+                                            required
+                                        @endif
+                                       type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @if ($errors->has('niw'))
+                                        <span class="text-danger">{{ $errors->first('niw') }}</span>
+                                    @endif
+                                    <span class="form-label">Nomor Induk WNI - Non Pelajar (NIW)
+                                        @if(auth()->user()->status != 'pelajar')
+                                            <span style="color: red">*</span>
+                                        @endif
+                                    </span>
+                                    <input name="niw" value="{{old('niw')}}" class="form-control"
+                                           @if(auth()->user()->status == 'pelajar')
+                                            required
+                                           @endif
+                                           type="text">
+                                </div>
+                            </div>
+
                             <div class="col-md-10">
                                 <div class="form-group">
                                     @if ($errors->has('nama'))
@@ -563,6 +605,7 @@
                                     <input name="file_img_paspor" class="form-control" type="file">
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md mb-3">

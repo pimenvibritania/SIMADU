@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Agama;
 use App\Models\Biodata;
+use App\Models\Institute;
 use App\Models\JenisPaspor;
+use App\Models\Jenjang;
+use App\Models\Mahasiswa\Fakultas;
+use App\Models\MasterLevel;
 use App\Models\PendidikanMesir;
 use App\Models\RiwayatPendidikan;
+use App\Rules\NIP;
+use App\Rules\NIW;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,10 +43,14 @@ class BiodataController extends Controller
     {
         $agama = Agama::all();
         $jenisPaspor = JenisPaspor::all();
-
+        $noreg = md5(rand());
+        $institute = Institute::all();
+        $fakultas = Fakultas::all();
+        $jenjang = Jenjang::all();
+        $tingkat = MasterLevel::all();
         if (!is_null(auth()->user())){
             if (is_null(auth()->user()->biodata)){
-                return view('pages.biodata', compact(['agama', 'jenisPaspor']));
+                return view('pages.biodata', compact(['agama', 'jenisPaspor', 'noreg', 'institute', 'jenjang', 'fakultas', 'tingkat']));
 
             }
             return redirect('dashboard');
@@ -102,6 +112,16 @@ class BiodataController extends Controller
             'file_img_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_akte' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_paspor' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nip' => new NIP(),
+            'niw' => new NIW(),
+            'nama_mediator' => 'required',
+            'kontak_mediator' => 'required',
+            'nama_mitra_mediator' => 'required',
+            'kontak_mitra_mediator' => 'required',
+            'institute_id' => 'required',
+            'fakultas_id' => 'required',
+            'master_level_id' => 'required',
+            'jenjang_id' => 'required',
         ]);
 
         $ktpname = auth()->user()->email . '_' . time() . '.' .

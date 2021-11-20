@@ -44,9 +44,9 @@
                                             <span class="text-danger">{{ $errors->first('no_permohonan') }}</span>
                                         </li>
                                     @endif
-                                    @if ($errors->has('file_img_docs'))
+                                    @if ($errors->has('img_docs'))
                                         <li>
-                                            <span class="text-danger">{{ $errors->first('file_img_docs') }}</span>
+                                            <span class="text-danger">{{ $errors->first('img_docs') }}</span>
                                         </li>
                                     @endif
                                     @if ($errors->has('jml_surat'))
@@ -90,7 +90,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <span class="form-label">Upload Dokumen<small style="color: red"> (*File harus PDF)</small></span>
-                                    <input name="file_img_docs" class="form-control" type="file">
+                                    <input name="img_docs" class="form-control" type="file">
                                 </div>
                             </div>
 

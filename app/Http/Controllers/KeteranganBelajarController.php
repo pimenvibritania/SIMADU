@@ -56,7 +56,7 @@ class KeteranganBelajarController extends Controller
 
     public function create()
     {
-        $user = backpack_user()->biodata;
+        $user = backpack_user();
         $no_surat = Helper::generateId(new KeteranganBelajar(), 'no_surat', 'M/KB', 4);
         return \view('pages.surat.keterangan_belajar.create', [
             'user' => $user,
@@ -66,9 +66,7 @@ class KeteranganBelajarController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
-            'user_id' => 'required',
             'tujuan' => 'required',
             'jml_surat'    => 'required',
             'keperluan' => 'required',

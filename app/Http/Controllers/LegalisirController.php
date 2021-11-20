@@ -66,21 +66,16 @@ class LegalisirController extends Controller
     }
 
     public function store(Request $request){
+
         $request->validate([
             'nama' => 'required',
             'jml_surat'    => 'required',
             'keperluan' => 'required',
-            'file_img_docs' => 'required|mimetypes:application/pdf|max:10000',
+            'img_docs' => 'required|mimetypes:application/pdf|max:10000',
             'no_permohonan' => 'unique:legalisirs'
         ]);
 
-        $filename = auth()->user()->email . '_' . time() . '.' .
-            $request->file_img_docs->extension();
-
-        $request['img_docs'] = $filename;
-        $request->file_img_docs->move(public_path('uploads/legalisir'), $filename);
         $request['user_id'] = backpack_auth()->id();
-
         $mk = Legalisir::create($request->all());
 
         $admins = User::whereHas('roles', function ($query){

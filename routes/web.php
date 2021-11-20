@@ -100,7 +100,6 @@ Route::group([
         return redirect('login');
     });
 
-
 //    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
 //    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
@@ -131,7 +130,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'surat',
-        'middleware' => ['web', 'role:tki|mahasiswa'],
+        'middleware' => ['web', 'admin.verified', 'role:tki|mahasiswa'],
 
     ], function (){
 
@@ -150,7 +149,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'surat',
-        'middleware' => ['web', 'role:mahasiswa'],
+        'middleware' => ['web', 'admin.verified','role:mahasiswa'],
 
     ], function (){
 
@@ -176,6 +175,7 @@ Route::group([
     });
 
     Route::group([
+        'middleware' => ['admin.verified'],
         'prefix' => 'surat'
     ], function (){
         Route::resource('legalisir', 'LegalisirController');

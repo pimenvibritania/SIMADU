@@ -42,12 +42,18 @@
                              'body'   => 'This chart should make it obvious how many new users have signed up in the past 7 days.<br><br>',
                         ],
                     ],
-
                 ]
             ]
     );
+    $widgets['after_content'][] = [
+        'type'        => 'jumbotron',
+        'heading'     => trans('backpack::base.welcome'),
+        'content'     => 'as',
+        'button_link' => backpack_url('logout'),
+        'button_text' => trans('backpack::base.logout'),
+    ];
 @endphp
 
 @section('content')
-
+    CONTENT
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\JenjangRequest;
 use App\Http\Requests\JurusanRequest;
 use App\Models\Mahasiswa\MasukKuliah;
 use App\Notifications\MasukKuliahNotification;
@@ -68,7 +69,7 @@ class JenjangCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(JurusanRequest::class);
+        CRUD::setValidation(JenjangRequest::class);
 
         CRUD::field('name_ar')->label('Nama Arab');
         CRUD::field('name_en')->label('Nama Latin');
