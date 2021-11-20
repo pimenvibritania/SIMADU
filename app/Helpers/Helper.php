@@ -4,6 +4,8 @@
 namespace App\Helpers;
 
 
+use App\Models\AktaLahir;
+use App\Models\Legalisir;
 use Illuminate\Support\Carbon;
 
 class Helper
@@ -336,5 +338,31 @@ class Helper
             $hasil = trim($this->penyebut($nilai));
         }
         return $hasil;
+    }
+
+    public static function getBadges()
+    {
+        $layananUmum = self::layananUmum();
+        return $layananUmum;
+    }
+
+    private static function layananUmum(): array
+    {
+        $legalisir = Legalisir::where('status', 'new')->count();
+        $akta = AktaLahir::where('status', 'new')->count();
+
+        $empLayananUmum = ($legalisir + $akta) == 0;
+
+        if ($empLayananUmum) {
+            return ['layananUmum' => null];
+        }
+
+        return [
+            'layananUmum' => [
+                'total' => $legalisir + $akta,
+                'legalisir' => $legalisir,
+                'aktaLahir' => $akta
+            ]
+        ];
     }
 }
