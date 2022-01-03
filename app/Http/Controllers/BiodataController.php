@@ -48,9 +48,25 @@ class BiodataController extends Controller
         $fakultas = Fakultas::all();
         $jenjang = Jenjang::all();
         $tingkat = MasterLevel::all();
+        $pendidikanAkhir = [
+            'tk'    => 'TK',
+            'sd'    => 'SD',
+            'smp'   => 'SMP',
+            'sma'   => 'SMA',
+            'd1'    => 'D1',
+            'd2'    => 'D2',
+            'd3'   => 'D3',
+            's1'    => 'S1',
+            's2'    => 'S2',
+            's3'   => 'S3',
+        ];
+        $tujuan = [
+            'Belajar', 'Bekerja', 'Berwisata', 'Kunjungan Keluarga', 'Lainnya'
+        ];
         if (!is_null(auth()->user())){
             if (is_null(auth()->user()->biodata)){
-                return view('pages.biodata', compact(['agama', 'jenisPaspor', 'noreg', 'institute', 'jenjang', 'fakultas', 'tingkat']));
+                return view('pages.biodata', compact(['agama', 'jenisPaspor', 'noreg',
+                    'institute', 'jenjang', 'fakultas', 'tingkat', 'pendidikanAkhir', 'tujuan']));
 
             }
             return redirect('dashboard');

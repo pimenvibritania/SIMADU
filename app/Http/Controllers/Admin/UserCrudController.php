@@ -105,7 +105,10 @@ class UserCrudController extends CrudController
         $this->crud->setRequest($this->crud->validateRequest());
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
-
+        $this->crud->getRequest()->request->add([
+            'verified_date' => now()->format('Y-m-d H:i:s'),
+        ]);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'verified_date']);
         return $this->traitStore();
     }
 
@@ -175,8 +178,9 @@ class UserCrudController extends CrudController
                     'admin_konsuler' => 'Admin Konsuler',
                     'admin_mahasiswa' => 'Admin Mahasiswa',
                     'pimpinan' => 'Pimpinan',
-                    'mahasiswa' => 'Mahasiswa',
-                    'tki' => 'TKI',
+                    'pelajar' => 'Pelajar',
+                    'PMI' => 'Pekerja Migran Indonesia',
+                    'other' => 'WNI Lainnya'
                 ],
                 'allows_null' => false,
             ],

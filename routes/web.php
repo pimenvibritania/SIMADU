@@ -99,7 +99,7 @@ Route::group([
     Route::get('admin/login', function (){
         return redirect('login');
     });
-
+//    \Illuminate\Support\Facades\Auth::routes();
 //    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
 //    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');

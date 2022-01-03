@@ -74,7 +74,7 @@
                                          name="status" id="status">
                                     <option disabled>status</option>
                                     <option value="pelajar">Pelajar</option>
-                                    <option value="tki">TKI</option>
+                                    <option value="pmi">Pekerja Migran Indonesia</option>
                                     <option value="wni lainnya">WNI Lainnya</option>
                                 </select>
 

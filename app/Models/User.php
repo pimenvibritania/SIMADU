@@ -29,7 +29,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait; // <-----------------------------
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;// <---------------------- and this one
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use CrudTrait; // <----- this
     use HasRoles; // <------ and this
@@ -44,7 +44,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'status'
+        'status',
+        'verified_date'
     ];
 
     /**
@@ -64,6 +65,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'verified_date' => 'datetime',
     ];
 
     public function biodata(){

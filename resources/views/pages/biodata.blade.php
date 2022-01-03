@@ -13,6 +13,9 @@
             @endphp
         </div>
     @endif
+    @php
+
+    @endphp
     <div id="booking">
         <div>
             <div class="text-center">
@@ -304,7 +307,14 @@
                                         <span class="text-danger">{{ $errors->first('pendidikan_akhir') }}</span>
                                     @endif
                                     <span class="form-label">Pendidikan Terakhir</span>
-                                    <input name="pendidikan_akhir" value="{{old('pendidikan_akhir')}}" class="form-control" required type="text">
+                                    <select name="pendidikan_akhir" class="form-control" required>
+                                        @foreach($pendidikanAkhir as $key => $value)
+                                            <option value="{{$key}}"
+                                                    @if(old('pendidikan_akhir') == "{{$key}}") selected="selected" @endif>
+                                                {{$value}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -314,7 +324,14 @@
                                         <span class="text-danger">{{ $errors->first('tujuan_mesir') }}</span>
                                     @endif
                                     <span class="form-label">Tujuan Ke Mesir <span style="color: red">*</span></span>
-                                    <input name="tujuan_mesir" value="{{old('tujuan_mesir')}}" class="form-control" required type="text">
+                                    <select name="tujuan_mesir" class="form-control" required>
+                                        @foreach($tujuan as $value)
+                                            <option value="{{$value}}"
+                                                    @if(old('tujuan_mesir') == "{{$value}}") selected="selected" @endif>
+                                                {{$value}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 

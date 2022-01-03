@@ -310,6 +310,19 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('pendidikan_akhir')
+            ->type('select2_from_array')
+            ->options([
+                'tk'    => 'TK',
+                'sd'    => 'SD',
+                'smp'   => 'SMP',
+                'sma'   => 'SMA',
+                'd1'    => 'D1',
+                'd2'    => 'D2',
+                'd3'   => 'D3',
+                's1'    => 'S1',
+                's2'    => 'S2',
+                's3'   => 'S3',
+            ])
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -318,6 +331,8 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('tujuan_mesir')
+            ->type('select2_from_array')
+            ->options(['Belajar', 'Bekerja', 'Berwisata', 'Kunjungan Keluarga', 'Lainnya'])
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -724,6 +739,19 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('pendidikan_akhir')
+            ->type('select2_from_array')
+            ->options([
+                'tk'    => 'TK',
+                'sd'    => 'SD',
+                'smp'   => 'SMP',
+                'sma'   => 'SMA',
+                'd1'    => 'D1',
+                'd2'    => 'D2',
+                'd3'   => 'D3',
+                's1'    => 'S1',
+                's2'    => 'S2',
+                's3'   => 'S3',
+            ])
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
@@ -732,6 +760,8 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('tujuan_mesir')
+            ->type('select2_from_array')
+            ->options(['Belajar', 'Bekerja', 'Berwisata', 'Kunjungan Keluarga', 'Lainnya'])
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
