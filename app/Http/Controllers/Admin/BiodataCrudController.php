@@ -71,24 +71,28 @@ class BiodataCrudController extends CrudController
         $akta = request('img_akte');
         $paspor = request('img_paspor');
         $ijazah = request('img_ijazah');
+        $buktiTinggal = request('img_bukti_tinggal');
 
         $replacedKtp  = preg_replace("/".$regexURi . "img_ktp\//", '', $ktp);
         $replacedProfile  = preg_replace("/".$regexURi . "img_profile\//", '', $profile);
         $replacedAkte  = preg_replace("/".$regexURi . "img_akte\//", '', $akta);
         $replacedPaspor  = preg_replace("/".$regexURi . "img_paspor\//", '', $paspor);
         $replacedIjazah  = preg_replace("/".$regexURi . "img_ijazah\//", '', $ijazah);
+        $replacedBukti  = preg_replace("/".$regexURi . "img_bukti_tinggal\//", '', $buktiTinggal);
 
         $this->crud->getRequest()->request->remove('img_ktp');
         $this->crud->getRequest()->request->remove('img_profile');
         $this->crud->getRequest()->request->remove('img_akte');
         $this->crud->getRequest()->request->remove('img_paspor');
         $this->crud->getRequest()->request->remove('img_ijazah');
+        $this->crud->getRequest()->request->remove('img_bukti_tinggal');
 
         $this->crud->getRequest()->request->add(['img_ktp'=> $replacedKtp]);
         $this->crud->getRequest()->request->add(['img_profile'=> $replacedProfile]);
         $this->crud->getRequest()->request->add(['img_akte'=> $replacedAkte]);
         $this->crud->getRequest()->request->add(['img_paspor'=> $replacedPaspor]);
         $this->crud->getRequest()->request->add(['img_ijazah'=> $replacedIjazah]);
+        $this->crud->getRequest()->request->add(['img_bukti_tinggal'=> $replacedBukti]);
 
         return $this->traitUpdate();
     }
@@ -194,7 +198,15 @@ class BiodataCrudController extends CrudController
             ->type('image')
             ->prefix('uploads/biodata/img_ijazah/')
             ->wrapper([
-                'class' => 'form-group col-md-12'
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('img_bukti_tinggal')
+            ->label("Foto Bukti Tinggal")
+            ->type('image')
+            ->prefix('uploads/biodata/img_bukti_tinggal/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
             ]);
 
         CRUD::field('kelamin')

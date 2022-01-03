@@ -29,9 +29,12 @@ class LegalisirRequest extends FormRequest
             'user_id' => 'required',
             'nama' => 'required',
             'jml_surat'    => 'required',
+            'no_surat' => 'required',
             'keperluan' => 'required',
             'img_docs' => 'required|mimetypes:application/pdf',
-            'no_permohonan' => 'unique:legalisirs'
+            'no_permohonan' => 'unique:legalisirs',
+            'jenis' => 'required',
+            'harga' => 'required'
         ];
     }
 

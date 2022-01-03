@@ -100,21 +100,6 @@ class LegalisirCrudController extends CrudController
         CRUD::column('user')->type('relationship')
             ->label('name');
 
-        CRUD::column('img_profile')
-            ->type('image')
-            ->prefix('uploads/legalisirs/img_docs/');
-
-        CRUD::column('created_at')
-            ->type('date')
-            ->label('diajukan');
-
-        CRUD::column('tgl_ambil')
-            ->type('date')
-            ->label('diambil');
-
-        CRUD::column('jml_surat')
-            ->label('jumlah');
-
         CRUD::column('status')->wrapper(
             [
                 'class' => function ($crud, $column, $entry, $related_key) {
@@ -156,7 +141,7 @@ class LegalisirCrudController extends CrudController
                     ->get();
             })
             ->wrapper([
-                'class' => 'form-group col-md-4'
+                'class' => 'form-group col-md-3'
             ]);
         CRUD::field('email')
             ->attributes([
@@ -178,13 +163,43 @@ class LegalisirCrudController extends CrudController
                 'readonly' => 'readonly'
             ])
             ->wrapper([
-                'class' => 'form-group col-md-5'
+                'class' => 'form-group col-md-3'
             ]);
         CRUD::field('jml_surat')
-            ->label('Jumlah Surat')
+            ->label('Jumlah')
             ->type('number')
             ->wrapper([
+                'class' => 'form-group col-md-2'
+            ]);
+
+        CRUD::field('no_surat')
+            ->label('No Legalisir')
+            ->wrapper([
+                'class' => 'form-group col-md-5'
+            ]);
+
+        CRUD::field('jenis')
+            ->label('Jenis Legalisir')
+            ->type('select2_from_array')
+            ->options([
+                'Berbayar', 'Gratis'
+            ])
+            ->wrapper([
                 'class' => 'form-group col-md-3'
+            ]);
+
+        CRUD::field('no_surat')
+            ->label('No Legalisir')
+            ->wrapper([
+                'class' => 'form-group col-md-5'
+            ]);
+
+        CRUD::field('harga')
+            ->label('Harga')
+            ->type('number')
+            ->prefix('$')
+            ->wrapper([
+                'class' => 'form-group col-md-4'
             ]);
 
         CRUD::field('nama')

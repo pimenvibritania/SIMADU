@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\IzinTinggalController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\WilayahController;
@@ -74,12 +75,17 @@ Route::group([
 
 //Route::resource('biodata', BiodataController::class)
 //    ->except(['index', 'edit', 'update']);
-Route::get('biodata/create', [BiodataController::class, 'create'])->name('biodata.create');
-Route::post('biodata/store', [BiodataController::class, 'store'])->name('biodata.store');
-Route::get('biodata', [BiodataController::class, 'show'])->name('biodata.show');
-Route::get('biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
-Route::post('biodata/update', [BiodataController::class, 'update'])->name('biodata.update');
+Route::group([
+    'middleware' => ['web','auth', 'verified']
+], function (){
 
+    Route::get('biodata/create', [BiodataController::class, 'create'])->name('biodata.create');
+    Route::post('biodata/store', [BiodataController::class, 'store'])->name('biodata.store');
+    Route::get('biodata', [BiodataController::class, 'show'])->name('biodata.show');
+    Route::get('biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
+    Route::post('biodata/update', [BiodataController::class, 'update'])->name('biodata.update');
+
+});
 Route::group([
     'middleware' => ['web', 'role:user|mahasiswa']
 ], function (){
@@ -90,16 +96,29 @@ Route::group([
 
 });
 
+Route::get('verify-email', [EmailVerificationController::class, 'show'])
+    ->middleware('auth')
+    ->name('verification.notice');
+
+Route::post('/verify-email/request', [EmailVerificationController::class, 'request'])
+    ->middleware('auth')
+    ->name('verification.request');
+
+Route::get('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])
+    ->middleware(['auth'])
+    ->name('verification.verify');
+
 Route::group([
     'namespace' => 'App\Http\Controllers'
 ], function (){
     Route::get('login', 'LoginController@showLoginForm')->name('backpack.auth.login');
+
     Route::post('login', 'LoginController@login');
 
     Route::get('admin/login', function (){
         return redirect('login');
     });
-//    \Illuminate\Support\Facades\Auth::routes();
+
 //    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backpack.auth.password.reset');
 //    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 //    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backpack.auth.password.reset.token');
@@ -118,15 +137,11 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web', 'role:user|mahasiswa|tki'],
+    'middleware' => ['web', 'verified', 'role:user|mahasiswa|tki'],
     'namespace' => 'App\Http\Controllers'
 ], function (){
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-//    Route::get('surat/dashboard', function (){
-//       return view('pages.surat.dashboard');
-//    })->name('surat.dashboard');
 
     Route::group([
         'prefix' => 'surat',

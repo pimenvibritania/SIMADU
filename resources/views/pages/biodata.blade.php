@@ -591,6 +591,18 @@
                             </div>
 
                             <div class="col-md-6">
+                                <div class="form-group ">
+                                    @if ($errors->has('file_img_bukti_tinggal'))
+                                        <span class="text-danger">{{ $errors->first('file_img_bukti_tinggal') }}</span>
+                                    @endif
+                                    <span class="form-label">Foto Paspor <span style="color: red">*</span></span></span>
+                                    <input name="file_img_bukti_tinggal" value="{{old('file_img_bukti_tinggal')}}" class="form-control" required type="file">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     @if ($errors->has('nama_mediator'))
                                         <span class="text-danger">{{ $errors->first('nama_mediator') }}</span>

@@ -125,6 +125,15 @@ class Biodata extends Model
         );
     }
 
+    public function setImgBuktiTinggalAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_bukti_tinggal',
+            'public/uploads/biodata/img_bukti_tinggal'
+        );
+    }
+
 
     private function setImagesAttributes($value, $attribute_name, $destination_path)
     {

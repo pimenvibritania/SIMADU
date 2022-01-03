@@ -104,7 +104,7 @@ class RegisterController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
@@ -124,7 +124,8 @@ class RegisterController extends Controller
         $request->status == 'pelajar' ? backpack_user()->assignRole('mahasiswa')
             : backpack_user()->assignRole('tki');
 
-        return redirect('biodata/create');
+        return redirect()->route('verification.notice');
+//        return view('auth.email-verification', compact(['user']));
     }
 
     /**

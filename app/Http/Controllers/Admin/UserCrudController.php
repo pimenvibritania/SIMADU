@@ -5,6 +5,7 @@ namespace app\Http\Controllers\Admin;
 use App\Http\Requests\UserStoreCrudRequest;
 use App\Http\Requests\UserUpdateCrudRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserCrudController extends CrudController
@@ -106,16 +107,16 @@ class UserCrudController extends CrudController
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
         $this->crud->getRequest()->request->add([
-            'verified_date' => now()->format('Y-m-d H:i:s'),
+            'email_verified_at' => now()->format('Y-m-d H:i:s'),
         ]);
-        $this->crud->addField(['type' => 'hidden', 'name' => 'verified_date']);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'email_verified_at']);
         return $this->traitStore();
     }
 
     /**
      * Update the specified resource in the database.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Response
      */
     public function update()
     {

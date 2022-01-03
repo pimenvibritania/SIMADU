@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddVerifiedDateToUsersTable extends Migration
+class AddLegalisirsColumns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddVerifiedDateToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dateTime('verified_date')->nullable();
+        Schema::table('legalisirs', function (Blueprint $table) {
+            $table->string('jenis');
+            $table->integer('harga');
         });
     }
 
@@ -25,7 +26,7 @@ class AddVerifiedDateToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('legalisirs', function (Blueprint $table) {
             //
         });
     }

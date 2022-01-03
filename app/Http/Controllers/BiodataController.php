@@ -152,17 +152,22 @@ class BiodataController extends Controller
         $pasporname = auth()->user()->email . '_' . time() . '.' .
             $request->file_img_paspor->extension();
 
+        $buktiname = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_bukti_tinggal->extension();
+
         $request['is_active'] = true;
         $request['no_induk'] = 'nomor';
         $request['img_ktp'] =  $ktpname;
         $request['img_profile'] = $profilename;
         $request['img_akte'] = $aktename;
         $request['img_paspor'] = $pasporname;
+        $request['img_bukti_tinggal'] = $buktiname;
 
-        $request->file_img_ktp->move(public_path('uploads/ktp'), $ktpname);
-        $request->file_img_profile->move(public_path('uploads/profile'), $profilename);
-        $request->file_img_akte->move(public_path('uploads/akte'), $aktename);
-        $request->file_img_paspor->move(public_path('uploads/paspor'), $pasporname);
+        $request->file_img_ktp->move(public_path('uploads/biodata/img_ktp'), $ktpname);
+        $request->file_img_profile->move(public_path('uploads/biodata/img_profile'), $profilename);
+        $request->file_img_akte->move(public_path('uploads/biodata/img_akte'), $aktename);
+        $request->file_img_paspor->move(public_path('uploads/biodata/img_paspor'), $pasporname);
+        $request->file_img_bukti_tinggal->move(public_path('uploads/biodata/img_bukti_tinggal'), $pasporname);
 
         Biodata::create($request->all());
 
