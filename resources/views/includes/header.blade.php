@@ -1,41 +1,30 @@
-<section style="height: 100%; width: 100%; box-sizing: border-box; background-color: #FFFFFF">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        .navbar-light .navbar-nav .nav-link {
-            color: #092a33;
-        }
-        .navbar-light .navbar-nav .nav-link.active {
-            font-weight: 500;
-        }
-        .btn-get-started {
-            border-radius: 20px;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-left: 30px;
-            padding-right: 30px;
-            font-weight: 500;
-        }
+<style>
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        background-color: #868686;
+    }
 
-        .btn-get-started-blue {
-            background-color: #0ec8f8;
-            color: #fff;
-        }
-        .btn-get-started-blue:hover {
-            background-color: #3ad8ff;
-            color: #fff;
-        }
-    </style>
+    .dropdown-menu > li:hover, .dropdown-menu > li:focus {
+        background-color: #868686;
+    }
+</style>
+@php
+    $notifications = auth()->user()->unreadNotifications;
+
+@endphp
+<section style=" width: 100%; box-sizing: border-box; background-color: #FFFFFF">
+
     <nav
         class="navbar navbar-expand-lg navbar-light p-4 px-md-4 mb-3 bg-body border-bottom"
         style="font-family: Poppins, sans-serif;">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{url('/')}}">
                 <span class="mytitle">SIMADU</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#targetModal-header-2-2">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+{{--Mobile version--}}
             <div class="modal-header-2-2 modal fade" id="targetModal-header-2-2" tabindex="-1" role="dialog" aria-labelledby="targetModalLabel-header-2-2" aria-hidden="true" >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content modal-content-header-2-2">
@@ -83,38 +72,132 @@
                     </div>
                 </div>
             </div>
+{{--Web version--}}
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link px-md-4 active" aria-current="page" href="#"
-                        >Menu</a
+                        <a class="nav-link px-md-4 {{Request::is('dashboard') ? 'active' : ''}}" aria-current="page" href="{{route('dashboard')}}"
+                        >Dashboard</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
+                        <a class="nav-link px-md-4 {{Request::is('surat/*') ? 'active' : ''}}" href="{{route('surat.dashboard')}}">Pengajuan & Permohonan</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link px-md-4" href="#">Menu</a>
-                    </li>
-                    {{--                    <li class="nav-item dropdown pr-4">--}}
-{{--                        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">--}}
-{{--                            <img class="img-avatar" src="{{ backpack_avatar_url(backpack_auth()->user()) }}" alt="{{ backpack_auth()->user()->name }}">--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu {{ config('backpack.base.html_direction') == 'rtl' ? 'dropdown-menu-left' : 'dropdown-menu-right' }} mr-4 pb-1 pt-1">--}}
-{{--                            <a class="dropdown-item" href="{{ route('backpack.account.info') }}"><i class="la la-user"></i> {{ trans('backpack::base.my_account') }}</a>--}}
-{{--                            <div class="dropdown-divider"></div>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
+
 
                 </ul>
+                <div class="dropdown">
+                    <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span style="font-size: 1.5em; color: black;">
+                            <i class="fas fa-bell"></i>
+                                <span id="badge" style="font-size: 0.5em;
+                                float: right;
+                                color: white;
+                                border-radius: 25px ;
+                                padding: 2px 8px;
+                                background: red">
+                                    {{$notifications->count()}}
+                                </span>
 
+                        </span>
+                    </a>
+
+                    <ul class="no-notif dropdown-menu dropdown-menu-md-left" style="right: 0; left: auto" aria-labelledby="dropdownMenuButton1">
+                       @if(isset($notifications))
+                            @forelse($notifications as $notif)
+                                @if($loop->iteration > 10)
+
+                                    @break
+
+                                @endif
+                                <li class="notif dropdown-item" >
+                                    <a style="font-size: 0.8em" href="{{route($notif->data['uri'] )}}" class="btn btn-secondary " role="alert">
+                                        Pengajuan dengan nomor permohonan [{{$notif->data['data']['no_surat']}}] {{$notif->data['data']['status']}}
+                                    </a>
+                                    <a style="font-size: 0.8em" href="#" class="btn btn-danger float-right mark-as-read ml-4 " data-id="{{$notif->id}}">
+                                        x
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                @if($loop->last)
+                                    <div style="margin-left: 1em; padding: 5px 0px">
+                                        <a style="font-size: 0.8em" href="#"  class="btn btn-sm btn-danger " id="mark-all">
+                                            Mark all as read
+                                        </a>
+                                    </div>
+                                @endif
+                            @empty
+                                <li class="dropdown-item">
+                                    There are no new notifications
+                                </li>
+                            @endforelse
+
+                                <script>
+                                    function sendMarkRequest(id = null) {
+                                        return $.ajax("{{route('markNotification')}}", {
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            },
+                                            method: "POST",
+                                            data: {
+                                                id
+                                            },
+                                            success: function(result) {
+                                                // Show an alert with the result
+                                                console.log(result.total)
+                                                // $('#preview-word').val(result.response.deskripsi);
+                                                $('span#badge').text(result.total)
+                                            },
+                                        });
+                                    }
+
+                                    $(function () {
+                                        $('.mark-as-read').click(function () {
+                                            let request = sendMarkRequest($(this).data('id'));
+
+                                            request.done(()=>{
+                                                $(this).parents('li.notif').remove();
+                                                if( !$('li.notif').length )         // use this if you are using id to check
+                                                {
+                                                    $('a#mark-all').remove();
+                                                    $('div.dropdown-divider').remove();
+                                                    $('ul.no-notif').append(
+                                                        `
+                                                        <li class="dropdown-item">
+                                                            There are no new notifications
+                                                        </li>
+                                                        `
+                                                    );
+                                                }
+                                            });
+                                        });
+
+                                        $('#mark-all').click(function () {
+                                            let request = sendMarkRequest();
+
+                                            request.done(()=>{
+                                                $('li.notif').remove();
+                                                $('a#mark-all').remove();
+                                                $('div.dropdown-divider').remove();
+                                                $('ul.no-notif').append(
+                                                    `
+                                                        <li class="dropdown-item">
+                                                            There are no new notifications
+                                                        </li>
+                                                        `
+                                                );
+                                            })
+                                        })
+
+                                    })
+                                </script>
+
+                       @endif
+
+{{--                        <li><a class="dropdown-item" href="{{ backpack_url('logout') }}"><i class="fa fa-sign-out" style="margin-right: 10px"></i> {{ trans('backpack::base.logout') }}</a></li>--}}
+                    </ul>
+                </div>
                 <div class="dropdown">
                     <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <img class="img-avatar" src="{{ backpack_avatar_url(backpack_auth()->user()) }}" alt="{{ backpack_auth()->user()->name }}">
@@ -129,4 +212,6 @@
             </div>
         </div>
     </nav>
+
+
 </section>

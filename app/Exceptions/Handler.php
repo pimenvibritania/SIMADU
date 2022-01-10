@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use HttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Auth;
@@ -49,13 +50,27 @@ class Handler extends ExceptionHandler
         if ($exception instanceof UnauthorizedException) {
             foreach ($guards as $guard) {
                 if (Auth::guard($guard)->check()) {
-                    if (auth()->user()->hasRole('admin')) {
+                    if (auth()->user()->hasRole('admin') ||
+                        auth()->user()->hasRole('admin_konsuler') ||
+                        auth()->user()->hasRole('admin_mahasiswa')||
+                        auth()->user()->hasRole('pimpinan')) {
                         return redirect('admin/dashboard');
                     }
+                    if (\auth()->user()->roles->first()->name == 'mahasiswa'){
+
+                        if (auth()->user()->biodata->riwayatPendidikan->count() == 0){
+                            return redirect('pendidikan');
+                        }
+
+                        return redirect('dashboard');
+
+                    }
+
                     return redirect('dashboard');
                 }
             }
         }
+
 
         // this will still show the error if there is any in your code.
         return parent::render($request, $exception);

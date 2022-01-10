@@ -99,10 +99,13 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            if(auth()->user()->hasRole('admin')){
+            if(auth()->user()->hasRole('admin')||
+                auth()->user()->hasRole('admin_konsuler') ||
+                auth()->user()->hasRole('admin_mahasiswa') ||
+                auth()->user()->hasRole('pimpinan')){
                 return view('backpack::dashboard');
             }
-            return view('pages.dashboard');
+            return redirect()->action([DashboardController::class, 'index']);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -110,7 +113,7 @@ class LoginController extends Controller
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
-        return view('welcome');
+        return $this->sendFailedLoginResponse($request);
     }
 
 }

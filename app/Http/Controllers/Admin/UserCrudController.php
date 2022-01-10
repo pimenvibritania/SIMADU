@@ -2,9 +2,10 @@
 
 namespace app\Http\Controllers\Admin;
 
+use App\Http\Requests\UserStoreCrudRequest;
+use App\Http\Requests\UserUpdateCrudRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Backpack\PermissionManager\app\Http\Requests\UserStoreCrudRequest as StoreRequest;
-use Backpack\PermissionManager\app\Http\Requests\UserUpdateCrudRequest as UpdateRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserCrudController extends CrudController
@@ -26,7 +27,7 @@ class UserCrudController extends CrudController
         $this->crud->addColumns([
             [
                 'name'  => 'name',
-                'label' => 'nnnn',
+                'label' => 'name',
                 'type'  => 'text',
             ],
             [
@@ -86,13 +87,13 @@ class UserCrudController extends CrudController
     public function setupCreateOperation()
     {
         $this->addUserFields();
-        $this->crud->setValidation(StoreRequest::class);
+        $this->crud->setValidation(UserStoreCrudRequest::class);
     }
 
     public function setupUpdateOperation()
     {
         $this->addUserFields();
-        $this->crud->setValidation(UpdateRequest::class);
+        $this->crud->setValidation(UserUpdateCrudRequest::class);
     }
 
     /**
@@ -105,14 +106,17 @@ class UserCrudController extends CrudController
         $this->crud->setRequest($this->crud->validateRequest());
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
         $this->crud->unsetValidation(); // validation has already been run
-
+        $this->crud->getRequest()->request->add([
+            'email_verified_at' => now()->format('Y-m-d H:i:s'),
+        ]);
+        $this->crud->addField(['type' => 'hidden', 'name' => 'email_verified_at']);
         return $this->traitStore();
     }
 
     /**
      * Update the specified resource in the database.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Response
      */
     public function update()
     {
@@ -165,6 +169,21 @@ class UserCrudController extends CrudController
                 'name'  => 'password_confirmation',
                 'label' => trans('backpack::permissionmanager.password_confirmation'),
                 'type'  => 'password',
+            ],
+            [
+                'name'  => 'status',
+                'label' => 'Status',
+                'type'  => 'select2_from_array',
+                'options'     => [
+                    'admin' => 'Admin',
+                    'admin_konsuler' => 'Admin Konsuler',
+                    'admin_mahasiswa' => 'Admin Mahasiswa',
+                    'pimpinan' => 'Pimpinan',
+                    'pelajar' => 'Pelajar',
+                    'PMI' => 'Pekerja Migran Indonesia',
+                    'other' => 'WNI Lainnya'
+                ],
+                'allows_null' => false,
             ],
             [
                 // two interconnected entities

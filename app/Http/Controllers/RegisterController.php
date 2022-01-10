@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'name'                             => 'required|max:255',
             backpack_authentication_column()   => 'required|'.$email_validation.'max:255|unique:'.$users_table,
             'password'                         => 'required|min:6|confirmed',
+            'status'                           => 'required'
         ]);
     }
 
@@ -77,6 +78,7 @@ class RegisterController extends Controller
             'name'                             => $data['name'],
             backpack_authentication_column()   => $data[backpack_authentication_column()],
             'password'                         => bcrypt($data['password']),
+            'status'                           => $data['status']
         ]);
     }
 
@@ -94,7 +96,7 @@ class RegisterController extends Controller
 
         $this->data['title'] = trans('backpack::base.register'); // set the page title
 
-        return view(backpack_view('auth.register'), $this->data);
+        return view('auth.register', $this->data);
     }
 
     /**
@@ -102,7 +104,7 @@ class RegisterController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function register(Request $request)
     {
@@ -119,7 +121,11 @@ class RegisterController extends Controller
         $this->guard()->login($user);
         backpack_user()->assignRole('user');
 
-        return redirect('biodata/create');
+        $request->status == 'pelajar' ? backpack_user()->assignRole('mahasiswa')
+            : backpack_user()->assignRole('tki');
+
+        return redirect()->route('verification.notice');
+//        return view('auth.email-verification', compact(['user']));
     }
 
     /**
