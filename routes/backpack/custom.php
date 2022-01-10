@@ -200,10 +200,10 @@ Route::group([
     Route::post('ketnonbeasiswa/{id}/decline', [KetNonBeasiswaCrudController::class, 'decline']);
     Route::get('ketnonbeasiswa/{id}/print', [KetNonBeasiswaCrudController::class, 'print']);
 
-    Route::crud('pindahfakultas', 'PindahFakultasCrudController');
-    Route::post('pindahfakultas/{id}/approve', [PindahFakultasCrudController::class, 'approve']);
-    Route::post('pindahfakultas/{id}/decline', [PindahFakultasCrudController::class, 'decline']);
-    Route::get('pindahfakultas/{id}/print', [PindahFakultasCrudController::class, 'print']);
+//    Route::crud('pindahfakultas', 'PindahFakultasCrudController');
+//    Route::post('pindahfakultas/{id}/approve', [PindahFakultasCrudController::class, 'approve']);
+//    Route::post('pindahfakultas/{id}/decline', [PindahFakultasCrudController::class, 'decline']);
+//    Route::get('pindahfakultas/{id}/print', [PindahFakultasCrudController::class, 'print']);
 
     Route::crud('masukruak', 'MasukRuakCrudController');
     Route::post('masukruak/{id}/approve', [MasukRuakCrudController::class, 'approve']);
@@ -230,10 +230,10 @@ Route::group([
     Route::post('keringananbiaya/{id}/decline', [KeringananBiayaCrudController::class, 'decline']);
     Route::get('keringananbiaya/{id}/print', [KeringananBiayaCrudController::class, 'print']);
 
-    Route::crud('mintatashdiq', 'MintaTashdiqCrudController');
-    Route::post('mintatashdiq/{id}/approve', [MintaTashdiqCrudController::class, 'approve']);
-    Route::post('mintatashdiq/{id}/decline', [MintaTashdiqCrudController::class, 'decline']);
-    Route::get('mintatashdiq/{id}/print', [MintaTashdiqCrudController::class, 'print']);
+//    Route::crud('mintatashdiq', 'MintaTashdiqCrudController');
+//    Route::post('mintatashdiq/{id}/approve', [MintaTashdiqCrudController::class, 'approve']);
+//    Route::post('mintatashdiq/{id}/decline', [MintaTashdiqCrudController::class, 'decline']);
+//    Route::get('mintatashdiq/{id}/print', [MintaTashdiqCrudController::class, 'print']);
 
     Route::crud('izinsakit', 'IzinSakitCrudController');
     Route::post('izinsakit/{id}/approve', [IzinSakitCrudController::class, 'approve']);

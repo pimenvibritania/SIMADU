@@ -85,6 +85,12 @@ Route::group([
     Route::get('biodata/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
     Route::post('biodata/update', [BiodataController::class, 'update'])->name('biodata.update');
 
+    Route::group([
+        'namespace' => 'App\Http\Controllers'
+    ], function () {
+       Route::resource('sandbox', 'SandboxController');
+    });
+
 });
 Route::group([
     'middleware' => ['web', 'role:user|mahasiswa']
@@ -176,11 +182,11 @@ Route::group([
         Route::resource('kuliah-iftha', 'KuliahIfthaController');
         Route::resource('masuk-mahad', 'MasukMahadController');
         Route::resource('ket-non-beasiswa', 'KetNonBeasiswaController');
-        Route::resource('pindah-fakultas', 'PindahFakultasController');
+//        Route::resource('pindah-fakultas', 'PindahFakultasController');
         Route::resource('masuk-ruak', 'MasukRuakController');
         Route::resource('cuti-kuliah', 'CutiKuliahController');
         Route::resource('daftar-nilai', 'DaftarNilaiController');
-        Route::resource('minta-tashdiq', 'MintaTashdiqController');
+//        Route::resource('minta-tashdiq', 'MintaTashdiqController');
         Route::resource('cabut-berkas', 'CabutBerkasController');
         Route::resource('keringanan-biaya', 'KeringananBiayaController');
         Route::resource('izin-sakit', 'IzinSakitController');

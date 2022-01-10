@@ -244,16 +244,16 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link {{
-                    Request::is('surat/pindah-fakultas') || Request::is('surat/pindah-fakultas/create') ? 'active' : ''
-                    }} " href="{{url('surat/pindah-fakultas')}}">
-                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Surat Keterangan<br>Pindah Fakultas</span>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link {{--}}
+{{--                    Request::is('surat/pindah-fakultas') || Request::is('surat/pindah-fakultas/create') ? 'active' : ''--}}
+{{--                    }} " href="{{url('surat/pindah-fakultas')}}">--}}
+{{--                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">--}}
+{{--                                <i class="fas fa-building"></i>--}}
+{{--                            </div>--}}
+{{--                            <span class="nav-link-text ms-1">Surat Keterangan<br>Pindah Fakultas</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li class="nav-item">
                         <a class="nav-link {{
@@ -288,16 +288,16 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link {{
-                    Request::is('surat/minta-tashdiq') || Request::is('surat/minta-tashdiq/create') ? 'active' : ''
-                    }} " href="{{url('surat/minta-tashdiq')}}">
-                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Surat Permintaan<br>Minta Tashdiq</span>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link {{--}}
+{{--                    Request::is('surat/minta-tashdiq') || Request::is('surat/minta-tashdiq/create') ? 'active' : ''--}}
+{{--                    }} " href="{{url('surat/minta-tashdiq')}}">--}}
+{{--                            <div class="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">--}}
+{{--                                <i class="fas fa-clipboard-check"></i>--}}
+{{--                            </div>--}}
+{{--                            <span class="nav-link-text ms-1">Surat Permintaan<br>Minta Tashdiq</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li class="nav-item">
                         <a class="nav-link {{

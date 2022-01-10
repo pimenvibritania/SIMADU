@@ -139,6 +139,10 @@ class BiodataController extends Controller
             'fakultas_id' => 'required',
             'master_level_id' => 'required',
             'jenjang_id' => 'required',
+            'majikan_nama' => $this->validatePmi(false),
+            'majikan_no' => $this->validatePmi(false),
+            'file_img_majikan_ktp' => $this->validatePmi(true),
+            'file_img_majikan_kontrak' => $this->validatePmi(true),
         ]);
 
         $ktpname = auth()->user()->email . '_' . time() . '.' .
@@ -159,6 +163,12 @@ class BiodataController extends Controller
         $passPasangan = auth()->user()->email . '_' . time() . '.' .
             $request->file_img_paspor_pasangan->extension();
 
+        $majikanKtp = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_majikan_ktp->extension();
+
+        $majikanKontrak = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_majikan_kontrak->extension();
+
         $request['is_active'] = true;
         $request['no_induk'] = 'nomor';
         $request['img_ktp'] =  $ktpname;
@@ -167,6 +177,8 @@ class BiodataController extends Controller
         $request['img_paspor'] = $pasporname;
         $request['img_bukti_tinggal'] = $buktiname;
         $request['paspor_img_pasangan'] = $passPasangan;
+        $request['img_majikan_ktp'] = $majikanKtp;
+        $request['img_majikan_kontrak'] = $majikanKontrak;
 
         $request->file_img_ktp->move(public_path('uploads/biodata/img_ktp'), $ktpname);
         $request->file_img_profile->move(public_path('uploads/biodata/img_profile'), $profilename);
@@ -174,6 +186,8 @@ class BiodataController extends Controller
         $request->file_img_paspor->move(public_path('uploads/biodata/img_paspor'), $pasporname);
         $request->file_img_bukti_tinggal->move(public_path('uploads/biodata/img_bukti_tinggal'), $pasporname);
         $request->file_img_paspor_pasangan->move(public_path('uploads/biodata/pasangan_img_paspor'), $passPasangan);
+        $request->file_img_majikan_ktp->move(public_path('uploads/biodata/majikan_img_ktp'), $majikanKtp);
+        $request->file_img_majikan_kontrak->move(public_path('uploads/biodata/masjikan_img_kontrak'), $majikanKontrak);
 
         Biodata::create($request->all());
 
@@ -281,6 +295,24 @@ class BiodataController extends Controller
             $request->file_img_paspor_pasangan->move(public_path('uploads/biodata/pasangan_img_paspor'), $img_paspor_pasangan);
         }
 
+        if ($request->file_img_majikan_ktp){
+            $img_ktp_majikan = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_majikan_ktp->extension();
+
+            $request['img_majikan_ktp'] =  $img_ktp_majikan;
+
+            $request->file_img_majikan_ktp->move(public_path('uploads/biodata/img_majikan_ktp'), $img_ktp_majikan);
+        }
+
+        if ($request->file_img_majikan_kontrak){
+            $img_kontrak_majikan = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_majikan_kontrak->extension();
+
+            $request['img_majikan_kontrak'] =  $img_kontrak_majikan;
+
+            $request->file_img_majikan_kontrak->move(public_path('uploads/biodata/img_majikan_kontrak'), $img_kontrak_majikan);
+        }
+
         $bio->update($request->all());
 
         return redirect('biodata');
@@ -357,6 +389,16 @@ class BiodataController extends Controller
         $data = RiwayatPendidikan::where('biodata_id', $bio->id)->get();
         return view('pages.add_pendidikan')
             ->with('riwayatPendidikan', $data);
+    }
+
+    private function validatePmi($isImage)
+    {
+        if (auth()->user()->status == 'pmi') {
+            if ($isImage) {
+                return 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            }
+            return 'required';
+        }
     }
 
 }

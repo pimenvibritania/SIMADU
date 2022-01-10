@@ -639,6 +639,47 @@
                                 </div>
                             </div>
 
+                            @if(auth()->user()->status == 'pmi')
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @if ($errors->has('majikan_nama'))
+                                            <span class="text-danger">{{ $errors->first('majikan_nama') }}</span>
+                                        @endif
+                                        <span class="form-label">Nama Majikan <span style="color: red">*</span></span>
+                                        <input name="majikan_nama" value="{{old('majikan_nama')}}" class="form-control" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @if ($errors->has('majikan_no'))
+                                            <span class="text-danger">{{ $errors->first('majikan_no') }}</span>
+                                        @endif
+                                        <span class="form-label">No Telp Majikan <span style="color: red">*</span></span>
+                                        <input name="majikan_no" value="{{old('majikan_no')}}" class="form-control" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        @if ($errors->has('file_img_majikan_ktp'))
+                                            <span class="text-danger">{{ $errors->first('file_img_majikan_ktp') }}</span>
+                                        @endif
+                                        <span class="form-label">Foto KTP Majikan <span style="color: red">*</span></span></span>
+                                        <input name="file_img_majikan_ktp" value="{{old('file_img_majikan_ktp')}}" class="form-control" required type="file">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        @if ($errors->has('file_img_majikan_kontrak'))
+                                            <span class="text-danger">{{ $errors->first('file_img_majikan_kontrak') }}</span>
+                                        @endif
+                                        <span class="form-label">Foto Kontrak Kerja <span style="color: red">*</span></span></span>
+                                        <input name="file_img_majikan_kontrak" value="{{old('file_img_majikan_kontrak')}}" class="form-control" required type="file">
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @if ($errors->has('nama_mediator'))

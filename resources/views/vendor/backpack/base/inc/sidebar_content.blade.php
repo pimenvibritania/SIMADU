@@ -54,11 +54,11 @@
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('ketnonbeasiswa') }}'><i class='nav-icon la la-id-badge'></i> Ket Tidak Menerima Beasiswa</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cutikuliah') }}'><i class='nav-icon la la-running'></i> Cuti Kuliah</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukruak') }}'><i class='nav-icon la la-door-open'></i> Masuk Ruak</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahfakultas') }}'><i class='nav-icon la la-building-o'></i> Pindah Fakultas</a></li>
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahfakultas') }}'><i class='nav-icon la la-building-o'></i> Pindah Fakultas</a></li>--}}
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cabutberkas') }}'><i class='nav-icon la la-file-archive'></i> Cabut Berkas</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('daftarnilai') }}'><i class='nav-icon la la-sort-numeric-up-alt'></i> Daftar Nilai</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keringananbiaya') }}'><i class='nav-icon la la-money-bill'></i> Keringanan Biaya</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mintatashdiq') }}'><i class='nav-icon la la-envelope-square'></i> Minta Tashdiq</a></li>
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mintatashdiq') }}'><i class='nav-icon la la-envelope-square'></i> Minta Tashdiq</a></li>--}}
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinlibur') }}'><i class='nav-icon la la-umbrella-beach'></i> Izin Libur</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinsakit') }}'><i class='nav-icon la la-hospital-symbol'></i> Izin Tidak Ikut Ujian (Sakit)</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-flag'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>

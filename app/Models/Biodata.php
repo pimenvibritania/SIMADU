@@ -143,6 +143,24 @@ class Biodata extends Model
         );
     }
 
+    public function setImgMajikanKtpAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_majikan_ktp',
+            'public/uploads/biodata/img_majikan_ktp'
+        );
+    }
+
+    public function setImgMajikanKontrakAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'img_majikan_kontrak',
+            'public/uploads/biodata/img_majikan_kontrak'
+        );
+    }
+
 
     private function setImagesAttributes($value, $attribute_name, $destination_path)
     {

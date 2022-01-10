@@ -10,29 +10,36 @@ use App\Models\Mahasiswa\Fakultas;
 use App\Models\MasterLevel;
 use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
  * Class BiodataCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
 class BiodataCrudController extends CrudController
 {
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use ListOperation;
+    use CreateOperation;
+    use UpdateOperation;
+    use DeleteOperation;
+    use ShowOperation;
 
-    use \Backpack\CRUD\app\Http\Controllers\Operations\BulkDeleteOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation {
+    use BulkDeleteOperation;
+    use CreateOperation {
         store as traitStore;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation {
+    use DeleteOperation {
         destroy as traitDestroy;
     }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+    use UpdateOperation {
         update as traitUpdate;
     }
 
@@ -101,12 +108,7 @@ class BiodataCrudController extends CrudController
         return $this->traitUpdate();
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     *
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
+
     protected function setupListOperation()
     {
         $this->crud->addClause('where', 'verified_date', '!=', 'NULL');
@@ -119,19 +121,8 @@ class BiodataCrudController extends CrudController
         CRUD::column('tanggal_lahir');
         CRUD::column('no_paspor');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
-         */
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(BiodataRequest::class);
@@ -532,6 +523,34 @@ class BiodataCrudController extends CrudController
             ]);
         CRUD::field('no_mesir')
             ->label('No telepon Mesir')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('majikan_nama')
+            ->label('Nama Majikan')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('majikan_no')
+            ->label('No Telp Majikan')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('img_majikan_ktp')
+            ->label('Foto KTP Majikan')
+            ->type('image')
+            ->prefix('uploads/biodata/img_majikan_ktp/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('img_majikan_kontrak')
+            ->label('Foto Kontrak Kerja')
+            ->type('image')
+            ->prefix('uploads/biodata/img_majikan_kontrak/')
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
