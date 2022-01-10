@@ -72,6 +72,7 @@ class BiodataCrudController extends CrudController
         $paspor = request('img_paspor');
         $ijazah = request('img_ijazah');
         $buktiTinggal = request('img_bukti_tinggal');
+        $pasporPasangan = request('pasangan_img_bukti_paspor');
 
         $replacedKtp  = preg_replace("/".$regexURi . "img_ktp\//", '', $ktp);
         $replacedProfile  = preg_replace("/".$regexURi . "img_profile\//", '', $profile);
@@ -79,6 +80,7 @@ class BiodataCrudController extends CrudController
         $replacedPaspor  = preg_replace("/".$regexURi . "img_paspor\//", '', $paspor);
         $replacedIjazah  = preg_replace("/".$regexURi . "img_ijazah\//", '', $ijazah);
         $replacedBukti  = preg_replace("/".$regexURi . "img_bukti_tinggal\//", '', $buktiTinggal);
+        $replacedPasanganPaspor  = preg_replace("/".$regexURi . "pasangan_img_paspor\//", '', $pasporPasangan);
 
         $this->crud->getRequest()->request->remove('img_ktp');
         $this->crud->getRequest()->request->remove('img_profile');
@@ -86,6 +88,7 @@ class BiodataCrudController extends CrudController
         $this->crud->getRequest()->request->remove('img_paspor');
         $this->crud->getRequest()->request->remove('img_ijazah');
         $this->crud->getRequest()->request->remove('img_bukti_tinggal');
+        $this->crud->getRequest()->request->remove('pasangan_img_paspor');
 
         $this->crud->getRequest()->request->add(['img_ktp'=> $replacedKtp]);
         $this->crud->getRequest()->request->add(['img_profile'=> $replacedProfile]);
@@ -93,6 +96,7 @@ class BiodataCrudController extends CrudController
         $this->crud->getRequest()->request->add(['img_paspor'=> $replacedPaspor]);
         $this->crud->getRequest()->request->add(['img_ijazah'=> $replacedIjazah]);
         $this->crud->getRequest()->request->add(['img_bukti_tinggal'=> $replacedBukti]);
+        $this->crud->getRequest()->request->add(['pasangan_img_paspor'=> $replacedPasanganPaspor]);
 
         return $this->traitUpdate();
     }
@@ -386,6 +390,53 @@ class BiodataCrudController extends CrudController
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
+
+        CRUD::field('pasangan_nama')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_no')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_img_paspor')
+            ->label('Foto Paspor')
+            ->type('image')
+            ->prefix('uploads/biodata/pasangan_img_paspor/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_nama')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_no')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_paspor')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
+        CRUD::field('pasangan_img_paspor')
+            ->label('Foto Paspor')
+            ->type('image')
+            ->prefix('uploads/biodata/pasangan_img_paspor/')
+            ->wrapper([
+                'class' => 'form-group col-md-6'
+            ]);
+
         CRUD::field('catatan')
             ->type('textarea');
 

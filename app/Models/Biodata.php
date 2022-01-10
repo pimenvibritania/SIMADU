@@ -134,6 +134,15 @@ class Biodata extends Model
         );
     }
 
+    public function setPasanganImgPasporAttribute($value)
+    {
+        $this->setImagesAttributes(
+            $value,
+            'pasangan_img_paspor',
+            'public/uploads/biodata/pasangan_img_paspor'
+        );
+    }
+
 
     private function setImagesAttributes($value, $attribute_name, $destination_path)
     {

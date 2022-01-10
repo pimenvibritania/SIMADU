@@ -595,11 +595,48 @@
                                     @if ($errors->has('file_img_bukti_tinggal'))
                                         <span class="text-danger">{{ $errors->first('file_img_bukti_tinggal') }}</span>
                                     @endif
-                                    <span class="form-label">Foto Paspor <span style="color: red">*</span></span></span>
+                                    <span class="form-label">Foto Bukti Tinggal <span style="color: red">*</span></span></span>
                                     <input name="file_img_bukti_tinggal" value="{{old('file_img_bukti_tinggal')}}" class="form-control" required type="file">
                                 </div>
                             </div>
                             <div class="col-md-6">
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @if ($errors->has('pasangan_nama'))
+                                        <span class="text-danger">{{ $errors->first('pasangan_nama') }}</span>
+                                    @endif
+                                    <span class="form-label">Nama Pasangan <span style="color: red">*</span></span>
+                                    <input name="pasangan_nama" value="{{old('pasangan_nama')}}" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @if ($errors->has('pasangan_no'))
+                                        <span class="text-danger">{{ $errors->first('pasangan_no') }}</span>
+                                    @endif
+                                    <span class="form-label">Nomor Pasangan <span style="color: red">*</span></span>
+                                    <input name="pasangan_no" value="{{old('pasangan_no')}}" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @if ($errors->has('pasangan_paspor'))
+                                        <span class="text-danger">{{ $errors->first('pasangan_paspor') }}</span>
+                                    @endif
+                                    <span class="form-label">No Paspor Pasangan <span style="color: red">*</span></span>
+                                    <input name="pasangan_paspor" value="{{old('pasangan_paspor')}}" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    @if ($errors->has('file_img_paspor_pasangan'))
+                                        <span class="text-danger">{{ $errors->first('file_img_paspor_pasangan') }}</span>
+                                    @endif
+                                    <span class="form-label">Foto Paspor Pasangan <span style="color: red">*</span></span></span>
+                                    <input name="file_img_paspor_pasangan" value="{{old('file_img_paspor_pasangan')}}" class="form-control" required type="file">
+                                </div>
                             </div>
 
                             <div class="col-md-6">

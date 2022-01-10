@@ -70,6 +70,7 @@ class BiodataRequest extends FormRequest
             'img_profile' => 'required',
             'img_akte' => 'required',
             'img_paspor' => 'required',
+            'img_bukti_tinggal' => 'required',
             'nama_mediator' => 'required',
             'kontak_mediator' => 'required',
             'nama_mitra_mediator' => 'required',

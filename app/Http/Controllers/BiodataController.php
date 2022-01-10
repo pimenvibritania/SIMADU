@@ -128,6 +128,7 @@ class BiodataController extends Controller
             'file_img_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_akte' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'file_img_paspor' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_img_bukti_tinggal' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nip' => new NIP(),
             'niw' => new NIW(),
             'nama_mediator' => 'required',
@@ -155,6 +156,9 @@ class BiodataController extends Controller
         $buktiname = auth()->user()->email . '_' . time() . '.' .
             $request->file_img_bukti_tinggal->extension();
 
+        $passPasangan = auth()->user()->email . '_' . time() . '.' .
+            $request->file_img_paspor_pasangan->extension();
+
         $request['is_active'] = true;
         $request['no_induk'] = 'nomor';
         $request['img_ktp'] =  $ktpname;
@@ -162,12 +166,14 @@ class BiodataController extends Controller
         $request['img_akte'] = $aktename;
         $request['img_paspor'] = $pasporname;
         $request['img_bukti_tinggal'] = $buktiname;
+        $request['paspor_img_pasangan'] = $passPasangan;
 
         $request->file_img_ktp->move(public_path('uploads/biodata/img_ktp'), $ktpname);
         $request->file_img_profile->move(public_path('uploads/biodata/img_profile'), $profilename);
         $request->file_img_akte->move(public_path('uploads/biodata/img_akte'), $aktename);
         $request->file_img_paspor->move(public_path('uploads/biodata/img_paspor'), $pasporname);
         $request->file_img_bukti_tinggal->move(public_path('uploads/biodata/img_bukti_tinggal'), $pasporname);
+        $request->file_img_paspor_pasangan->move(public_path('uploads/biodata/pasangan_img_paspor'), $passPasangan);
 
         Biodata::create($request->all());
 
@@ -227,7 +233,7 @@ class BiodataController extends Controller
 
             $request['img_ktp'] =  $ktpname;
 
-            $request->file_img_ktp->move(public_path('uploads/ktp'), $ktpname);
+            $request->file_img_ktp->move(public_path('uploads/biodata/img_ktp'), $ktpname);
         }
 
         if ($request->file_img_profile){
@@ -236,7 +242,7 @@ class BiodataController extends Controller
 
             $request['img_profile'] =  $prname;
 
-            $request->file_img_profile->move(public_path('uploads/profile'), $prname);
+            $request->file_img_profile->move(public_path('uploads/biodata/img_profile'), $prname);
         }
 
         if ($request->file_img_akte){
@@ -245,7 +251,7 @@ class BiodataController extends Controller
 
             $request['img_akte'] =  $img_akte;
 
-            $request->file_img_akte->move(public_path('uploads/akte'), $img_akte);
+            $request->file_img_akte->move(public_path('uploads/biodata/img_akte'), $img_akte);
         }
 
         if ($request->file_img_paspor){
@@ -254,7 +260,25 @@ class BiodataController extends Controller
 
             $request['img_paspor'] =  $img_paspor;
 
-            $request->file_img_paspor->move(public_path('uploads/paspor'), $img_paspor);
+            $request->file_img_paspor->move(public_path('uploads/biodata/img_paspor'), $img_paspor);
+        }
+
+        if ($request->file_img_bukti_tinggal){
+            $img_bukti_tinggal = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_bukti_tinggal->extension();
+
+            $request['img_bukti_tinggal'] =  $img_bukti_tinggal;
+
+            $request->file_img_bukti_tinggal->move(public_path('uploads/biodata/img_bukti_tinggal'), $img_bukti_tinggal);
+        }
+
+        if ($request->file_img_paspor_pasangan){
+            $img_paspor_pasangan = auth()->user()->email . '_' . time() . '.' .
+                $request->file_img_paspor_pasangan->extension();
+
+            $request['pasangan_img_paspor'] =  $img_paspor_pasangan;
+
+            $request->file_img_paspor_pasangan->move(public_path('uploads/biodata/pasangan_img_paspor'), $img_paspor_pasangan);
         }
 
         $bio->update($request->all());
