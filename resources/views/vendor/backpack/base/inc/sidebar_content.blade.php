@@ -1,5 +1,6 @@
 @php
     $badges = \App\Helpers\Helper::getBadges();
+
 @endphp
 
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
@@ -46,22 +47,23 @@
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-graduation-cap"></i> Layanan Mahasiswa</a>
     <ul class="nav-dropdown-items">
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganbelajar') }}'><i class='nav-icon la la-book-open'></i> Keterangan Belajar</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keteranganlulus') }}'><i class='nav-icon la la-graduation-cap'></i> Keterangan Lulus</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindah-kuliahindonesia') }}'><i class='nav-icon la la-plane-arrival'></i> Pindah Kuliah Indonesia</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahkuliahluarnegeri') }}'><i class='nav-icon la la-plane-departure'></i> Pindah Kuliah Luar Negeri</a></li>
-        <div class="dropdown-divider"></div>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-cash-register'></i> Daftar Kuliah</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukmahad') }}'><i class='nav-icon la la-moon'></i> Masuk Ma'had</a></li>
+{{--        <div class="dropdown-divider"></div>--}}
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukkuliah') }}'><i class='nav-icon la la-cash-register'></i> Daftar Kuliah / Sekolah</a></li>
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukmahad') }}'><i class='nav-icon la la-moon'></i> Masuk Ma'had</a></li>--}}
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('ketnonbeasiswa') }}'><i class='nav-icon la la-id-badge'></i> Ket Tidak Menerima Beasiswa</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cutikuliah') }}'><i class='nav-icon la la-running'></i> Cuti Kuliah</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukruak') }}'><i class='nav-icon la la-door-open'></i> Masuk Ruak</a></li>
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cutikuliah') }}'><i class='nav-icon la la-running'></i> Cuti Kuliah</a></li>--}}
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('masukruak') }}'><i class='nav-icon la la-door-open'></i> Masuk Ruak</a></li>--}}
 {{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pindahfakultas') }}'><i class='nav-icon la la-building-o'></i> Pindah Fakultas</a></li>--}}
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('cabutberkas') }}'><i class='nav-icon la la-file-archive'></i> Cabut Berkas</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('daftarnilai') }}'><i class='nav-icon la la-sort-numeric-up-alt'></i> Daftar Nilai</a></li>
         <li class='nav-item'><a class='nav-link' href='{{ backpack_url('keringananbiaya') }}'><i class='nav-icon la la-money-bill'></i> Keringanan Biaya</a></li>
 {{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('mintatashdiq') }}'><i class='nav-icon la la-envelope-square'></i> Minta Tashdiq</a></li>--}}
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinlibur') }}'><i class='nav-icon la la-umbrella-beach'></i> Izin Libur</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinsakit') }}'><i class='nav-icon la la-hospital-symbol'></i> Izin Tidak Ikut Ujian (Sakit)</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-flag'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>
+        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinlibur') }}'><i class='nav-icon la la-umbrella-beach'></i> Izin Perkuliahan</a></li>
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izinsakit') }}'><i class='nav-icon la la-hospital-symbol'></i> Izin Tidak Ikut Ujian (Sakit)</a></li>--}}
+{{--        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('izintawaquf') }}'><i class='nav-icon la la-flag'></i> Izin Tidak Ikut Ujian (Tawaquf)</a></li>--}}
     </ul>
 </li>
 @endif

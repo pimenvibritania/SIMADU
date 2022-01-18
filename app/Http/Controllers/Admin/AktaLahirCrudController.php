@@ -545,7 +545,7 @@ class AktaLahirCrudController extends CrudController
 
         $kelahiran = Helper::generateDate($tgl_lahir->isoFormat('dddd/D/M/Y'));
 
-        $no_surat = Helper::generateAktaSurat($akta->no_surat, $akta->updated_at );
+        $no_surat = Helper::generateKodeSurat($akta->no_surat, $akta->updated_at );
 
         $anak_ke = Helper::anakKe($akta->anak_ke);
 

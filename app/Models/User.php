@@ -10,6 +10,7 @@ use App\Models\Mahasiswa\IzinSakit;
 use App\Models\Mahasiswa\IzinTawaquf;
 use App\Models\Mahasiswa\KeringananBiaya;
 use App\Models\Mahasiswa\KeteranganBelajar;
+use App\Models\Mahasiswa\KeteranganLulus;
 use App\Models\Mahasiswa\KetNonBeasiswa;
 use App\Models\Mahasiswa\KuliahIftha;
 use App\Models\Mahasiswa\MasukKuliah;
@@ -140,6 +141,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function keteranganBelajar()
     {
         return $this->hasMany(KeteranganBelajar::class);
+    }
+
+    public function keteranganLulus()
+    {
+        return $this->hasMany(KeteranganLulus::class);
     }
 
     public function keteranganLahir()

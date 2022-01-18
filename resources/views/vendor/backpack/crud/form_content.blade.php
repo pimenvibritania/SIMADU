@@ -228,7 +228,7 @@
 
 {{--        START MASUK KULIAH--}}
         @if(
-        $crud->entity_name == 'masukkuliah' ||
+        $crud->entity_name == 'daftar-pendidikan' ||
         $crud->entity_name == 'kuliahiftha' ||
         $crud->entity_name == 'pendidikanmesir')
             <script>

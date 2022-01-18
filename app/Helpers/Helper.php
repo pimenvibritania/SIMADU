@@ -231,7 +231,7 @@ class Helper
         ];
     }
 
-    public static function generateAktaSurat($no_surat, $updated_at){
+    public static function generateKodeSurat($no_surat, $updated_at){
 
         $nomor = explode('/', $no_surat);
 

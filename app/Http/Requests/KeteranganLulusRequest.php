@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class KeteranganBelajarRequest extends FormRequest
+class KeteranganLulusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,9 +30,10 @@ class KeteranganBelajarRequest extends FormRequest
             'tujuan' => 'required',
             'jml_surat'    => 'required',
             'keperluan' => 'required',
-            'no_surat' => 'unique:keterangan_belajars',
-            'no_permohonan' => 'unique:keterangan_belajars',
-            'bahasa' => 'required'
+            'no_surat' => 'unique:keterangan_lulus',
+            'no_permohonan' => 'unique:keterangan_lulus',
+            'thn_masuk' => 'required',
+            'thn_lulus' => 'required'
         ];
     }
 

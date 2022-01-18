@@ -43,7 +43,7 @@ class MasukKuliahCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Mahasiswa\MasukKuliah::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/masukkuliah');
-        CRUD::setEntityNameStrings('masukkuliah', 'Daftar Kuliah');
+        CRUD::setEntityNameStrings('daftar-pendidikan', 'Pengantar Daftar Kuliah / Sekolah');
         $this->crud->enableExportButtons();
 
     }

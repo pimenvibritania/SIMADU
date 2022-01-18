@@ -111,6 +111,9 @@ class KeteranganBelajarCrudController extends CrudController
         CRUD::column('jml_surat')
             ->label('jumlah');
 
+        CRUD::column('bahasa')
+            ->label('Bahasa');
+
         CRUD::column('status')->wrapper(
             [
                 'class' => function ($crud, $column, $entry, $related_key) {
@@ -201,7 +204,18 @@ class KeteranganBelajarCrudController extends CrudController
             ->wrapper([
                 'class' => 'form-group col-md-4'
             ]);
-        CRUD::field('tujuan');
+        CRUD::field('tujuan')
+            ->wrapper([
+                'class' => 'form-group col-md-8'
+            ]);;
+        CRUD::field('bahasa')
+            ->type('select2_from_array')
+            ->options(
+                ['Indonesia', 'Arab']
+            )
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ]);
         CRUD::field('keperluan')
             ->type('textarea');
         /**

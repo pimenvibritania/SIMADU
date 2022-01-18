@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Helpers\Helper;
-use App\Http\Requests\IzinLiburRequest;
-use App\Models\Mahasiswa\IzinLibur;
-use App\Notifications\IzinLiburNotification;
+use App\Http\Requests\KeteranganBelajarRequest;
+use App\Http\Requests\KeteranganLulusRequest;
+use App\Models\Mahasiswa\KeteranganBelajar;
+use App\Models\Mahasiswa\KeteranganLulus;
+use App\Models\User;
+use App\Notifications\KeteranganBelajarNotification;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Exception;
 use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Prologue\Alerts\Facades\Alert;
 
 /**
- * Class IzinLiburCrudController
+ * Class KeteranganLulusCrudController
  * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
+ * @property-read CrudPanel $crud
  */
-class IzinLiburCrudController extends CrudController
+class KeteranganLulusCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -33,6 +38,7 @@ class IzinLiburCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
         update as traitUpdate;
     }
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      *
@@ -40,9 +46,9 @@ class IzinLiburCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Mahasiswa\IzinLibur::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/izinlibur');
-        CRUD::setEntityNameStrings('izin-perkuliahan', 'Izin Perkuliahan');
+        CRUD::setModel(\App\Models\Mahasiswa\KeteranganLulus::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/keteranganlulus');
+        CRUD::setEntityNameStrings('keterangan-lulus', 'Keterangan Lulus');
         $this->crud->enableExportButtons();
 
     }
@@ -89,7 +95,7 @@ class IzinLiburCrudController extends CrudController
         CRUD::column('no_surat')->wrapper(
             [
                 'href' => function ($crud, $column, $entry, $related_key) {
-                    return backpack_url('izinlibur/' . $entry->id . '/show');
+                    return backpack_url('keteranganlulus/' . $entry->id . '/show');
                 },
                 'style' => 'text-decoration:none'
             ]
@@ -97,9 +103,6 @@ class IzinLiburCrudController extends CrudController
 
         CRUD::column('user')->type('relationship')
             ->label('name');
-
-        CRUD::column('thn_ajaran')
-            ->label('tahun ajaran');
 
         CRUD::column('created_at')
             ->type('date')
@@ -145,13 +148,13 @@ class IzinLiburCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(IzinLiburRequest::class);
+        CRUD::setValidation(KeteranganLulusRequest::class);
 
         CRUD::field('no_surat')
             ->default(Helper::generateId(
-                IzinLibur::class,
+                KeteranganLulus::class,
                 'no_surat',
-                'M/IL',
+                'M/KL',
                 4 ))
             ->attributes([
                 'readonly' => 'readonly'
@@ -162,7 +165,7 @@ class IzinLiburCrudController extends CrudController
 
         CRUD::field('no_permohonan')
             ->default(Helper::generateId(
-                IzinLibur::class,
+                KeteranganLulus::class,
                 'no_permohonan',
                 strtoupper(substr(
                     backpack_user()->name, 0, 1)) . '/' . request('user_id') ,
@@ -186,7 +189,7 @@ class IzinLiburCrudController extends CrudController
                     ->get();
             })
             ->wrapper([
-                'class' => 'form-group col-md-4'
+                'class' => 'form-group col-md-6'
             ]);
         CRUD::field('email')
             ->attributes([
@@ -194,7 +197,7 @@ class IzinLiburCrudController extends CrudController
                 'disabled' => 'disabled'
             ])
             ->wrapper([
-                'class' => 'form-group col-md-4'
+                'class' => 'form-group col-md-6'
             ]);
         CRUD::field('jml_surat')
             ->label('Jumlah Surat')
@@ -202,12 +205,23 @@ class IzinLiburCrudController extends CrudController
             ->wrapper([
                 'class' => 'form-group col-md-4'
             ]);
-        CRUD::field('thn_ajaran')
+        CRUD::field('thn_masuk')
+            ->label('Tahun Ajaran Masuk')
             ->type('number')
             ->attributes([
-                'step'    => 'any',
-                'min'     => 1900,
-                'max'     => 3000
+                'min' => 1900,
+                'max' => 2222
+            ])
+            ->wrapper([
+                'class' => 'form-group col-md-4'
+            ])
+            ->hint("Apabila tahun ajaran 2021/2022, isi dengan 2021");
+        CRUD::field('thn_lulus')
+            ->label('Tahun Ajaran Lulus')
+            ->type('number')
+            ->attributes([
+                'min' => 1900,
+                'max' => 2222
             ])
             ->wrapper([
                 'class' => 'form-group col-md-4'
@@ -215,7 +229,6 @@ class IzinLiburCrudController extends CrudController
         CRUD::field('tujuan');
         CRUD::field('keperluan')
             ->type('textarea');
-
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
@@ -234,70 +247,73 @@ class IzinLiburCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function approve($id){
+    /**
+     * @throws Exception
+     */
+    public function print($id){
 
-        if ((\request('changable-word-id') == null) ||
-            (\request('tanda_tangan_id') == null) ||
+        $izin = KeteranganLulus::find($id);
+        $thn_masuk_1 = intval((new \DateTime($izin->thn_masuk))->format('Y'));
+        $thn_masuk_2 = $thn_masuk_1 + 1;
+        $thn_lulus_1 = intval((new \DateTime($izin->thn_lulus))->format('Y'));
+        $thn_lulus_2 = $thn_lulus_1 + 1;
+        $template = new TemplateProcessor('word-template/M-keterangan-lulus.docx');
+        $template->setValues([
+            'no_surat' => $izin->no_surat,
+            'nama' => $izin->user->name,
+//            'nama_arab' => $izin->user->biodata->nama,
+            'no_paspor' => $izin->user->biodata->no_paspor,
+            'pekerjaan' => $izin->user->biodata->pekerjaan,
+            'tgl_lahir' => $izin->user->biodata->tanggal_lahir->format('d/M/Y'),
+
+            'thn_masuk' => $thn_masuk_1 . "/" . $thn_masuk_2,
+            'thn_lulus' => $thn_lulus_1 . "/" . $thn_lulus_2,
+            'tgl_verif' => now()->isoFormat('dddd, D MMMM Y'),
+            'ttd_nama' => $izin->tandaTangan->nama,
+            'ttd_nip' => $izin->tandaTangan->nip,
+            'mahasiswa' => $izin->user->biodata->kelamin == 'perempuan' ? 'mahasiswi' : 'mahasiswa',
+            'kode_surat' => Helper::generateKodeSurat($izin->no_surat, $izin->updated_at )
+        ]);
+
+        $filename = 'keterangan-lulus' . $izin->user->name;
+        $template->saveAs($filename . '.docx' );
+
+        $izin->update([
+            'status' => 'diunduh'
+        ]);
+
+        return response()->download($filename . '.docx', '')
+            ->deleteFileAfterSend(true);
+    }
+
+    public function approve($id){
+        if ((\request('tanda_tangan_id') == null) ||
             (\request('tgl_ambil') == null)){
             Alert::error('Semua field harus diisi')->flash();
             return redirect()->back();
         }
 
-        $kb = IzinLibur::find($id);
-        $cw = request('changable-word-id');
+        $kb = KeteranganLulus::find($id);
         $kb->update([
             'tanda_tangan_id' => request('tanda_tangan_id'),
             'tgl_ambil'     => request('tgl_ambil'),
             'status' => 'disetujui'
         ]);
 
-        $kb->words()->attach($cw);
+//        Notification::send($kb->user,
+//            new KeteranganBelajarNotification($kb));
 
-        Notification::send($kb->user,
-            new IzinLiburNotification($kb));
-
-        Alert::success('Pengantar izin libur berhasil disetujui')->flash();
-        return redirect('admin/izinlibur');
+        Alert::success('Surat izin telah di setujui')->flash();
+        return redirect('admin/keteranganlulus');
     }
 
     public function decline($id){
-        $kb=IzinLibur::find($id);
+        $kb = KeteranganLulus::find($id);
         $kb->update([
             'status' => 'ditolak'
         ]);
 
-        Notification::send($kb->user,
-            new IzinLiburNotification($kb));
-    }
-
-    public function print($id){
-
-        $izin = IzinLibur::find($id);
-        $t_ajaran_1 = intval($izin->thn_ajaran);
-        $t_ajaran_2 = $t_ajaran_1 + 1;
-        $template = new TemplateProcessor('word-template/M-ket-arab.docx');
-        $keterangan = $izin->words()->where('type', 'keterangan')->first();
-        $template->setValues([
-            'no_surat' => $izin->no_surat,
-            'nama_arab' => $izin->user->biodata->nama,
-            'no_paspor' => $izin->user->biodata->no_paspor,
-            'keterangan' => $keterangan->deskripsi,
-            'pekerjaan' => $izin->user->biodata->pekerjaan,
-            'thn_ajaran' => $t_ajaran_1 . "/" . $t_ajaran_2,
-            'tgl_verif' => now()->format('d M Y'),
-            'ttd_nama' => $izin->tandaTangan->nama,
-            'ttd_jabatan' => $izin->tandaTangan->jabatan,
-
-        ]);
-
-        $filename = 'izin-libur_' . $izin->user->name;
-        $template->saveAs($filename . '.docx' );
-
-        $izin->update([
-            'status' => 'disetujui'
-        ]);
-
-        return response()->download($filename . '.docx', '')
-            ->deleteFileAfterSend(true);
+//        Notification::send($kb->user,
+//            new KeteranganBelajarNotification($kb));
     }
 }

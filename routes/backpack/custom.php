@@ -6,6 +6,7 @@
 // This route file is loaded automatically by Backpack\Base.
 // Routes you generate using Backpack\Generators will be placed here.
 use App\Http\Controllers\Admin\AktaLahirCrudController;
+use App\Http\Controllers\Admin\KeteranganLulusCrudController;
 use App\Http\Controllers\Admin\NewUserCrudController;
 use App\Http\Controllers\Admin\AlamatMesirCrudController;
 use App\Http\Controllers\Admin\BiodataCrudController;
@@ -169,6 +170,11 @@ Route::group([
     Route::post('keteranganbelajar/{id}/approve', [KeteranganBelajarCrudController::class, 'approve']);
     Route::post('keteranganbelajar/{id}/decline', [KeteranganBelajarCrudController::class, 'decline']);
     Route::get('keteranganbelajar/{id}/print', [KeteranganBelajarCrudController::class, 'print']);
+
+    Route::crud('keteranganlulus', 'KeteranganLulusCrudController');
+    Route::post('keteranganlulus/{id}/approve', [KeteranganLulusCrudController::class, 'approve']);
+    Route::post('keteranganlulus/{id}/decline', [KeteranganLulusCrudController::class, 'decline']);
+    Route::get('keteranganlulus/{id}/print', [KeteranganLulusCrudController::class, 'print']);
 
     Route::crud('pindah-kuliahindonesia', 'PindahKuliahIndonesiaCrudController');
     Route::post('pindah-kuliahindonesia/{id}/approve', [PindahKuliahIndonesiaCrudController::class, 'approve']);

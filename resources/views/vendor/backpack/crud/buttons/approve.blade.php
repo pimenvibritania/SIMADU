@@ -235,7 +235,7 @@
                         @endif
 
 {{--                        MASUK KULIAH & IFTHA && Mahad--}}
-                        @if($crud->entity_name == 'masukkuliah'
+                        @if($crud->entity_name == 'daftar-pendidikan'
                             || $crud->entity_name == 'kuliahiftha'
                             || $crud->entity_name == 'masukmahad')
                             <div class="form-group mt-3">
@@ -358,7 +358,7 @@
                             $crud->entity_name == 'mintatashdiq' ||
                             $crud->entity_name == 'izinsakit' ||
                             $crud->entity_name == 'izintawaquf' ||
-                            $crud->entity_name == 'izinlibur'
+                            $crud->entity_name == 'izin-perkuliahan'
 
                             )
 
