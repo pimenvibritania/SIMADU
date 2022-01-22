@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             JenjangSeeder::class,
             AIdTerritoryTableSeeder::class,
             EgyptGovernoratesTableSeeder::class,
+            EgyptCitiesTableSeeder::class,
             InstitutesTableSeeder::class
         ]);
     }

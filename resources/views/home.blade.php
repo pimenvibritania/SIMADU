@@ -15,7 +15,7 @@
 
         <nav id="navbarBlur" class="nav-menu d-none d-lg-block">
             <ul>
-                <li class="active"><a href="{{route('home')}}">Home</a></li>
+                <li class="active"><a href="{{route('home')}}">Beranda</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li>
