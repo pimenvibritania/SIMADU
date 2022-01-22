@@ -139,7 +139,7 @@ class BiodataCrudController extends CrudController
             ]);
 
         CRUD::field('noreg')
-            ->label("Nomor Registrasi")
+            ->label("Nomor Registrasi Pendidikan")
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);
