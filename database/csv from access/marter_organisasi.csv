@@ -1,0 +1,17 @@
+﻿id,nama,nama_ar,no_telp,alamat,is_active,created_at,updated_at
+1,KMA,Keluarga Mahasiswa Aceh,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+2,HMM SU,Himpunan Mahasiswa Medan Sumatera Utara,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+4,KMM,Kesepakatan Mahasiswa Minang,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+5,KSMR,Keluarga Mahasiswa Riau,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+6,KMJ,Keluarga Mahasiswa Jambi,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+7,Kemass,Keluarga Mahasiswa Asal Sumatera Selatan,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+8,KPJ,Keluarga Pelajar Jakarta,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+9,KPMJB,Keluarga Paguyuban Masyarakat Jawa Barat,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+10,KMB,Keluarga Mahasiswa Banten,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+11,KSW,Kelompok Studi Walisongo,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+12,Gamajatim,Gabungan Mahasiswa Jawa Timur,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+13,Fosgama,Forum Silaturahmi Keluarga Madura,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+14,KMKM,Keluarga Mahasiswa Kalimantan,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+15,KMNTB,Keluarga Mahasiswa Nusa Tenggara & Bali,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+16,KKS,Kerukunan Keluarga Sulawesi,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00
+17,Ikmal,Ikatan Keluarga Mahasiswa Lampung,123,alamat,,2022-01-20 10:00:00,2022-01-20 10:00:00

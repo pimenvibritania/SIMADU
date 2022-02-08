@@ -113,7 +113,7 @@ class BiodataCrudController extends CrudController
     {
         $this->crud->addClause('where', 'verified_date', '!=', 'NULL');
         CRUD::column('noreg');
-        CRUD::column('nama');
+        CRUD::column('nama_latin');
         CRUD::column('img_profile')
             ->type('image')
             ->prefix('uploads/biodata/img_profile/');
@@ -139,7 +139,7 @@ class BiodataCrudController extends CrudController
             ]);
 
         CRUD::field('noreg')
-            ->label("Nomor Registrasi Pendidikan")
+            ->label("Nomor Registrasi lapor diri")
             ->wrapper([
                 'class' => 'form-group col-md-6'
             ]);

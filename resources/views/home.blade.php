@@ -22,7 +22,7 @@
                     @if(auth()->check())
                         <a class="btn btn-primary" href="{{url('dashboard')}}">Dashboard</a>
                     @else
-                        <a class="btn btn-primary" href="{{route('backpack.auth.login')}}">Sign In</a>
+                        <a class="btn btn-primary" href="{{route('backpack.auth.login')}}">Masuk</a>
                     @endif
                 </li>
 
@@ -40,18 +40,18 @@
             <!-- Slide 1 -->
             <div class="carousel-item active">
                 <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Welcome to <span>SIMADU</span></h2>
+                    <h2 class="animate__animated animate__fadeInDown">Selamat Datang di <span>SIMADU</span></h2>
                     <p class="animate__animated fanimate__adeInUp">Sistem Informasi Mahasiwa Terpadu.</p>
-                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Register</a>
+                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Daftar</a>
                 </div>
             </div>
 
             <!-- Slide 2 -->
             <div class="carousel-item">
                 <div class="carousel-container">
-                    <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-                    <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                    <h2 class="animate__animated animate__fadeInDown">KBRI CAIRO</h2>
+                    <p class="animate__animated animate__fadeInUp">Melayani dari hati</p>
+                    <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">lebih lanjut</a>
                 </div>
             </div>
 
@@ -96,9 +96,9 @@
 
                     </p>
 {{--                    <ul>--}}
-{{--                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>--}}
-{{--                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate velit</li>--}}
-{{--                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>--}}
+{{--                        <li><i class="ri-check-double-line"></i> FUNGSI KONSULER</li>--}}
+{{--                        <li><i class="ri-check-double-line"></i> KANTOR ATASE PENDIDIKAN DAN KEBUDAYAAN</li>--}}
+{{--                        <li><i class="ri-check-double-line"></i> PELAYANAN</li>--}}
 {{--                    </ul>--}}
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0">
