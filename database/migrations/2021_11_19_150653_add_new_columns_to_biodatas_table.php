@@ -21,13 +21,13 @@ class AddNewColumnsToBiodatasTable extends Migration
             $table->string('kontak_mediator');
             $table->string('nama_mitra_mediator');
             $table->string('kontak_mitra_mediator');
-            $table->string('thn_masuk_s1')->nullable();
-            $table->string('thn_masuk_s2')->nullable();
-            $table->string('thn_masuk_s3')->nullable();
-            $table->string('thn_lulus_s1')->nullable();
-            $table->string('thn_lulus_s2')->nullable();
-            $table->string('thn_lulus_s3')->nullable();
-            $table->string('verified_date')->nullable();
+            $table->dateTime('verified_date')->nullable();
+            $table->date('thn_masuk_s1')->nullable();
+            $table->date('thn_masuk_s2')->nullable();
+            $table->date('thn_masuk_s3')->nullable();
+            $table->date('thn_lulus_s1')->nullable();
+            $table->date('thn_lulus_s2')->nullable();
+            $table->date('thn_lulus_s3')->nullable();
             $table->string('verified_by')->nullable();
         });
     }
