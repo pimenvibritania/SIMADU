@@ -113,7 +113,7 @@ class BiodataCrudController extends CrudController
     {
         $this->crud->addClause('where', 'verified_date', '!=', 'NULL');
         CRUD::column('noreg');
-        CRUD::column('nama_latin');
+        CRUD::column('nama')->label("Nama Latin");
         CRUD::column('img_profile')
             ->type('image')
             ->prefix('uploads/biodata/img_profile/');

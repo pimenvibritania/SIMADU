@@ -70,7 +70,7 @@ class NewUserCrudController extends CrudController
 
         $this->crud->query->orWhereNull('verified_date');
 
-        CRUD::column('id')
+        CRUD::column('noreg')
             ->label('No Registrasi')
             ->wrapper(
             [
@@ -82,7 +82,7 @@ class NewUserCrudController extends CrudController
         );
 
 
-        CRUD::column('nama_latin');
+        CRUD::column('nama')->label("Nama Latin");
         CRUD::column('img_profile')
             ->type('image')
             ->prefix('uploads/biodata/img_profile/');
