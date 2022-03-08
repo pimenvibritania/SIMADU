@@ -29,14 +29,13 @@ class AddNewColumnsToBiodatasTable extends Migration
             $table->date('thn_lulus_s2')->nullable();
             $table->date('thn_lulus_s3')->nullable();
             $table->string('verified_by')->nullable();
-            $table->foreignId("organisasi_id")
-            ->constrained("organisasis")
-            ->onDelete("CASCADE");
+            // $table->foreignId("organisasi_id")
+            // ->constrained("organisasis")
+            // ->onDelete("CASCADE");
             $table->string("nama_latin");
             $table->boolean("aktif_mesir")->nullable()->default(true);
             $table->foreignId("beasiswa_id")->constrained("beasiswas")->onDelete("cascade");
             $table->foreignId("strata_id")->constrained("stratas")->onDelete("cascade");
-            $table->foreignId("organisasi_id")->constrained("organisasis")->onDelete("cascade");
             $table->foreignId("lokasi_id")->constrained("lokasis")->onDelete("cascade");
             $table->foreignId("jurusan_id")->constrained("jurusans")->onDelete("cascade");
         });
