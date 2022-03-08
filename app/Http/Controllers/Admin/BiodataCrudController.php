@@ -113,7 +113,8 @@ class BiodataCrudController extends CrudController
     {
         $this->crud->addClause('where', 'verified_date', '!=', 'NULL');
         CRUD::column('noreg');
-        CRUD::column('nama')->label("Nama Latin");
+        CRUD::column('nama')->label("Nama Arab");
+        CRUD::column('nama_latin')->label("Nama Latin");
         CRUD::column('img_profile')
             ->type('image')
             ->prefix('uploads/biodata/img_profile/');
@@ -159,6 +160,7 @@ class BiodataCrudController extends CrudController
             ]);
 
         CRUD::field('nama')->label('Nama Arab');
+        CRUD::field('nama')->label('Nama Latin');
 
         CRUD::field('img_profile')
             ->label('Foto Profil')
@@ -671,6 +673,7 @@ class BiodataCrudController extends CrudController
                 'class' => 'form-group col-md-6'
             ]);
         CRUD::field('nama')->label('Nama Arab');
+        CRUD::field('nama')->label('Nama Latin');
 
         CRUD::field('img_profile')
             ->label('Foto Profil')
