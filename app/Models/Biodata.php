@@ -80,6 +80,16 @@ class Biodata extends Model
         return $this->belongsTo(Jenjang::class);
     }
 
+    public function beasiswa()
+    {
+        return $this->belongsTo(Beasiswa::class);
+    }
+
+    public function strata()
+    {
+        return $this->belongsTo(Strata::class);
+    }
+
     public function setImgProfileAttribute($value)
     {
         $this->setImagesAttributes(
